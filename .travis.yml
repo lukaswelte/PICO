@@ -1,9 +1,9 @@
 language: scala
-
-
 deploy:
   provider: heroku
-  api_key: Heroku-API-Key
+  api_key:
+    secure: aPZKLudqnIXrkUcysi4PS8u7j16nDWQJmagLLhAUVMLLdf1FvQYWaldrjMyLBP8hZXsOcqhKEkl4SFZyAcCBwlpYw9uL6ZCfFA6JkDSQ4yMiiHjMU9xkfvFfKNeGa7imbgwVOXBVgjdLzI46s32wYsU/ov+heP+HAxVjYlPG3dg=
+  strategy: git
   app: pico-seba
   on:
     branch: develop
