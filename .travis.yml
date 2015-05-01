@@ -1,11 +1,9 @@
 language: scala
 
 
-env: HEROKU_API_KEY=Heroku-API-Key
-
 deploy:
   provider: heroku
-  api_key: HEROKU_API_KEY
+  api_key: Heroku-API-Key
   app: pico-seba
   on:
     branch: develop
