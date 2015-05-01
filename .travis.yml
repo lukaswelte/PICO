@@ -1,0 +1,9 @@
+language: scala
+
+
+deploy:
+  provider: heroku
+  api_key: Heroku-API-Key
+  app: pico-seba
+  on:
+    branch: develop
