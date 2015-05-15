@@ -16,7 +16,7 @@ libraryDependencies ++= Seq(
   "org.webjars" % "fluxxor" % "1.5.0"
 )
 
-pipelineStages := Seq(rjs, digest, gzip)
+pipelineStages := Seq(digest, gzip)
 
 incOptions := incOptions.value.withNameHashing(nameHashing = true)
 
