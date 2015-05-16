@@ -13,7 +13,8 @@ libraryDependencies ++= Seq(
   javaWs,
   "org.webjars" % "react" % "0.13.1",
   "org.webjars" % "react-router" % "0.13.2",
-  "org.webjars" % "fluxxor" % "1.5.0"
+  "org.webjars" % "fluxxor" % "1.5.0",
+  "org.webjars" % "immutable" % "3.4.0"
 )
 
 pipelineStages := Seq(digest, gzip)
