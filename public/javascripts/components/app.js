@@ -1,5 +1,6 @@
 var Application = React.createClass({
-	
+    mixins: [FluxMixin],
+
     render: function() {
         return (
             <div>
@@ -7,6 +8,7 @@ var Application = React.createClass({
                     <ul>
                         <li><Link to="test">Dashboard</Link></li>
                         <li><Link to="search">Inbox</Link></li>
+                        <li><Link to="todo">Todo List</Link></li>
                     </ul>
                     Logged in
                 </header>

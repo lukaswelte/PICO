@@ -9,17 +9,12 @@ flux.on("dispatch", function(type, payload) {
     }
 });
 
-var Router = ReactRouter;
-var Route = Router.Route;
-var NotFoundRoute = Router.NotFoundRoute;
-var DefaultRoute = Router.DefaultRoute;
-var Link = Router.Link;
-var RouteHandler = Router.RouteHandler;
-
 var routes = (
     <Route name="app" path="/" handler={Application}>
         <Route name="search" handler={Home}/>
         <Route name="test" handler={Test}/>
+        <Route name="todo" handler={TodoList}/>
+
         <DefaultRoute handler={Home}/>
         <NotFoundRoute handler={NotFound}/>
     </Route>
