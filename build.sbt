@@ -14,7 +14,8 @@ libraryDependencies ++= Seq(
   "org.webjars" % "react" % "0.13.1",
   "org.webjars" % "react-router" % "0.13.2",
   "org.webjars" % "fluxxor" % "1.5.0",
-  "org.webjars" % "immutable" % "3.4.0"
+  "org.webjars" % "immutable" % "3.4.0",
+  "mysql" % "mysql-connector-java" % "5.1.35"
 )
 
 pipelineStages := Seq(digest, gzip)
