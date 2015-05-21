@@ -2,6 +2,7 @@ package models;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.avaje.ebean.annotation.UpdatedTimestamp;
+import com.fasterxml.jackson.annotation.*;
 import play.data.validation.*;
 import play.db.ebean.Model;
 
@@ -10,6 +11,7 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Entry extends Model {
 
     @Id
@@ -32,9 +34,11 @@ public class Entry extends Model {
     public Timestamp lastUpdated;
 
     @ManyToOne
+    @JsonIdentityReference(alwaysAsId = true)
     public User user;
 
     @ManyToMany
+    @JsonManagedReference
     public Set<Label> labels;
 
     public static Finder<Long,Entry> find = new Finder<Long,Entry>(
