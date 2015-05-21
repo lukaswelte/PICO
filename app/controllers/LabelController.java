@@ -57,7 +57,11 @@ public class LabelController extends BaseController {
      */
     public static Result getEntriesWithLabel(Long labelID) {
         Label foundLabel = Label.find.byId(labelID);
-        return findAPIResponse(foundLabel.entries);
+        if (foundLabel == null) {
+            return notFoundAPIResponse();
+        } else {
+            return findAPIResponse(foundLabel.entries);
+        }
     }
 
     /**
