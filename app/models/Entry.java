@@ -7,6 +7,7 @@ import play.data.validation.*;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -25,7 +26,11 @@ public class Entry extends Model {
     public String title;
 
     public String context;
-    public String thumbnailURL;
+
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    @JsonIgnore
+    public byte[] previewImage;
 
     @CreatedTimestamp
     public Timestamp registrationDate;
@@ -41,7 +46,7 @@ public class Entry extends Model {
     @JsonManagedReference
     public Set<Label> labels;
 
-    public static Finder<Long,Entry> find = new Finder<Long,Entry>(
+    public static Finder<Long,Entry> find = new Finder<>(
             Long.class, Entry.class
     );
 }

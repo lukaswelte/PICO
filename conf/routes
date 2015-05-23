@@ -3,15 +3,19 @@
 # ~~~~
 
 # Home page
-GET        /                            controllers.Application.index()
-GET        /testData                    controllers.Application.testData()
+GET         /                                      controllers.Application.index()
+GET         /testData                              controllers.Application.testData()
 
 # Labels
-GET        /api/label                   controllers.LabelController.allLabels()
-GET        /api/label/:id               controllers.LabelController.getLabelWithIndex(id: Long)
-GET        /api/entrieswithlabel/:id    controllers.LabelController.getEntriesWithLabel(id: Long)
+GET         /api/label                             controllers.LabelController.allLabels()
+GET         /api/label/:id                         controllers.LabelController.getLabelWithIndex(id: Long)
+GET         /api/entrieswithlabel/:id              controllers.LabelController.getEntriesWithLabel(id: Long)
 
-GET        /api/example                 controllers.Application.exampleAPIAction()
+# Entry
+GET         /api/entry/image/:id                   controllers.EntryController.previewImageOfEntry(id: Long)
+POST        /api/entry/generatepreviewimage        controllers.EntryController.generatePreviewOfURL()
+
+GET         /api/example                           controllers.Application.exampleAPIAction()
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file                controllers.Assets.versioned(path="/public", file:Asset)
+GET         /assets/*file                          controllers.Assets.versioned(path="/public", file:Asset)

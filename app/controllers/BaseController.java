@@ -2,10 +2,13 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import play.libs.F;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+
+import java.util.function.Function;
 
 public class BaseController extends Controller {
 
@@ -51,5 +54,20 @@ public class BaseController extends Controller {
         }
 
         return jsonAPIResponse(Json.toJson(foundEntity));
+    }
+
+    /**
+     * The default API Invalid Input Response
+     * @return The json Result
+     */
+    protected static Result invalidAPIInput() {
+        ObjectNode result = Json.newObject();
+        result.put("status", Http.Status.BAD_REQUEST);
+        result.put("message", "Invalid Input");
+        return badRequest(result);
+    }
+
+    protected static F.Promise<Result> wrapFunctionInPromise(final F.Function0 function) {
+        return F.Promise.promise(function);
     }
 }
