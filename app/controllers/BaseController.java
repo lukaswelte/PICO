@@ -8,7 +8,6 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 
-import java.util.function.Function;
 
 public class BaseController extends Controller {
 
@@ -68,6 +67,7 @@ public class BaseController extends Controller {
     }
 
     protected static F.Promise<Result> wrapFunctionInPromise(final F.Function0 function) {
+        //noinspection unchecked
         return F.Promise.promise(function);
     }
 }
