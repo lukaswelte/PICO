@@ -6,6 +6,10 @@
 GET        /                            controllers.Application.index()
 GET        /testData                    controllers.Application.testData()
 
+# Entries
+GET         /api/entry                  controllers.EntryController.allEntries()
+GET         /api/entry/:id              controllers.EntryController.getEntry(id: Long)
+
 # Labels
 GET        /api/label                   controllers.LabelController.allLabels()
 GET        /api/label/:id               controllers.LabelController.getLabelWithIndex(id: Long)
