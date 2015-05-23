@@ -15,6 +15,8 @@ libraryDependencies ++= Seq(
   "org.webjars" % "react-router" % "0.13.2",
   "org.webjars" % "fluxxor" % "1.5.0",
   "org.webjars" % "immutable" % "3.4.0",
+  "org.webjars" % "bootstrap" % "3.3.4",
+  "org.webjars" % "jquery" % "2.1.4",
   "mysql" % "mysql-connector-java" % "5.1.35"
 )
 

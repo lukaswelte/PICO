@@ -4,14 +4,16 @@ var Application = React.createClass({
     render: function() {
         return (
             <div>
-                <header>
-                    <ul>
-                        <li><Link to="test">Dashboard</Link></li>
-                        <li><Link to="search">Inbox</Link></li>
-                        <li><Link to="todo">Todo List</Link></li>
-                    </ul>
-                    Logged in
-                </header>
+                <nav className="navbar navbar-default">
+                    <div className="container-fluid">
+                        <div className="navbar-header">
+                            <Link to="test" className="navbar-brand">Dashboard</Link>
+                            <Link to="search" className="navbar-brand">Inbox</Link>
+                            <Link to="todo" className="navbar-brand">Todo List</Link>
+                            Logged in
+                        </div>
+                    </div>
+                </nav>
 
                 {/* this is the important part */}
                 <RouteHandler/>
