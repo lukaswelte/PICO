@@ -7,8 +7,8 @@ GET         /                                      controllers.Application.index
 GET         /testData                              controllers.Application.testData()
 
 # Entries
-GET         /api/entry                  controllers.EntryController.allEntries()
-GET         /api/entry/:id              controllers.EntryController.getEntry(id: Long)
+GET         /api/entry                             controllers.EntryController.allEntries()
+GET         /api/entry/:id                         controllers.EntryController.getEntry(id: Long)
 
 # Labels
 GET         /api/label                             controllers.LabelController.allLabels()
@@ -18,6 +18,7 @@ GET         /api/entrieswithlabel/:id              controllers.LabelController.g
 # Entry
 GET         /api/entry/image/:id                   controllers.PreviewImageController.previewImageOfEntry(id: Long)
 POST        /api/entry/generatepreviewimage        controllers.PreviewImageController.generatePreviewOfURL
+POST        /api/entry/createEntry                 controllers.EntryController.createEntry()
 
 GET         /api/example                           controllers.Application.exampleAPIAction()
 
