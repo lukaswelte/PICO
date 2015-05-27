@@ -7,13 +7,14 @@ GET         /                                      controllers.Application.index
 GET         /testData                              controllers.Application.testData()
 
 # Entries
-GET         /api/entry                  controllers.EntryController.allEntries()
-GET         /api/entry/:id              controllers.EntryController.getEntry(id: Long)
+GET         /api/entry                             controllers.EntryController.allEntries()
+GET         /api/entry/:id                         controllers.EntryController.getEntry(id: Long)
 
 # Labels
 GET         /api/label                             controllers.LabelController.allLabels()
 GET         /api/label/:id                         controllers.LabelController.getLabelWithIndex(id: Long)
 GET         /api/entrieswithlabel/:id              controllers.LabelController.getEntriesWithLabel(id: Long)
+POST        /api/label                             controllers.LabelController.createLabel()
 
 # Entry
 GET         /api/entry/image/:id                   controllers.PreviewImageController.previewImageOfEntry(id: Long)

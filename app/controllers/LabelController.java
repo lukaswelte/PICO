@@ -1,5 +1,6 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import models.Label;
 import play.mvc.*;
 import java.util.List;
@@ -84,5 +85,25 @@ public class LabelController extends BaseController {
     public static Result allLabels() {
         List<Label> allLabels = Label.find.all();
         return findAPIResponse(allLabels);
+    }
+
+    /**
+     * Creates a label
+     */
+    public static Result createLabel(){
+        JsonNode json = request().body().asJson();
+        if(json == null){
+            return invalidAPIInput();
+        } else{
+            String name = json.findPath("name").textValue();
+            if(name == null){
+                return invalidAPIInput();
+            } else{
+                Label label = new Label(name);
+                label.save();
+            }
+            return jsonAPIResponse(json);
+        }
+
     }
 }
