@@ -2,8 +2,10 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Label;
+import play.libs.Json;
 import play.mvc.*;
 
+import javax.persistence.OptimisticLockException;
 import java.util.List;
 
 /**
@@ -89,6 +91,8 @@ public class LabelController extends BaseController {
     /**
      * Creates a label
      *
+     * input:...
+     *
      * @return API Response with created Label
      * Example: {"status":200,"data":{"id":4,"name":"testname","user":null,"entries":[]}}
      *
@@ -105,7 +109,11 @@ public class LabelController extends BaseController {
         }
 
         Label label = new Label(name);
-        label.save();
-        return findAPIResponse(label);
+        try {
+            label.save();
+        } catch (OptimisticLockException e) {
+            return serverError(e);
+        }
+        return jsonAPIResponse(Json.toJson(label));
     }
 }
