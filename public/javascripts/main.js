@@ -1,5 +1,11 @@
 var stores = {
-    TodoStore: new TodoStore()
+    TodoStore: new TodoStore(),
+    LabelStore: new LabelStore()
+};
+
+var actions = {
+    label : labelActions,
+    todo : toDoActions
 };
 
 var flux = new Fluxxor.Flux(stores, actions);
@@ -8,6 +14,8 @@ flux.on("dispatch", function(type, payload) {
         console.log("[Dispatch]", type, payload);
     }
 });
+
+flux.actions.label.fetchAllLabels();
 
 var routes = (
     <Route name="app" path="/" handler={Application}>

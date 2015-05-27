@@ -1,4 +1,4 @@
-var actions = {
+var toDoActions = {
     addTodo: function(text) {
         this.dispatch(constants.ADD_TODO, {text: text});
     },

@@ -44,13 +44,13 @@ var TodoList = React.createClass({
     onSubmitForm: function(e) {
         e.preventDefault();
         if (this.state.newTodoText.trim()) {
-            this.getFlux().actions.addTodo(this.state.newTodoText);
+            this.getFlux().actions.todo.addTodo(this.state.newTodoText);
             this.setState({newTodoText: ""});
         }
     },
 
     clearCompletedTodos: function(e) {
-        this.getFlux().actions.clearTodos();
+        this.getFlux().actions.todo.clearTodos();
     }
 });
 
@@ -70,6 +70,6 @@ var TodoItem = React.createClass({
     },
 
     onClick: function() {
-        this.getFlux().actions.toggleTodo(this.props.todo);
+        this.getFlux().actions.todo.toggleTodo(this.props.todo);
     }
 });
