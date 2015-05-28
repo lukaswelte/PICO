@@ -11,6 +11,7 @@ var Application = React.createClass({
                             <Link to="search" className="navbar-brand">Inbox</Link>
                             <Link to="todo" className="navbar-brand">Todo List</Link>
                             <Link to="createentry" className="navbar-brand">Create Entry</Link>
+                            <Link to="showentry" className="navbar-brand">Show Entry</Link>
                             Logged in
                         </div>
                     </div>
