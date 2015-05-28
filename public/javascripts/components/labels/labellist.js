@@ -3,21 +3,13 @@ var LabelList = React.createClass({
 
     getStateFromFlux: function() {
         var flux = this.getFlux();
-        // Our entire state is made up of the TodoStore data. In a larger
-        // application, you will likely return data from multiple stores, e.g.:
-        //
-        //   return {
-        //     todoData: flux.store("TodoStore").getState(),
-        //     userData: flux.store("UserStore").getData(),
-        //     fooBarData: flux.store("FooBarStore").someMoreData()
-        //   };
         return flux.stores.LabelStore.getAllLabels();
     },
 
     render: function() {
         return(
             <div>
-                {this.state.labels.map(function(label, i){
+                {this.state.labels.map(function(label){
                     return <div>
                         <LabelItem name={label.name}></LabelItem>
                         </div>

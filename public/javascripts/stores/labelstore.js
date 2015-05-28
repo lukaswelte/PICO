@@ -18,7 +18,7 @@ var LabelStore = Fluxxor.createStore({
         allLabels.map(function (label){
            store.labels = store.labels.set(label.id, label);
         });
-       this.emit("change");
+        this.emit("change");
     },
 
     getAllLabels: function() {
@@ -26,6 +26,5 @@ var LabelStore = Fluxxor.createStore({
             labels: this.labels
         };
     }
-
 });
 
