@@ -1,10 +1,12 @@
 var stores = {
     TodoStore: new TodoStore(),
-    LabelStore: new LabelStore()
+    LabelStore: new LabelStore(),
+    EntryStore: new EntryStore()
 };
 
 var actions = {
     label : labelActions,
+    entry: entryActions,
     todo : toDoActions
 };
 
@@ -16,6 +18,7 @@ flux.on("dispatch", function(type, payload) {
 });
 
 flux.actions.label.fetchAllLabels();
+flux.actions.entry.fetchAllEntries();
 
 var routes = (
     <Route name="app" path="/" handler={Application}>
