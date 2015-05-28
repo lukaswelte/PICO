@@ -4,7 +4,9 @@ var ShowEntry = React.createClass ({
     render: function () {
         return (
             <div>
-                Das ist die Show Entry Seite.
+                <p>Das ist die Show Entry Seite.</p>
+                {/* Fetches the details of an entry */}
+                <EntryDetail/>
             </div>
         );
     }

@@ -25,6 +25,7 @@ var routes = (
         <Route name="search" handler={Home}/>
         <Route name="test" handler={Test}/>
         <Route name="todo" handler={TodoList}/>
+        <Route name="showentry" handler={ShowEntry}/>
 
         <DefaultRoute handler={Home}/>
         <NotFoundRoute handler={NotFound}/>

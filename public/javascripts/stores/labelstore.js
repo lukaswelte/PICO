@@ -26,5 +26,6 @@ var LabelStore = Fluxxor.createStore({
             labels: this.labels
         };
     }
+
 });
 

@@ -1,0 +1,15 @@
+.box {
+    border: solid 1px black;
+}
+
+img {
+    width: 100%;
+}
+
+.padding-top-1em {
+    padding-top: 1em;
+}
+
+.height-15em {
+    height: 15em;
+}

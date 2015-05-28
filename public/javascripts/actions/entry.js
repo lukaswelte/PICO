@@ -1,10 +1,10 @@
 var entryActions = {
     fetchAllEntries: function() {
-        var irgendwie = this;
+        var fetchedEntries = this;
         $.get( "/api/entry", function( response ) {
             if(response != null){
                 if(response.status == 200){
-                    irgendwie.dispatch(entryStoreActions.UPDATE_ALL, response.data);
+                    fetchedEntries.dispatch(entryStoreActions.UPDATE_ALL, response.data);
                 }
             }
         });
