@@ -33,6 +33,9 @@ var routes = (
     </Route>
 );
 
+
+var router = Router.create({routes: routes});
+
 Router.run(routes, function (Handler) {
     React.render(<Handler flux={flux}/>, document.body);
 });

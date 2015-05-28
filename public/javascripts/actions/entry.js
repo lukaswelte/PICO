@@ -21,6 +21,7 @@ var entryActions = {
             success: function(response){
                 if(response != null && response.status == 200){
                     dispatcher.dispatch(entryStoreActions.UPDATE, response.data);
+                    router.transitionTo("showentry");
                 }
             },
             error: function(response){
