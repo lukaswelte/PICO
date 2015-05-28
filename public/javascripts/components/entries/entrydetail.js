@@ -26,8 +26,7 @@ var EntryDetail = React.createClass ({
                     </div>
                     <div className="col-md-4">
                         Image:
-                        {/*TODO: Mit Lukas genau abchecken was wir als previewImage bekommen
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIA...*/}
+                        <img src={"data:image/png;base64,".concat(this.props.entry.previewImage)} />
                     </div>
                 </div>
                 <div className="row padding-top-1em">

@@ -15,14 +15,19 @@ import java.util.Base64;
 import java.util.Objects;
 
 public class PreviewImageController extends BaseController {
+
     /**
      * Returns the URL to call for the generated preview image
      * @param urlToRender the url that should be rendered
      * @return the API URL to call to get the rendered PNG
      */
     private static WSRequestHolder getPreviewGenerationAPIRequest(String urlToRender) {
+        String urlToFetch = urlToRender;
+        if (!urlToFetch.startsWith("http")) {
+            urlToFetch = "http://".concat(urlToFetch);
+        }
         return WS.url("http://api.phantomjscloud.com/single/browser/v1/a-demo-key-with-low-quota-per-ip-address/")
-                .setQueryParameter("targetUrl", urlToRender)
+                .setQueryParameter("targetUrl", urlToFetch)
                 .setQueryParameter("loadImages", "true")
                 .setQueryParameter("resourceUrlBlacklist", "[]")
                 .setQueryParameter("viewportSize", "{width:1280,height:720,zoomFactor:1.0}")
@@ -96,6 +101,15 @@ public class PreviewImageController extends BaseController {
                 return ok(image).as("image/png");
             }
         });
+    }
+
+    /**
+     * Generates and displays a preview image for a url
+     * @param url the url that should be rendered
+     * @return The rendered website as png
+     */
+    public static F.Promise<Result> getPreviewImageOfURL(String url) {
+        return fetchPreviewImage(url).map(image -> ok(image).as("image/png"));
     }
 
     /**

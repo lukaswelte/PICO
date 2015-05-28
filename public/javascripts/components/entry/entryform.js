@@ -58,8 +58,20 @@ var EntryForm = React.createClass({
     },
 
     render: function() {
+        var previewImageURL = "/api/entry/previewimage/"+encodeURIComponent(this.state.url);
+        if (this.state.urlError || this.state.url == "") {
+            previewImageURL = ""; //display the waiting or another default image
+        }
+
+        var imageStyles = {
+            maxWidth: '30%'
+        };
+
         return (
             <div>
+                 <img style={imageStyles} src={previewImageURL} />
+                 <br />
+
                  <label>
                      URL:<br />
                      {this.state.urlError}

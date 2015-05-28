@@ -4,7 +4,7 @@ var routes = (
         <Route name="test" handler={Test}/>
         <Route name="todo" handler={TodoList}/>
         <Route name="entry" handler={EmptyView}>
-            <Route name="createEntry" handler={CreateEntry} />
+            <Route name="createEntry" path="create" handler={CreateEntry} />
             <Route name="showEntry" path=":id" handler={ShowEntry}/>
         </Route>
 

@@ -29,7 +29,6 @@ public class Entry extends Model {
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")
-    @JsonIgnore
     public byte[] previewImage;
 
     @CreatedTimestamp

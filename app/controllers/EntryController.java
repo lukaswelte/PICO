@@ -55,14 +55,17 @@ public class EntryController extends BaseController {
             byte[] previewImage = json.findPath("previewImage").binaryValue();
             if (previewImage != null) {
                 entry.previewImage = previewImage;
+            } else {
+                entry.previewImage = PreviewImageController.fetchPreviewImage(url).get(4000);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             //Ignore
+            play.Logger.error("Error generating preview image", e);
         }
         try {
-        entry.save();
-        }catch (OptimisticLockException e){
-            // 
+            entry.save();
+        } catch (OptimisticLockException e) {
+            //TODO: no longer Ignore
         }
         return jsonAPIResponse(Json.toJson(entry));
     }
