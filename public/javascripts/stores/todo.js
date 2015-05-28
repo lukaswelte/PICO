@@ -6,7 +6,7 @@ var constants = {
 
 var TodoStore = Fluxxor.createStore({
     initialize: function() {
-        this.todos = [];
+        this.todos = Immutable.Map();
 
         this.bindActions(
             constants.ADD_TODO, this.onAddTodo,
@@ -16,7 +16,7 @@ var TodoStore = Fluxxor.createStore({
     },
 
     onAddTodo: function(payload) {
-        this.todos.push({text: payload.text, complete: false});
+        this.todos = this.todos.set(payload.text, {text: payload.text, complete: false});
         this.emit("change");
     },
 
@@ -26,6 +26,7 @@ var TodoStore = Fluxxor.createStore({
     },
 
     onClearTodos: function() {
+        //noinspection JSUnresolvedFunction
         this.todos = this.todos.filter(function(todo) {
             return !todo.complete;
         });

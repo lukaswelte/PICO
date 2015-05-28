@@ -5,7 +5,7 @@ var labelStoreActions = {
 var LabelStore = Fluxxor.createStore({
 
     initialize: function(options) {
-        this.labels = [];
+        this.labels = Immutable.Map();
 
         // We could also use this in place of the `actions` hash, above:
         this.bindActions(
@@ -14,7 +14,10 @@ var LabelStore = Fluxxor.createStore({
     },
 
     handleUpdateAll: function(allLabels) {
-       this.labels = allLabels;
+        var store = this;
+        allLabels.map(function (label){
+           store.labels = store.labels.set(label.id, label);
+        });
        this.emit("change");
     },
 
