@@ -11,10 +11,10 @@ libraryDependencies ++= Seq(
   javaEbean,
   cache,
   javaWs,
-  "org.webjars" % "react" % "0.13.1",
+  "org.webjars" % "react" % "0.13.3",
   "org.webjars" % "react-router" % "0.13.2",
   "org.webjars" % "fluxxor" % "1.5.0",
-  "org.webjars" % "immutable" % "3.4.0",
+  "org.webjars" % "immutable" % "3.7.3",
   "org.webjars" % "bootstrap" % "3.3.4",
   "org.webjars" % "jquery" % "2.1.4",
   "mysql" % "mysql-connector-java" % "5.1.35"
