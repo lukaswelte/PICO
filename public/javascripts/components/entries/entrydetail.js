@@ -23,7 +23,7 @@ var EntryDetail = React.createClass ({
         if (this.state.entry.labels == null) {
             labelsDiv = <p className="box">Labels: NO LABELS</p>;
         } else {
-            labelsDiv = <p className="box">Labels: {this.state.entry.labels.map(function(label){ return <span>{label.name}, </span> })}</p>;
+            labelsDiv = <p className="box">Labels: {this.state.entry.labels.map(function(label){ return <span>{label.name}, </span>})}</p>;
         }
 
         return (
