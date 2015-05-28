@@ -21,7 +21,7 @@ public class EntryController extends BaseController {
      * required input: Json containing the URL and the Title
      * Example:
      * {
-     *  "url": "http://test.de"
+     *  "url": "http://test.de",
      *  "title": "test"
      *  }
      * return API Response entry

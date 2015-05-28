@@ -18,7 +18,7 @@ GET         /api/entrieswithlabel/:id              controllers.LabelController.g
 # Entry
 GET         /api/entry/image/:id                   controllers.PreviewImageController.previewImageOfEntry(id: Long)
 POST        /api/entry/generatepreviewimage        controllers.PreviewImageController.generatePreviewOfURL
-POST        /api/entry/createEntry                 controllers.EntryController.createEntry()
+POST        /api/entry                             controllers.EntryController.createEntry()
 
 GET         /api/example                           controllers.Application.exampleAPIAction()
 

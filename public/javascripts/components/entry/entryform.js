@@ -50,8 +50,13 @@ var EntryForm = React.createClass({
         this.setState({context: newContext});
     },
 
-    handleSaveEntry: function(event) {
-
+    handleSaveEntry: function() {
+        var entry = {
+            url: this.state.url,
+            title: this.state.title,
+            context: this.state.context
+        };
+        this.getFlux().actions.entry.createEntry(entry);
     },
 
     render: function() {
@@ -76,7 +81,7 @@ var EntryForm = React.createClass({
                  <br />
 
                  <button type="button">Cancel</button>
-                 <button type="submit" onSubmit={this.handleSaveEntry}>Save</button>
+                 <button type="submit" onClick={this.handleSaveEntry}>Save</button>
             </div>
         );
     }
