@@ -1,4 +1,4 @@
-var LabelStoreActions = {
+var labelStoreActions = {
     UPDATE_ALL: "updateAllLabels"
 };
 
@@ -9,12 +9,12 @@ var LabelStore = Fluxxor.createStore({
 
         // We could also use this in place of the `actions` hash, above:
         this.bindActions(
-            LabelStoreActions.UPDATE_ALL, this.handleUpdateAll
+            labelStoreActions.UPDATE_ALL, this.handleUpdateAll
         );
     },
 
-    handleUpdateAll: function(payload) {
-       this.labels = payload;
+    handleUpdateAll: function(allLabels) {
+       this.labels = allLabels;
        this.emit("change");
     },
 

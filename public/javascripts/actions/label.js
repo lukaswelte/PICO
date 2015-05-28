@@ -4,7 +4,7 @@ var labelActions = {
         $.get( "/api/label", function( response ) {
             if(response != null){
                 if(response.status == 200){
-                   irgendwie.dispatch(LabelStoreActions.UPDATE_ALL, response.data);
+                   irgendwie.dispatch(labelStoreActions.UPDATE_ALL, response.data);
                 }
             }
         });
