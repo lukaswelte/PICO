@@ -1,5 +1,6 @@
 var entryStoreActions = {
-    UPDATE_ALL: "updateAllEntries"
+    UPDATE_ALL: "updateAllEntries",
+    UPDATE: "updateSingleEntry"
 };
 
 var EntryStore = Fluxxor.createStore({
@@ -9,7 +10,8 @@ var EntryStore = Fluxxor.createStore({
 
         // We could also use this in place of the `actions` hash, above:
         this.bindActions(
-            entryStoreActions.UPDATE_ALL, this.handleUpdateAll
+            entryStoreActions.UPDATE_ALL, this.handleUpdateAll,
+            entryStoreActions.UPDATE, this.handleSingleUpdate
         );
     },
 
@@ -19,6 +21,11 @@ var EntryStore = Fluxxor.createStore({
             // Save the entries in key value pairs, with the entry id as the key and the hole entry as value
             store.entries = store.entries.set(entry.id, entry);
         });
+        this.emit("change");
+    },
+
+    handleSingleUpdate: function(entry) {
+        this.entries = this.entries.set(entry.id, entry);
         this.emit("change");
     },
 

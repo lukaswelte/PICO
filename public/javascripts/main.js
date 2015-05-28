@@ -25,12 +25,16 @@ var routes = (
         <Route name="search" handler={Home}/>
         <Route name="test" handler={Test}/>
         <Route name="todo" handler={TodoList}/>
+        <Route name="createentry" handler={CreateEntry}/>
         <Route name="showentry" handler={ShowEntry}/>
 
         <DefaultRoute handler={Home}/>
         <NotFoundRoute handler={NotFound}/>
     </Route>
 );
+
+
+var router = Router.create({routes: routes});
 
 Router.run(routes, function (Handler) {
     React.render(<Handler flux={flux}/>, document.body);
