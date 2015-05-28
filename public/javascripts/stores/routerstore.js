@@ -1,5 +1,6 @@
 var routerStoreActions = {
-    TRANSITION: "transitionRoute"
+    TRANSITION: "transitionRoute",
+    BACK: "transitionBack"
 };
 
 var RouteStore = Fluxxor.createStore({
@@ -7,7 +8,8 @@ var RouteStore = Fluxxor.createStore({
         this.router = options.router;
 
         this.bindActions(
-            routerStoreActions.TRANSITION, this.handleRouteTransition
+            routerStoreActions.TRANSITION, this.handleRouteTransition,
+            routerStoreActions.BACK, this.handleBackTransition
         );
     },
 
@@ -16,5 +18,12 @@ var RouteStore = Fluxxor.createStore({
         var params = payload.params;
 
         this.router.transitionTo(path, params);
+    },
+
+    handleBackTransition: function() {
+        var success = this.router.goBack();
+        if (!success) {
+            this.router.transitionTo("app", {});
+        }
     }
 });

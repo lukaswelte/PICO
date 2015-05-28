@@ -53,6 +53,10 @@ var EntryForm = React.createClass({
         this.getFlux().actions.entry.createEntry(this.state.title, this.state.url, this.state.context);
     },
 
+    handleCancel: function () {
+        this.getFlux().actions.router.back();
+    },
+
     render: function() {
         return (
             <div>
@@ -74,7 +78,7 @@ var EntryForm = React.createClass({
                  </label>
                  <br />
 
-                 <button type="button">Cancel</button>
+                 <button type="button" onClick={this.handleCancel}>Cancel</button>
                  <button type="submit" onClick={this.handleSaveEntry}>Save</button>
             </div>
         );
