@@ -3,9 +3,9 @@ var EntryForm = React.createClass({
 
     getInitialState: function() {
         return {
-            url: "http://test.de",
-            title: "Test.de",
-            context: "Keiner"
+            url: "",
+            title: "",
+            context: ""
         };
     },
 
@@ -13,8 +13,7 @@ var EntryForm = React.createClass({
         var newURL = event.target.value;
 
         var urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
-        var regex = new RegExp(urlRegex);
-        if (newURL.match(regex)) {
+        if (newURL.match(urlRegex)) {
             if (!newURL.startsWith("http")) {
                 newURL = "http://".concat(newURL);
             }
@@ -51,12 +50,7 @@ var EntryForm = React.createClass({
     },
 
     handleSaveEntry: function() {
-        var entry = {
-            url: this.state.url,
-            title: this.state.title,
-            context: this.state.context
-        };
-        this.getFlux().actions.entry.createEntry(entry);
+        this.getFlux().actions.entry.createEntry(this.state.title, this.state.url, this.state.context);
     },
 
     render: function() {

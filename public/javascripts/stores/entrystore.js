@@ -24,8 +24,16 @@ var EntryStore = Fluxxor.createStore({
         this.emit("change");
     },
 
-    handleSingleUpdate: function(entry) {
+    handleSingleUpdate: function(payload) {
+        var entry = payload.entry;
         this.entries = this.entries.set(entry.id, entry);
+
+        setTimeout(function() {
+            if (payload.transitionToEntry) {
+                this.flux.actions.router.transition("showEntry", {id: entry.id});
+            }
+        }.bind(this));
+
         this.emit("change");
     },
 
@@ -38,7 +46,7 @@ var EntryStore = Fluxxor.createStore({
     getEntryById: function(id) {
         // This method is looking for the entry with the delivered id and stops its search when an entry with that id is found
         // If no entry with this id is found it shows the string "No Entry with that ID found"
-        return this.entries.get(id, {id:"No Entry with that ID found"});
+        return this.entries.get(id, null);
     }
 
 
