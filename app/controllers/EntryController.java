@@ -20,10 +20,10 @@ public class EntryController extends BaseController {
      * Create an entry with following inputs
      * required input: Json containing the URL and the Title
      * Example:
-     * (
+     * {
      *  "url": "http://test.de"
      *  "title": "test"
-     *  )
+     *  }
      * return API Response entry
      */
     public static Result createEntry() {
