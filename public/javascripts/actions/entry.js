@@ -41,11 +41,8 @@ var entryActions = {
             errors = errors.set('title', "You must specify a title");
         }
 
-        //Check if there where errors
-        if (errors === noErrors) {
-            //No errors so the entry is valid
-            entry.valid = true;
-        }
+        //Check if there where errors and if not the entry is valid
+        entry.valid = errors === noErrors;
 
         this.dispatch(entryStoreActions.UPDATE_CREATE, entry);
         this.dispatch(entryStoreActions.ERROR_CREATE, errors.toJS());
