@@ -1,17 +1,27 @@
 var entryStoreActions = {
     UPDATE_ALL: "updateAllEntries",
-    UPDATE: "updateSingleEntry"
+    SUCCESS_CREATE: "createdEntry",
+    UPDATE_CREATE: "updateEntryToCreate",
+    ERROR_CREATE: "errorOnCreation",
+    RESET_CREATE: "resetCreation"
 };
 
 var EntryStore = Fluxxor.createStore({
 
     initialize: function(options) {
         this.entries = Immutable.Map();
+        this.emptyEntry = function() {
+            return Immutable.Map({title: "", url: "", context: "", valid:false, saving: false, errors: {}});
+        };
+        this.entryToCreate = this.emptyEntry(); //the entry that is currently created
 
         // We could also use this in place of the `actions` hash, above:
         this.bindActions(
             entryStoreActions.UPDATE_ALL, this.handleUpdateAll,
-            entryStoreActions.UPDATE, this.handleSingleUpdate
+            entryStoreActions.SUCCESS_CREATE, this.handleSuccessfulCreation,
+            entryStoreActions.UPDATE_CREATE, this.handleUpdateOfEntryToCreate,
+            entryStoreActions.ERROR_CREATE, this.handleCreationError,
+            entryStoreActions.RESET_CREATE, this.handleResetCreation
         );
     },
 
@@ -24,16 +34,25 @@ var EntryStore = Fluxxor.createStore({
         this.emit("change");
     },
 
-    handleSingleUpdate: function(payload) {
+    handleSuccessfulCreation: function(payload) {
         var entry = payload.entry;
         this.entries = this.entries.set(entry.id, entry);
+        this.entryToCreate = this.entryToCreate.merge(entry, {saving: false, errors: null});
+        this.emit("change");
+    },
 
-        setTimeout(function() {
-            if (payload.transitionToEntry) {
-                this.flux.actions.router.transition("showEntry", {id: entry.id});
-            }
-        }.bind(this));
+    handleUpdateOfEntryToCreate: function(updatedEntry) {
+        this.entryToCreate = this.entryToCreate.merge(updatedEntry);
+        this.emit("change");
+    },
 
+    handleCreationError: function(errors) {
+        this.entryToCreate = this.entryToCreate.set('errors', errors);
+        this.emit("change");
+    },
+
+    handleResetCreation: function() {
+        this.entryToCreate = this.emptyEntry();
         this.emit("change");
     },
 
@@ -47,7 +66,9 @@ var EntryStore = Fluxxor.createStore({
         // This method is looking for the entry with the delivered id and stops its search when an entry with that id is found
         // If no entry with this id is found it shows the string "No Entry with that ID found"
         return this.entries.get(id, null);
+    },
+
+    getEntryToCreate: function() {
+        return this.entryToCreate.toJS();
     }
-
-
 });
