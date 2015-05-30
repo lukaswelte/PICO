@@ -11,7 +11,7 @@ var LabelList = React.createClass({
             <div>
                 {this.state.labels.map(function(label){
                     return <div>
-                        <LabelItem name={label.name}></LabelItem>
+                        <LabelItem label={label} />
                         </div>
                 })}
             </div>

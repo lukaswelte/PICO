@@ -11,11 +11,12 @@ var entryActions = {
         this.dispatch(entryStoreActions.RESET_CREATE);
     },
 
-    updateAndValidateEntryToCreate: function(title, url, context) {
+    updateAndValidateEntryToCreate: function(title, url, context, labels) {
         var entry = {
             url: url,
             title: title,
-            context: context
+            context: context,
+            labels: labels
         };
 
         //initialize the errors map
@@ -48,7 +49,7 @@ var entryActions = {
         this.dispatch(entryStoreActions.ERROR_CREATE, errors.toJS());
     },
 
-    createEntry: function(title, url, context) {
+    createEntry: function(title, url, context, labels) {
         //inform that save is in progress
         this.dispatch(entryStoreActions.UPDATE_CREATE, {saving: true});
 

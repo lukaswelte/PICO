@@ -11,7 +11,7 @@ var EntryStore = Fluxxor.createStore({
     initialize: function(options) {
         this.entries = Immutable.Map();
         this.emptyEntry = function() {
-            return Immutable.Map({title: "", url: "", context: "", valid:false, saving: false, errors: {}});
+            return Immutable.Map({title: "", url: "", context: "", labels: new Immutable.Set(), valid:false, saving: false, errors: new Immutable.Map()});
         };
         this.entryToCreate = this.emptyEntry(); //the entry that is currently created
 

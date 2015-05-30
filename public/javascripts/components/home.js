@@ -5,9 +5,7 @@ var Home = React.createClass({
         return (
             <div>
                 <p>This is the home page</p>
-                <LabelItem name="test"></LabelItem>
-                <LabelItem name="test2"></LabelItem>
-                <LabelList/>
+                <LabelList />
             </div>
         );
     }

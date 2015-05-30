@@ -12,28 +12,45 @@ var EntryForm = React.createClass({
         };
     },
 
+    updateAndValidateEntry: function(entry) {
+        this.getFlux().actions.entry.updateAndValidateEntryToCreate(entry.title, entry.url, entry.context, entry.labels);
+    },
+
     handleURLChange: function(event) {
         var newURL = event.target.value;
-        this.getFlux().actions.entry.updateAndValidateEntryToCreate(this.props.entry.title, newURL, this.props.entry.context);
+        var entry = this.props.entry;
+        entry.url = newURL;
+        this.updateAndValidateEntry(entry);
     },
 
     handleTitleChange: function(event) {
         var newTitle = event.target.value;
-        this.getFlux().actions.entry.updateAndValidateEntryToCreate(newTitle, this.props.entry.url, this.props.entry.context);
+        var entry = this.props.entry;
+        entry.title = newTitle;
+        this.updateAndValidateEntry(entry);
     },
 
     handleContextChange: function(event) {
         var newContext = event.target.value;
-        this.getFlux().actions.entry.updateAndValidateEntryToCreate(this.props.entry.title, this.props.entry.url, newContext);
+        var entry = this.props.entry;
+        entry.context = newContext;
+        this.updateAndValidateEntry(entry);
     },
 
     handleSaveEntry: function() {
-        this.getFlux().actions.entry.createEntry(this.props.entry.title, this.props.entry.url, this.props.entry.context);
+        var entry = this.props.entry;
+        this.getFlux().actions.entry.createEntry(entry.title, entry.url, entry.context, entry.labels);
     },
 
     handleCancel: function () {
         this.getFlux().actions.entry.resetCreateEntry();
         this.getFlux().actions.router.back();
+    },
+
+    handleOnLabelsChanged: function(newLabels) {
+        var entry = this.props.entry;
+        entry.labels = newLabels;
+        this.updateAndValidateEntry(entry);
     },
 
     render: function() {
@@ -42,6 +59,7 @@ var EntryForm = React.createClass({
         };
 
         var entry = this.props.entry;
+        var labels = this.state.availableLabels.labels.toSet();
 
         var previewImageURL = "/api/entry/previewimage/"+encodeURIComponent(entry.url);
         if (!entry.url || entry.url.trim().length <= 0) {
@@ -92,6 +110,8 @@ var EntryForm = React.createClass({
                      <input name="title" type="text" value={entry.title} onChange={this.handleTitleChange} required />
                  </label>
                  <br />
+                 <b>Labels:</b><br />
+                 <LabelAutocomplete availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} initialSelectedLabels={Immutable.Set(entry.labels)} />
                  <label>
                      Context:<br />
                      <textarea name="context" value={entry.context} onChange={this.handleContextChange} />
