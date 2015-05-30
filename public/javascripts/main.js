@@ -1,8 +1,6 @@
 var routes = (
     <Route name="app" path="/" handler={Application}>
-        <Route name="search" handler={Home}/>
-        <Route name="test" handler={Test}/>
-        <Route name="todo" handler={TodoList}/>
+        <Route name="home" handler={Home}/>
         <Route name="entry" handler={EmptyView}>
             <Route name="createEntry" path="create" handler={CreateEntry} />
             <Route name="showEntry" path=":id" handler={ShowEntry}/>
@@ -18,7 +16,6 @@ var routes = (
 var router = Router.create({routes: routes});
 
 var stores = {
-    TodoStore: new TodoStore(),
     LabelStore: new LabelStore(),
     EntryStore: new EntryStore(),
     RouterStore: new RouteStore({router:router})
@@ -27,8 +24,7 @@ var stores = {
 var actions = {
     label : labelActions,
     entry: entryActions,
-    router: routerActions,
-    todo : toDoActions
+    router: routerActions
 };
 
 var flux = new Fluxxor.Flux(stores, actions);
@@ -38,6 +34,7 @@ flux.on("dispatch", function(type, payload) {
     }
 });
 
+//Fill stores with current data
 flux.actions.label.fetchAllLabels();
 flux.actions.entry.fetchAllEntries();
 

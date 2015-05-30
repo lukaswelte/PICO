@@ -9,10 +9,8 @@ var LabelList = React.createClass({
     render: function() {
         return(
             <div>
-                {this.state.labels.map(function(label){
-                    return <div>
-                        <LabelItem label={label} />
-                        </div>
+                {this.state.labels.map(function(label, index){
+                    return <LabelItem key={index} label={label} />
                 })}
             </div>
         );

@@ -1,5 +1,5 @@
 var ShowEntry = React.createClass ({
-    mixins: [FluxMixin, StoreWatchMixin("EntryStore")],
+    mixins: [FluxMixin, StoreWatchMixin("EntryStore", "RouterStore")],
 
     contextTypes: {
         router: React.PropTypes.func
@@ -25,7 +25,7 @@ var ShowEntry = React.createClass ({
 
         return (
             <div>
-                <p>Das ist die Show Entry Seite.</p>
+                <p>This is the show entry page.</p>
                 {/* Fetches the details of an entry */}
                 <EntryDetail entry={this.state.entry} />
             </div>

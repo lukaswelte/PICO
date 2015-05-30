@@ -3,7 +3,7 @@ var LabelItem = React.createClass({
 
     propTypes: {
         label: React.PropTypes.object.isRequired,
-        onRemove: React.PropTypes.func.isRequired
+        onRemove: React.PropTypes.func
     },
 
     render: function() {
