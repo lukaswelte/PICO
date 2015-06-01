@@ -6,6 +6,13 @@ var EntryDetail = React.createClass ({
     },
 
     render: function () {
+    	var previewImage;
+    	if (this.props.entry.previewImage) {
+    	 	previewImage = <img src={"data:image/png;base64,".concat(this.props.entry.previewImage)} />;
+    	 } else {
+    	 	previewImage = <img src={"/api/entry/previewimage/"+encodeURIComponent(this.props.entry.url)} />;
+    	 }
+    	
         return (
             <div>
                 {/* Showing the details of the fetched entry */}
@@ -18,7 +25,7 @@ var EntryDetail = React.createClass ({
                     </div>
                     <div className="col-md-4">
                         Image:
-                        <img src={"data:image/png;base64,".concat(this.props.entry.previewImage)} />
+                        {previewImage}
                     </div>
                 </div>
                 <div className="row padding-top-1em">
