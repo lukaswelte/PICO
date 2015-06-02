@@ -68,6 +68,13 @@ var EntryStore = Fluxxor.createStore({
         return this.entries.get(id, null);
     },
 
+    getEntryByUrl: function(url) {
+        return this.entries.find(function(entry) {
+            return entry.url == url
+        });
+    },
+
+
     getEntryToCreate: function() {
         return this.entryToCreate.toJS();
     }

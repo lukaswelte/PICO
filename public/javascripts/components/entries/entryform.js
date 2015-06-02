@@ -75,6 +75,11 @@ var EntryForm = React.createClass({
             previewImageURL = "";
         }
 
+        var duplicateEntryError = "";
+        if (entry.errors && entry.errors.duplicateEntry) {
+            duplicateEntryError = <div>An entry with this Url already exists: <Link to="showEntry" params={{id: entry.errors.duplicateEntry.id}}>{entry.errors.duplicateEntry.title}</Link></div>;
+        }
+
         var titleError = "";
         if (entry.errors && entry.errors.title) {
             titleError = entry.errors.title;
@@ -102,6 +107,7 @@ var EntryForm = React.createClass({
                      URL:<br />
                      {urlError}
                      <input name="url" type="url" value={entry.url} onChange={this.handleURLChange} required />
+                     {duplicateEntryError}
                  </label>
                  <br />
                  <label>
