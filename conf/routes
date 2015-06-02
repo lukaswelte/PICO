@@ -14,6 +14,7 @@ GET         /api/entry/:id                         controllers.EntryController.g
 GET         /api/label                             controllers.LabelController.allLabels()
 GET         /api/label/:id                         controllers.LabelController.getLabelWithIndex(id: Long)
 GET         /api/entrieswithlabel/:id              controllers.LabelController.getEntriesWithLabel(id: Long)
+POST        /api/label                             controllers.LabelController.createLabel()
 
 # Entry
 GET         /api/entry/image/:id                   controllers.PreviewImageController.previewImageOfEntry(id: Long)

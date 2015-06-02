@@ -70,4 +70,15 @@ public class BaseController extends Controller {
         //noinspection unchecked
         return F.Promise.promise(function);
     }
+
+    /**
+     * The default API Server Error Response
+     * @return The json Result
+     */
+    protected static Result serverError(Exception e){
+        ObjectNode result = Json.newObject();
+        result.put("status", Http.Status.INTERNAL_SERVER_ERROR);
+        result.put("message", e.getMessage());
+        return internalServerError(result);
+    }
 }
