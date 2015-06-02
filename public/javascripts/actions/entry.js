@@ -35,7 +35,6 @@ var entryActions = {
             // check if entry with this url already exists
             var duplicateEntry = this.flux.stores.EntryStore.getEntryByUrl(entry.url);
             if (duplicateEntry != null) {
-                console.log("Entry already exists");
                 errors = errors.set('duplicateEntry', duplicateEntry);
             }
         } else {

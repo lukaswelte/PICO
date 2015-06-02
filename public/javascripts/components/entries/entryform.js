@@ -77,8 +77,7 @@ var EntryForm = React.createClass({
 
         var duplicateEntryError = "";
         if (entry.errors && entry.errors.duplicateEntry) {
-            console.log("Dublikates Div" + JSON.stringify(entry.errors.duplicateEntry));
-            duplicateEntryError = <div> Gibt es schon <Link to="showEntry" params={{id: entry.errors.duplicateEntry.id}}>{entry.errors.duplicateEntry.title}</Link></div>;
+            duplicateEntryError = <div>An entry with this Url already exists: <Link to="showEntry" params={{id: entry.errors.duplicateEntry.id}}>{entry.errors.duplicateEntry.title}</Link></div>;
         }
 
         var titleError = "";
