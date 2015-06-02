@@ -64,7 +64,7 @@ var EntryStore = Fluxxor.createStore({
 
     getEntryById: function(id) {
         // This method is looking for the entry with the delivered id and stops its search when an entry with that id is found
-        // If no entry with this id is found it shows the string "No Entry with that ID found"
+        // If no entry with this id is found it returns null
         return this.entries.get(id, null);
     },
 
