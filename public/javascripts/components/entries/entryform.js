@@ -75,6 +75,12 @@ var EntryForm = React.createClass({
             previewImageURL = "";
         }
 
+        var duplicateEntryError = "";
+        if (entry.errors && entry.errors.duplicateEntry) {
+            console.log("Dublikates Div");
+            duplicateEntryError = <div> Gibt es schon {entry.errors.duplicateEntry.name}</div>;
+        }
+
         var titleError = "";
         if (entry.errors && entry.errors.title) {
             titleError = entry.errors.title;
@@ -102,6 +108,7 @@ var EntryForm = React.createClass({
                      URL:<br />
                      {urlError}
                      <input name="url" type="url" value={entry.url} onChange={this.handleURLChange} required />
+                     {duplicateEntryError}
                  </label>
                  <br />
                  <label>

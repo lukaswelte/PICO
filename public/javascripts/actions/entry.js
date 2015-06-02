@@ -31,10 +31,19 @@ var entryActions = {
                 //prepend http:// to the url
                 entry.url = "http://".concat(entry.url);
             }
+
+            // check if entry with this url already exists
+            var duplicateEntry = this.flux.stores.EntryStore.getEntryByUrl(entry.url);
+            if (duplicateEntry != null) {
+                console.log("Entry already exists");
+                errors = errors.set('duplicateEntry', duplicateEntry);
+            }
         } else {
             //URL is invalid
             errors = errors.set('url', "Invalid URL");
         }
+
+
 
         //validate title
         if (entry.title.trim().length <= 0) {
