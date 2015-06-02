@@ -72,7 +72,7 @@ public class BaseController extends Controller {
     }
 
     /**
-     * The default API Invalid Input Response
+     * The default API Server Error Response
      * @return The json Result
      */
     protected static Result serverError(Exception e){

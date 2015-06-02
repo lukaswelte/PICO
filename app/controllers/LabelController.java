@@ -91,7 +91,7 @@ public class LabelController extends BaseController {
     /**
      * Creates a label
      *
-     * input:...
+     * required input: Json containing the label name
      *
      * @return API Response with created Label
      * Example: {"status":200,"data":{"id":4,"name":"testname","user":null,"entries":[]}}
