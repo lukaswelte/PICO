@@ -27,7 +27,8 @@ var entryActions = {
         var urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
         if (entry.url.match(urlRegex)) {
             //check if url does not start with http
-            if (!entry.url.startsWith("http")) {
+            var httpString = "http";
+            if (!(entry.url.substring(0, httpString.length) === httpString)) {
                 //prepend http:// to the url
                 entry.url = "http://".concat(entry.url);
             }
