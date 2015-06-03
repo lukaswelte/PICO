@@ -113,7 +113,7 @@ var EntryForm = React.createClass({
                  <br />
                  <b>Labels:</b><br />
                  <LabelAutocomplete availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} initialSelectedLabels={Immutable.Set(entry.labels)} />
-                <LabelListPopover availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels=(this.handleOnLabelsChanged) />
+                <LabelListPopover availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(entry.labels)} />
                 <label>
                      Context:<br />
                      <textarea name="context" value={entry.context} onChange={this.handleContextChange} />

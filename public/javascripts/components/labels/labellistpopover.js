@@ -30,7 +30,7 @@ var LabelListPopover = React.createClass({
     handleRemoveLabel: function (labelToRemove) {
         var immutableLabelToRemove = new Immutable.Map(labelToRemove);
         var selectedLabels = this.props.selectedLabels.filterNot(function (label) {
-            return immutableLabelToRemove.get("name") === label.get("name");
+            return immutableLabelToRemove.name === label.name;
         });
         this.changeLabels(selectedLabels);
     },
@@ -38,10 +38,10 @@ var LabelListPopover = React.createClass({
     render: function () {
         var allLabels = this.props.availableLabels.toJS();
         var labelList = allLabels.map(function (label) {
-            var filteredLabels = this.props.selectedLabels.filter(function (label) {
-                return allLabels.get("name") === label.get("name");
-            }
-            if (filteredLabels.length > 0) {
+            var filteredLabels = this.props.selectedLabels.filter(function (selectedLabel) {
+                return label.name === selectedLabel.name;
+            });
+            if (filteredLabels.size > 0) {
                 return <LabelItem onClick={this.handleAddLabel.bind(this, label)} key={label.name} label={label}
                                   onRemove={this.handleRemoveLabel.bind(this, label)}/>;
             }
