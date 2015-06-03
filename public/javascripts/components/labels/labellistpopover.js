@@ -6,13 +6,7 @@ var LabelListPopover = React.createClass({
         onLabelsChanged: React.PropTypes.func,
         selectedLabels: React.PropTypes.instanceOf(Immutable.Set)
     },
-
-    /*getInitialState: function(){
-     return  {
-     selectedLabels: new Immutable.Set()
-     };
-     },
-     */
+    
     handleShowPopover: function () {
         var labelListString = labelList.join("");
         console.log("Clicked show popover");
