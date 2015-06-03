@@ -38,7 +38,11 @@ var LabelListPopover = React.createClass({
     render: function () {
         var allLabels = this.props.availableLabels.toJS();
         var labelList =  allLabels.map(function(label) {
+            if(this.props.selectedLabels.filter(function (label)){
+                return <LabelItem onClick={this.handleAddLabel.bind(this, label)} key={label.name} label={label} onRemove={this.handleRemoveLabel.bind(this, label)}/>;
+            }
             return <LabelItem onClick={this.handleAddLabel.bind(this, label)} key={label.name} label={label} />;
+
         }.bind(this));
 
 
