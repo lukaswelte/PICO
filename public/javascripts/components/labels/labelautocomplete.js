@@ -12,25 +12,20 @@ var LabelAutocomplete = React.createClass({
     mixins: [FluxMixin],
 
     propTypes: {
-        availableLabels: React.PropTypes.instanceOf(Immutable.Set),
-        initialSelectedLabels: React.PropTypes.instanceOf(Immutable.Set),
+        availableLabels: React.PropTypes.instanceOf(Immutable.Set).isRequired,
+        selectedLabels: React.PropTypes.instanceOf(Immutable.Set).isRequired,
         onLabelsChanged: React.PropTypes.func
     },
 
     getDefaultProps: function() {
         return {
-            availableLabels: new Immutable.Set(),
-            initialSelectedLabels: new Immutable.Set(),
             onLabelsChanged: function(){}
         };
     },
 
     getInitialState: function() {
-        var selectedLabels = new Immutable.Set(this.props.initialSelectedLabels);
-
         return {
             currentInput: "",
-            selectedLabels: selectedLabels,
             suggestedLabels: new Immutable.List()
         };
     },
@@ -58,16 +53,16 @@ var LabelAutocomplete = React.createClass({
 
     handleAddLabel: function(labelName) {
         //check if a label with the same name is already selected
-        var alreadyLabelWithNameSelected = this.state.selectedLabels.filter(function(label) {
-            return label.get("name", "").toLowerCase() === labelName.toLowerCase();
+        var alreadyLabelWithNameSelected = this.props.selectedLabels.filter(function(label) {
+            return label.name.toLowerCase() === labelName.toLowerCase();
         }).size > 0;
         if (!alreadyLabelWithNameSelected) {
 
             //there is no label with the same name so add the label
             var newLabel = new Immutable.Map({name: labelName});
-            var selectedLabels = this.state.selectedLabels.add(newLabel);
+            var selectedLabels = this.props.selectedLabels.add(newLabel);
             this.setState({currentInput: ""});
-            this.changeLabels(selectedLabels);
+            this.props.onLabelsChanged(selectedLabels);
         }
     },
 
@@ -80,24 +75,14 @@ var LabelAutocomplete = React.createClass({
 
     handleRemoveLabel: function(labelToRemove) {
         console.log("remove label: " + JSON.stringify(labelToRemove));
-        var immutableLabelToRemove = new Immutable.Map(labelToRemove);
-        var selectedLabels = this.state.selectedLabels.filterNot(function (label) {
-
-            return immutableLabelToRemove.get("name") === label.get("name");
+        var selectedLabels = this.props.selectedLabels.filterNot(function (label) {
+            return labelToRemove.name === label.name;
         });
-        this.changeLabels(selectedLabels);
-    },
-
-    changeLabels: function(newLabels) {
-        this.setState({
-            selectedLabels: newLabels
-        });
-        this.props.onLabelsChanged(newLabels);
+        this.props.onLabelsChanged(selectedLabels);
     },
 
     render: function() {
-        var selectedLabels = this.state.selectedLabels.toJS();
-        var selectedLabelItems = selectedLabels.map(function(label) {
+        var selectedLabelItems = this.props.selectedLabels.map(function(label) {
            return <LabelItem key={label.name} label={label} onRemove={this.handleRemoveLabel.bind(this, label)} />
         }.bind(this));
 
