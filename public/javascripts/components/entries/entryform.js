@@ -118,7 +118,7 @@ var EntryForm = React.createClass({
                  </label>
                  <br />
                  <b>Labels:</b><br />
-                 <LabelAutocomplete availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} initialSelectedLabels={Immutable.Set(entry.labels)} />
+                 <LabelAutocomplete availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(entry.labels)} />
                 <LabelListPopover availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(entry.labels)} />
                 <label>
                      Context:<br />

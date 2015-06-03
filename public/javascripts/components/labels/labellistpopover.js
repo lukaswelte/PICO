@@ -8,7 +8,6 @@ var LabelListPopover = React.createClass({
     },
     
     handleShowPopover: function () {
-        var labelListString = labelList.join("");
         console.log("Clicked show popover");
     },
 
