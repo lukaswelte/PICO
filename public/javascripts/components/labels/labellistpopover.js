@@ -8,18 +8,18 @@ var LabelListPopover = React.createClass({
     },
 
     /*getInitialState: function(){
-        return  {
-            selectedLabels: new Immutable.Set()
-        };
-    },
-    */
-    handleShowPopover: function() {
+     return  {
+     selectedLabels: new Immutable.Set()
+     };
+     },
+     */
+    handleShowPopover: function () {
         var labelListString = labelList.join("");
         console.log("Clicked show popover");
     },
 
     handleAddLabel: function (label) {
-        console.log("Add label: "+JSON.stringify(label));
+        console.log("Add label: " + JSON.stringify(label));
         var newLabels = this.props.selectedLabels.add(label);
         //var newLabels = this.props.selectedLabels.add(label);
         if (this.props.onLabelsChanged) {
@@ -37,18 +37,23 @@ var LabelListPopover = React.createClass({
 
     render: function () {
         var allLabels = this.props.availableLabels.toJS();
-        var labelList =  allLabels.map(function(label) {
-            if(this.props.selectedLabels.filter(function (label)){
-                return <LabelItem onClick={this.handleAddLabel.bind(this, label)} key={label.name} label={label} onRemove={this.handleRemoveLabel.bind(this, label)}/>;
+        var labelList = allLabels.map(function (label) {
+            var filteredLabels = this.props.selectedLabels.filter(function (label) {
+                return allLabels.get("name") === label.get("name");
             }
-            return <LabelItem onClick={this.handleAddLabel.bind(this, label)} key={label.name} label={label} />;
+            if (filteredLabels.length > 0) {
+                return <LabelItem onClick={this.handleAddLabel.bind(this, label)} key={label.name} label={label}
+                                  onRemove={this.handleRemoveLabel.bind(this, label)}/>;
+            }
+            return <LabelItem onClick={this.handleAddLabel.bind(this, label)} key={label.name} label={label}/>;
 
         }.bind(this));
 
 
         return (
             <div>
-                <button type="button" onClick={this.handleShowPopover} ref="PopoverButton" className="btn btn-default" dataToggle="popover">
+                <button type="button" onClick={this.handleShowPopover} ref="PopoverButton" className="btn btn-default"
+                        dataToggle="popover">
                     All available Labels
                 </button>
                 <div>
