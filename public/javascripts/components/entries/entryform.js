@@ -60,7 +60,6 @@ var EntryForm = React.createClass({
         };
 
         var entry = this.props.entry;
-        var labels = this.state.availableLabels.labels.toSet();
 
         var previewImageURL = "/api/entry/previewimage/"+encodeURIComponent(entry.url);
         if (!entry.url || entry.url.trim().length <= 0) {
@@ -96,6 +95,8 @@ var EntryForm = React.createClass({
         if (entry.saving) {
             savingMessage = "Save is in progress, please wait...";
         }
+
+        var labels = this.state.availableLabels.labels.toSet().merge(entry.labels);
 
         return (
             <div>
