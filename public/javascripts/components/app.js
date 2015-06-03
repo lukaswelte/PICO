@@ -7,7 +7,7 @@ var Application = React.createClass({
                 <nav className="navbar navbar-default">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <Link to="home" className="navbar-brand">Logo</Link>
+                            <Link to="home" className="navbar-brand"><img src="/static/images/logo_white.png" /></Link>
                         </div>
                         <div className="navbar-header navbar-right">
                             <Link to="createEntry" className="navbar-brand"><span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></Link>
