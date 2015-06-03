@@ -48,6 +48,7 @@ var EntryForm = React.createClass({
     },
 
     handleOnLabelsChanged: function(newLabels) {
+        console.log("new Labels: "+JSON.stringify(newLabels));
         var entry = this.props.entry;
         entry.labels = newLabels;
         this.updateAndValidateEntry(entry);
@@ -112,7 +113,8 @@ var EntryForm = React.createClass({
                  <br />
                  <b>Labels:</b><br />
                  <LabelAutocomplete availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} initialSelectedLabels={Immutable.Set(entry.labels)} />
-                 <label>
+                <LabelListPopover availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={this.} />
+                <label>
                      Context:<br />
                      <textarea name="context" value={entry.context} onChange={this.handleContextChange} />
                  </label>
