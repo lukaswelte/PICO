@@ -25,7 +25,6 @@ var ShowEntry = React.createClass ({
 
         return (
             <div>
-                <p>This is the show entry page.</p>
                 {/* Fetches the details of an entry */}
                 <EntryDetail entry={this.state.entry} />
             </div>
