@@ -1,9 +1,9 @@
 var LabelItem = React.createClass({
-    mixins: [FluxMixin],
 
     propTypes: {
         label: React.PropTypes.object.isRequired,
-        onRemove: React.PropTypes.func
+        onRemove: React.PropTypes.func,
+        onClick: React.PropTypes.func
     },
 
     render: function() {
@@ -15,7 +15,7 @@ var LabelItem = React.createClass({
         }
 
         return(
-            <div>
+            <div onClick={this.props.onClick}>
                 {label.name} {removeButton}
             </div>
         );
