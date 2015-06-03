@@ -74,7 +74,6 @@ var LabelAutocomplete = React.createClass({
     },
 
     handleRemoveLabel: function(labelToRemove) {
-        console.log("remove label: " + JSON.stringify(labelToRemove));
         var selectedLabels = this.props.selectedLabels.filterNot(function (label) {
             return labelToRemove.name === label.name;
         });

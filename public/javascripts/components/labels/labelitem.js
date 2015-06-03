@@ -6,12 +6,19 @@ var LabelItem = React.createClass({
         onClick: React.PropTypes.func
     },
 
+    handleOnRemove: function(event) {
+        event.stopPropagation();
+        if (this.props.onRemove) {
+            this.props.onRemove();
+        }
+    },
+
     render: function() {
         var label = this.props.label;
 
         var removeButton = "";
         if (this.props.onRemove) {
-            removeButton = <button onClick={this.props.onRemove}>X</button>
+            removeButton = <button onClick={this.handleOnRemove}>X</button>
         }
 
         return(
