@@ -53,11 +53,18 @@ var entryActions = {
         //inform that save is in progress
         this.dispatch(entryStoreActions.UPDATE_CREATE, {saving: true});
 
+        var labelNameArray = labels.map(function (label){
+            return label.name
+        });
+
+
+
         //construct the entry that the API needs as input
         var entry = {
             url: url,
             title: title,
-            context: context
+            context: context,
+            labels: labelNameArray
         };
 
         //do the ajax request to the API
@@ -73,6 +80,11 @@ var entryActions = {
 
                     //tell that the entry should be saved
                     this.dispatch(entryStoreActions.SUCCESS_CREATE, {entry: returnedEntry});
+
+                    returnedEntry.labels.forEach(function (label) {
+                        this.dispatch(labelStoreActions.UPDATE, label);
+                    }.bind(this));
+
 
                     //transition to the created entry
                     this.flux.actions.router.transition("showEntry", {id: returnedEntry.id});
