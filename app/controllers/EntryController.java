@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Entry;
+import models.Label;
 import play.libs.Json;
 import play.mvc.Result;
 
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -23,6 +25,7 @@ public class EntryController extends BaseController {
      * {
      *  "url": "http://test.de",
      *  "title": "test"
+     *
      *  }
      * return API Response entry
      */
@@ -49,6 +52,19 @@ public class EntryController extends BaseController {
         String context = json.findPath("context").textValue();
         if (context != null) {
             entry.context = context;
+        }
+        Iterator<JsonNode> labelIterator = json.findPath("labels").elements();
+        if(labelIterator != null){
+            while(labelIterator.hasNext()) {
+                JsonNode s = labelIterator.next();
+                String labelName = s.textValue();
+                Label labelequal = Label.find.where().eq("name", labelName).findUnique();
+                if(labelequal == null){
+                    labelequal = new Label(labelName);
+                    labelequal.save();
+                }
+                entry.labels.add(labelequal);
+            }
         }
 
         try {
