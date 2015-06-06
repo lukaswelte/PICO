@@ -99,36 +99,56 @@ var EntryForm = React.createClass({
 
         return (
             <div>
-                {globalError}
-
-                 <img style={imageStyles} src={previewImageURL} />
-                 <br />
-
-                 <label>
-                     URL:<br />
-                     {urlError}
-                     <input name="url" type="url" value={entry.url} onChange={this.handleURLChange} required />
-                     {duplicateEntryError}
-                 </label>
-                 <br />
-                 <label>
-                     Title:<br />
-                     {titleError}
-                     <input name="title" type="text" value={entry.title} onChange={this.handleTitleChange} required />
-                 </label>
-                 <br />
-                 <b>Labels:</b><br />
-                 <LabelAutocomplete availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(entry.labels)} />
-                <LabelListPopover availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(entry.labels)} />
-                <label>
-                     Context:<br />
-                     <textarea name="context" value={entry.context} onChange={this.handleContextChange} />
-                 </label>
-                 <br />
-
-                {savingMessage}
-                 <button type="button" onClick={this.handleCancel} disabled={entry.saving}>Cancel</button>
-                 <button type="submit" onClick={this.handleSaveEntry} disabled={!entry.valid || entry.saving}>Save</button>
+                <div className="row padding-top-2em">
+                    <div className="col-md-1"></div>
+                    <div className="col-md-6">
+                        {globalError}
+                        <label>
+                            {/* URL */}
+                            <input name="url" type="url" value={entry.url} onChange={this.handleURLChange} required placeholder="URL" />
+                            {urlError}
+                            {duplicateEntryError}
+                        </label>
+                        <p className="">
+                            <label>
+                                {/* Title */}
+                                {titleError}
+                                <input name="title" type="text" value={entry.title} onChange={this.handleTitleChange} required placeholder="Title" />
+                            </label>
+                        </p>
+                        <p className="">
+                            {/* Labels */}
+                            <LabelAutocomplete availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(entry.labels)} />
+                            <LabelListPopover availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(entry.labels)} />
+                        </p>
+                    </div>
+                    <div className="col-md-4">
+                        <img style={imageStyles} src={previewImageURL} />
+                    </div>
+                    <div className="col-md-1"></div>
+                </div>
+                <div className="row padding-top-1em">
+                    <div className="col-md-1"></div>
+                    <div className="col-md-10">
+                        <label>
+                            {/* Context */}
+                            <textarea name="context" value={entry.context} onChange={this.handleContextChange} placeholder="Context"/>
+                        </label>
+                        {savingMessage}
+                    </div>
+                    <div className="col-md-1"></div>
+                </div>
+                <div className="row">
+                    <div className="col-md-1"></div>
+                    <div className="col-md-1">
+                        <button type="button" onClick={this.handleCancel} disabled={entry.saving} className="btn btn-default">Cancel</button>
+                    </div>
+                    <div className="col-md-1">
+                        <button type="submit" onClick={this.handleSaveEntry} disabled={!entry.valid || entry.saving} className="btn btn-default">Save</button>
+                    </div>
+                    <div className="col-md-8"></div>
+                    <div className="col-md-1"></div>
+                </div>
             </div>
         );
     }

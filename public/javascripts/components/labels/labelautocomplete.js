@@ -95,7 +95,7 @@ var LabelAutocomplete = React.createClass({
                     {selectedLabelItems}
                 </div>
                 <div>
-                    <input onKeyDown={this.handleKeyDown} value={this.state.currentInput} onChange={this.handleInputChange} />
+                    <input onKeyDown={this.handleKeyDown} value={this.state.currentInput} onChange={this.handleInputChange} placeholder="Labels"/>
                     <Suggestions suggestions={suggestedLabelNames} handleClick={this.handleSuggestionClick} />
                 </div>
             </div>

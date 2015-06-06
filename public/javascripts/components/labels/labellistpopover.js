@@ -48,7 +48,7 @@ var LabelListPopover = React.createClass({
             <div>
                 <button type="button" onClick={this.handleShowPopover} ref="PopoverButton" className="btn btn-default"
                         dataToggle="popover">
-                    All available Labels
+                    All available Labels {/*<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>*/}
                 </button>
                 <div>
                     <div>
