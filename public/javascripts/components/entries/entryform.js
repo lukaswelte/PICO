@@ -55,7 +55,7 @@ var EntryForm = React.createClass({
 
     render: function() {
         var imageStyles = {
-            maxWidth: '30%'
+            width: '100%'
         };
 
         var entry = this.props.entry;
@@ -118,8 +118,10 @@ var EntryForm = React.createClass({
                         </p>
                         <p className="">
                             {/* Labels */}
+                            <div className="label-div-icon">
+                                <LabelListPopover availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(entry.labels)} />
+                            </div>
                             <LabelAutocomplete availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(entry.labels)} />
-                            <LabelListPopover availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(entry.labels)} />
                         </p>
                     </div>
                     <div className="col-md-4">

@@ -9,6 +9,11 @@ var LabelListPopover = React.createClass({
     
     handleShowPopover: function () {
         console.log("Clicked show popover");
+        if(document.getElementById('label-list').style.display == 'block'){
+            document.getElementById('label-list').style.display = 'none';
+        } else {
+            document.getElementById('label-list').style.display = 'block';
+        }
     },
 
     handleAddLabel: function (label) {
@@ -46,12 +51,12 @@ var LabelListPopover = React.createClass({
 
         return (
             <div>
-                <button type="button" onClick={this.handleShowPopover} ref="PopoverButton" className="btn btn-default"
+                <button type="button" onClick={this.handleShowPopover} ref="PopoverButton" className="button-icon label-icon"
                         dataToggle="popover">
-                    All available Labels {/*<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>*/}
+                   <span className="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                 </button>
-                <div>
-                    <div>
+                <div id="label-list" className="box">
+                    <div className="label-list-item">
                         {labelList}
                     </div>
                 </div>

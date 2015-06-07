@@ -18,12 +18,12 @@ var LabelItem = React.createClass({
 
         var removeButton = "";
         if (this.props.onRemove) {
-            removeButton = <button onClick={this.handleOnRemove}>X</button>
+            removeButton = <button onClick={this.handleOnRemove} className="button-icon"><span className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
         }
 
         return(
-            <div onClick={this.props.onClick}>
-                {label.name} {removeButton}
+            <div onClick={this.props.onClick} className="padding-top-0-5em padding-bottom-0-5em">
+                <span className="label-name">{label.name}</span> {removeButton}
             </div>
         );
     }

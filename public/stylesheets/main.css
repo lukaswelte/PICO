@@ -21,8 +21,20 @@ img {
     width: 100%;
 }
 
-.padding-top-1em {
-    padding-top: 1em;
+.padding-top-0-5em {
+    padding-top: 0.5em;
+}
+
+.padding-bottom-0-5em {
+    padding-bottom: 0.5em;
+}
+
+.padding-top-0-5em {
+    padding-top: 0.5em;
+}
+
+.padding-bottom-1em {
+    padding-bottom: 1em;
 }
 
 .padding-top-2em {
@@ -89,4 +101,48 @@ label {
 
 textarea {
     height: 15em;
+}
+
+.button-icon {
+    background: none;
+    border: none;
+}
+
+.label-div-icon {
+    position: relative;
+    width: 5%;
+    margin-left: auto;
+    margin-bottom: -2em;
+}
+
+.label-icon {
+    margin-left: auto;
+    display: block;
+}
+
+#label-list {
+    display: none;
+}
+
+#label-list.box {
+    width: 8em;
+    position: absolute;
+    z-index: 1;
+    margin-top: 0.5em;
+    background-color: #f5f5f5;
+    margin-left: -5.5em;
+}
+
+button.button-icon:focus {
+    outline: none;
+}
+
+span.label-name {
+    border-radius: 7px;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: #2a415e;
+    color: white;
 }
