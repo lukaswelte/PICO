@@ -41,14 +41,26 @@ var LabelAutocomplete = React.createClass({
 
     handleInputChange: function(event) {
         var input = event.target.value;
-        var matchingLabels = this.props.availableLabels.filter(function(label) {
-            return label.name.toLowerCase().search(input.toLowerCase()) === 0;
-        });
 
-        this.setState({
-            currentInput: input,
-            suggestedLabels: matchingLabels.toList()
-        });
+        if (input.length == 0) {
+          //input is empty so do not show suggestions
+          this.setState({
+              currentInput: input,
+              suggestedLabels: new Immutable.List()
+          });
+
+        } else {
+          //compute the suggestions
+
+          var matchingLabels = this.props.availableLabels.filter(function(label) {
+              return label.name.toLowerCase().search(input.toLowerCase()) === 0;
+          });
+
+          this.setState({
+              currentInput: input,
+              suggestedLabels: matchingLabels.toList()
+          });
+        }
     },
 
     handleAddLabel: function(labelName) {
@@ -61,7 +73,10 @@ var LabelAutocomplete = React.createClass({
             //there is no label with the same name so add the label
             var newLabel = new Immutable.Map({name: labelName});
             var selectedLabels = this.props.selectedLabels.add(newLabel);
-            this.setState({currentInput: ""});
+            this.setState({
+              currentInput: "",
+              suggestedLabels: new Immutable.List()
+              });
             this.props.onLabelsChanged(selectedLabels);
         }
     },
