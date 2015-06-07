@@ -81,7 +81,7 @@ public class EntryController extends BaseController {
         try {
             entry.save();
         } catch (OptimisticLockException e) {
-            //TODO: no longer Ignore
+            return serverError(e);
         }
         return jsonAPIResponse(Json.toJson(entry));
     }
