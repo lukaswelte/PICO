@@ -16,7 +16,7 @@ var EntryDetail = React.createClass ({
         return (
             <div>
                 {/* Showing the details of the fetched entry */}
-                <div className="row padding-top-2em">
+                <div className="row padding-top-2em padding-bottom-1em">
                     <div className="col-md-1"></div>
                     <div className="col-md-6">
                         <p className="box">URL: {this.props.entry.url}</p>

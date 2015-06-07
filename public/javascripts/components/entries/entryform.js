@@ -55,7 +55,8 @@ var EntryForm = React.createClass({
 
     render: function() {
         var imageStyles = {
-            width: '100%'
+            width: '90%',
+            paddingBottom: '1em'
         };
 
         var entry = this.props.entry;
