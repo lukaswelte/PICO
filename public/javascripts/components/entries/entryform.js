@@ -60,10 +60,11 @@ var EntryForm = React.createClass({
 
         var entry = this.props.entry;
 
+        var previewImagePlaceholder = "/static/images/placeholder.png";
         var previewImageURL = "/api/entry/previewimage/"+encodeURIComponent(entry.url);
         if (!entry.url || entry.url.trim().length <= 0) {
             //No url is set so do not display a preview image
-            previewImageURL = "";
+            previewImageURL = previewImagePlaceholder;
         }
 
         var urlError = "";
@@ -71,7 +72,7 @@ var EntryForm = React.createClass({
             urlError = entry.errors.url;
 
             //there was a error with the url so do not try displaying the preview image
-            previewImageURL = "";
+            previewImageURL = previewImagePlaceholder;
         }
 
         var duplicateEntryError = "";
