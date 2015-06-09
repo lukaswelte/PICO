@@ -38,10 +38,10 @@ var EntryDetail = React.createClass ({
                 <div className="row">
                     <div className="col-md-1"></div>
                     <div className="col-md-1">
-                        <a href="#" className="btn btn-default">Löschen</a>
+                        <a href="#" className="btn btn-default">Delete</a>
                     </div>
                     <div className="col-md-1">
-                        <a href="#" className="btn btn-default">Editieren</a>
+                        <a href="#" className="btn btn-default">Edit</a>
                     </div>
                     <div className="col-md-7"></div>
                     <div className="col-md-1">

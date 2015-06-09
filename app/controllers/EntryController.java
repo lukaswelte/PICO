@@ -72,7 +72,7 @@ public class EntryController extends BaseController {
             if (previewImage != null) {
                 entry.previewImage = previewImage;
             } else {
-                entry.previewImage = PreviewImageController.fetchPreviewImage(url).get(4000);
+                entry.previewImage = PreviewImageController.fetchPreviewImage(url).get(10000);
             }
         } catch (Exception e) {
             //Ignore
