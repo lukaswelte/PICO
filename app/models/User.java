@@ -13,6 +13,7 @@ import utils.PasswordHashHelper;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,6 +35,7 @@ public class User extends Model {
     public Timestamp registrationDate;
 
     @UpdatedTimestamp
+    @Version
     public Timestamp lastUpdated;
 
     @Column(unique = true)
@@ -44,11 +46,11 @@ public class User extends Model {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonIdentityReference(alwaysAsId = true)
-    public Set<Entry> entries;
+    public Set<Entry> entries = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonIdentityReference(alwaysAsId = true)
-    public Set<Label> labels;
+    public Set<Label> labels = new HashSet<>();
 
     /**
      * Checks whether a given password matches the password of the user
@@ -78,11 +80,15 @@ public class User extends Model {
         return user;
     }
 
-    public static Finder<Long,User> find = new Finder<Long,User>(
+    private static Finder<Long,User> find = new Finder<Long,User>(
             Long.class, User.class
     );
 
     public static User findByEmail(String email) {
         return User.find.where().eq("email", email).findUnique();
+    }
+
+    public static User findByToken(String token) {
+        return User.find.where().eq("token", token).findUnique();
     }
 }

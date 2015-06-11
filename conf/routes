@@ -4,7 +4,6 @@
 
 # Home page
 GET         /                                      controllers.Application.index()
-GET         /testData                              controllers.Application.testData()
 
 # Entries
 GET         /api/entry                             controllers.EntryController.allEntries()
@@ -26,7 +25,6 @@ POST        /api/entry                             controllers.EntryController.c
 POST        /api/user                              controllers.UserController.registerUser()
 PUT         /api/user                              controllers.UserController.loginUser()
 
-GET         /api/example                           controllers.Application.exampleAPIAction()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                          controllers.Assets.versioned(path="/public", file:Asset)

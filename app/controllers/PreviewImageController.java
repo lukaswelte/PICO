@@ -118,7 +118,7 @@ public class PreviewImageController extends BaseController {
      * @return The preview image of the entry as png
      */
     public static Result previewImageOfEntry(Long entryID) {
-        Entry entry = Entry.find.byId(entryID);
+        Entry entry = Entry.findEntryByIdInternalOnly(entryID);
         if (entry == null || entry.previewImage == null) {
             return notFound();
         } else {

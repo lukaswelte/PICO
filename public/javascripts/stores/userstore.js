@@ -13,8 +13,8 @@ var userStoreActions = {
 
 var UserStore = Fluxxor.createStore({
     initialize: function(options) {
-        //The current logged / active in user
-        this.user = null;
+        //The current logged / active in user - read from LocalStorage
+        this.user = new Immutable.Map();
 
         //Registration Form specific data
         this.emptyRegisterUser = function() {
@@ -42,14 +42,36 @@ var UserStore = Fluxxor.createStore({
         );
     },
 
+    readFromLocalStorage: function() {
+        if(typeof(Storage) !== "undefined") {
+            // Code for localStorage/sessionStorage.
+            var retrievedJSON = localStorage.getItem("user");
+            try {
+                return new Immutable.Map(JSON.parse(retrievedJSON));
+            } catch(err) {
+                console.error(err.message);
+                return new Immutable.Map();
+            }
+        }
+    },
+
+    saveToLocalStorage: function() {
+        if(typeof(Storage) !== "undefined") {
+            // Code for localStorage/sessionStorage.
+            localStorage.setItem("user", JSON.stringify(this.user));
+        }
+    },
+
     handleUserLoggedOut: function() {
-        this.user = null;
+        this.user = new Immutable.Map();
+        this.saveToLocalStorage();
         this.emit("change");
     },
 
     handleUserAuthenticated: function(user) {
         if (user) {
             this.user = new Immutable.Map(user);
+            this.saveToLocalStorage();
             this.emit("change");
         }
     },
@@ -103,8 +125,8 @@ var UserStore = Fluxxor.createStore({
         return this.userToRegister;
     },
 
-    getCurrentUser: function() {
-        return this.user;
+    getToken: function() {
+        return this.user.get("token");
     }
 
 });

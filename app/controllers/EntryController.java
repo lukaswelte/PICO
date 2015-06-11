@@ -3,8 +3,10 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Entry;
 import models.Label;
+import models.User;
 import play.libs.Json;
 import play.mvc.Result;
+import utils.AuthenticationHelper;
 
 import javax.persistence.OptimisticLockException;
 import java.io.IOException;
@@ -29,26 +31,27 @@ public class EntryController extends BaseController {
      *  }
      * return API Response entry
      */
+    @AuthenticationHelper.UserAuthenticated
     public static Result createEntry() {
+        User user = (User) ctx().args.get("user");
+
         JsonNode json = request().body().asJson();
         if (json == null) {
             return invalidAPIInput();
         }
 
         String url = json.findPath("url").textValue();
-        Entry entry = new Entry();
-        if (url == null || !isValidURL(url)) {
+        if (url == null || !isValidURL(url) || Entry.findByURL(url, user) != null) {
             return invalidAPIInput();
         }
-
-        entry.url = url;
 
         String title = json.findPath("title").textValue();
         if (title == null) {
             return invalidAPIInput();
-        } else {
-            entry.title = title;
         }
+
+        Entry entry = Entry.create(url, title, user);
+
         String context = json.findPath("context").textValue();
         if (context != null) {
             entry.context = context;
@@ -58,12 +61,11 @@ public class EntryController extends BaseController {
             while(labelIterator.hasNext()) {
                 JsonNode s = labelIterator.next();
                 String labelName = s.textValue();
-                Label labelequal = Label.find.where().eq("name", labelName).findUnique();
-                if(labelequal == null){
-                    labelequal = new Label(labelName);
-                    labelequal.save();
+                Label alreadyExistingLabel = Label.findByName(labelName, user);
+                if(alreadyExistingLabel == null){
+                    alreadyExistingLabel = Label.create(labelName, user);
                 }
-                entry.labels.add(labelequal);
+                entry.labels.add(alreadyExistingLabel);
             }
         }
 
@@ -130,8 +132,11 @@ public class EntryController extends BaseController {
      *      }
      * }
      */
+    @AuthenticationHelper.UserAuthenticated
     public static Result getEntry(Long entryID) {
-        Entry foundEntry = Entry.find.byId(entryID);
+        User user = (User) ctx().args.get("user");
+
+        Entry foundEntry = Entry.findById(entryID, user);
         return findAPIResponse(foundEntry);
     }
 
@@ -157,8 +162,11 @@ public class EntryController extends BaseController {
      * ]
      * }
      */
+    @AuthenticationHelper.UserAuthenticated
     public static Result allEntries() {
-        List<Entry> allEntries = Entry.find.all();
+        User user = (User) ctx().args.get("user");
+
+        List<Entry> allEntries = Entry.getAll(user);
         return findAPIResponse(allEntries);
     }
 

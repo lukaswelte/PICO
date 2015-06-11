@@ -2,8 +2,10 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Label;
+import models.User;
 import play.libs.Json;
 import play.mvc.*;
+import utils.AuthenticationHelper;
 
 import javax.persistence.OptimisticLockException;
 import java.util.List;
@@ -29,8 +31,10 @@ public class LabelController extends BaseController {
      * }
      * }
      */
+    @AuthenticationHelper.UserAuthenticated
     public static Result getLabelWithIndex(Long labelID) {
-        Label foundLabel = Label.find.byId(labelID);
+        User user = (User) ctx().args.get("user");
+        Label foundLabel = Label.findById(labelID, user);
         return findAPIResponse(foundLabel);
     }
 
@@ -57,8 +61,10 @@ public class LabelController extends BaseController {
      * ]
      * }
      */
+    @AuthenticationHelper.UserAuthenticated
     public static Result getEntriesWithLabel(Long labelID) {
-        Label foundLabel = Label.find.byId(labelID);
+        User user = (User) ctx().args.get("user");
+        Label foundLabel = Label.findById(labelID, user);
         if (foundLabel == null) {
             return notFoundAPIResponse();
         } else {
@@ -83,8 +89,10 @@ public class LabelController extends BaseController {
      * ]
      * }
      */
+    @AuthenticationHelper.UserAuthenticated
     public static Result allLabels() {
-        List<Label> allLabels = Label.find.all();
+        User user = (User) ctx().args.get("user");
+        List<Label> allLabels = Label.getAll(user);
         return findAPIResponse(allLabels);
     }
 
@@ -97,7 +105,10 @@ public class LabelController extends BaseController {
      * Example: {"status":200,"data":{"id":4,"name":"testname","user":null,"entries":[]}}
      *
      */
+    @AuthenticationHelper.UserAuthenticated
     public static Result createLabel() {
+        User user = (User) ctx().args.get("user");
+
         JsonNode json = request().body().asJson();
         if (json == null) {
             return invalidAPIInput();
@@ -108,9 +119,9 @@ public class LabelController extends BaseController {
             return invalidAPIInput();
         }
 
-        Label label = new Label(name);
+        Label label = null;
         try {
-            label.save();
+            label = Label.create(name, user);
         } catch (OptimisticLockException e) {
             return serverError(e);
         }

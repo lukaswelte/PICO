@@ -22,18 +22,18 @@ var routes = (
 
 var router = Router.create({routes: routes});
 
-var stores = {
-    LabelStore: new LabelStore(),
-    EntryStore: new EntryStore(),
-    UserStore: new UserStore(),
-    RouterStore: new RouteStore({router:router})
-};
-
 var actions = {
     label : labelActions,
     entry: entryActions,
     user: userActions,
     router: routerActions
+};
+
+var stores = {
+    UserStore: new UserStore(),
+    LabelStore: new LabelStore(),
+    EntryStore: new EntryStore(),
+    RouterStore: new RouteStore({router:router})
 };
 
 var flux = new Fluxxor.Flux(stores, actions);

@@ -3,7 +3,7 @@ var Application = React.createClass({
 
     getStateFromFlux: function() {
         return {
-            user: this.getFlux().stores.UserStore.getCurrentUser()
+            userExists: this.getFlux().stores.UserStore.getToken() != null
         };
     },
 
@@ -14,7 +14,7 @@ var Application = React.createClass({
     render: function() {
 
         //if the user is not present show the login page
-        if (!this.state.user) {
+        if (!this.state.userExists) {
             this.getFlux().actions.router.transition("login", {});
         }
 

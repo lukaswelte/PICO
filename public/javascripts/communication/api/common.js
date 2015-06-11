@@ -1,7 +1,14 @@
 var apiCommonActions = {
   httpRequest: function(url, options) {
+      var token = "";
+      if (flux && flux.stores && flux.stores.UserStore) {
+          token = flux.stores.UserStore.getToken();
+      }
       $.ajax(url, {
           type: options.type,
+          headers: {
+              "Access-Token": token
+          },
           contentType: 'application/json',
           data: JSON.stringify(options.data),
           processData: false,

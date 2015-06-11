@@ -49,7 +49,7 @@ var Register = React.createClass({
 
                     <div>
                         {this.state.user.get("registering") ? "Currently registering..." : ""} <br />
-                        <button type="button" disabled={!this.state.user.get("valid")}>Register</button>
+                        <button type="submit" disabled={!this.state.user.get("valid")}>Register</button>
                     </div>
                 </form>
             </div>

@@ -49,7 +49,7 @@ var Login = React.createClass({
 
                     <div>
                         {this.state.user.get("loggingIn") ? "Currently registering..." : ""} <br />
-                        <input type="submit" disabled={this.state.user.get("loggingIn", false)}>Login</input>
+                        <button type="submit" disabled={this.state.user.get("loggingIn", false)}>Login</button>
                     </div>
                 </form>
             </div>
