@@ -42,19 +42,6 @@ var UserStore = Fluxxor.createStore({
         );
     },
 
-    readFromLocalStorage: function() {
-        if(typeof(Storage) !== "undefined") {
-            // Code for localStorage/sessionStorage.
-            var retrievedJSON = localStorage.getItem("user");
-            try {
-                return new Immutable.Map(JSON.parse(retrievedJSON));
-            } catch(err) {
-                console.error(err.message);
-                return new Immutable.Map();
-            }
-        }
-    },
-
     saveToLocalStorage: function() {
         if(typeof(Storage) !== "undefined") {
             // Code for localStorage/sessionStorage.

@@ -3,7 +3,8 @@ var Login = React.createClass({
 
     getStateFromFlux: function() {
         return {
-            user: this.getFlux().stores.UserStore.getUserToLogin()
+            user: this.getFlux().stores.UserStore.getUserToLogin(),
+            isLoggedIn: this.getFlux().stores.UserStore.getToken() != null
         };
     },
 
@@ -21,6 +22,15 @@ var Login = React.createClass({
     },
 
     render: function() {
+        //if the user is present show the app page
+        if (this.state.isLoggedIn) {
+            try {
+                this.getFlux().actions.router.transition("app", {});
+            } catch(err) {
+
+            }
+        }
+
         var errors = this.state.user.get("errors");
         return (
             <div>
@@ -48,7 +58,7 @@ var Login = React.createClass({
                     </label>
 
                     <div>
-                        {this.state.user.get("loggingIn") ? "Currently registering..." : ""} <br />
+                        {this.state.user.get("loggingIn") ? "Currently logging in..." : ""} <br />
                         <button type="submit" disabled={this.state.user.get("loggingIn", false)}>Login</button>
                     </div>
                 </form>

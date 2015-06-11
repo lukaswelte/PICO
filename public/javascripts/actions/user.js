@@ -126,5 +126,17 @@ var userActions = {
 
         //transition to the login page
         this.flux.actions.router.transition("login", {});
+    },
+
+    loadUserFromLocalStorage: function() {
+        if(typeof(Storage) !== "undefined") {
+            // Code for localStorage/sessionStorage.
+            var retrievedJSON = localStorage.getItem("user");
+            try {
+                var user = new Immutable.Map(JSON.parse(retrievedJSON));
+                this.dispatch(userStoreActions.USER_AUTHENTICATED, user);
+            } catch(err) {
+            }
+        }
     }
 };

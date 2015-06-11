@@ -3,7 +3,8 @@ var Register = React.createClass({
 
     getStateFromFlux: function() {
        return {
-          user: this.getFlux().stores.UserStore.getUserToRegister()
+           user: this.getFlux().stores.UserStore.getUserToRegister(),
+           isLoggedIn: this.getFlux().stores.UserStore.getToken() != null
        };
     },
 
@@ -21,6 +22,11 @@ var Register = React.createClass({
     },
 
     render: function() {
+        //if the user is present show the app page
+        if (this.state.isLoggedIn) {
+            this.getFlux().actions.router.transition("app", {});
+        }
+
         var errors = this.state.user.get("errors");
         return (
             <div>

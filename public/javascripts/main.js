@@ -43,6 +43,9 @@ flux.on("dispatch", function(type, payload) {
     }
 });
 
+//Try loading user from local storage
+flux.actions.user.loadUserFromLocalStorage();
+
 Router.run(routes, function (Handler) {
     React.render(<Handler flux={flux}/>, document.body);
 });
