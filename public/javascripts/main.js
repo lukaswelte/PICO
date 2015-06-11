@@ -1,17 +1,22 @@
 var routes = (
-    <Route name="app" path="/" handler={Application}>
+    <Route name="pico" path="/" handler={EmptyView}>
         <Route name="register" handler={Register} />
         <Route name="login" handler={Login} />
-        <Route name="home" handler={Home}/>
-        <Route name="entry" handler={EmptyView}>
-            <Route name="createEntry" path="create" handler={CreateEntry} />
-            <Route name="showEntry" path=":id" handler={ShowEntry}/>
-        </Route>
 
-        <Route name="notfound" handler={NotFound} />
-
-        <DefaultRoute handler={Home}/>
+        <DefaultRoute handler={Login}/>
         <NotFoundRoute handler={NotFound}/>
+
+        <Route name="app" handler={Application}>
+            <Route name="home" handler={Home}/>
+            <Route name="entry" handler={EmptyView}>
+                <Route name="createEntry" path="create" handler={CreateEntry} />
+                <Route name="showEntry" path=":id" handler={ShowEntry}/>
+            </Route>
+
+            <Route name="notfound" handler={NotFound} />
+
+            <DefaultRoute handler={Home}/>
+        </Route>
     </Route>
 );
 

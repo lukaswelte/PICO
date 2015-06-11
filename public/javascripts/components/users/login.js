@@ -15,7 +15,7 @@ var Login = React.createClass({
         this.getFlux().actions.user.updateUserToLogin(this.state.user.get("email"), event.target.value);
     },
 
-    handleLoginClick: function(event) {
+    handleLogin: function(event) {
         event.preventDefault();
         this.getFlux().actions.user.loginUser(this.state.user.get("email"), this.state.user.get("password"));
     },
@@ -24,7 +24,16 @@ var Login = React.createClass({
         var errors = this.state.user.get("errors");
         return (
             <div>
-                <form onSubmit={this.handleLoginClick}>
+                <nav className="navbar navbar-default">
+                    <div className="container-fluid">
+                        <div className="navbar-header">
+                            <img className="logo" src="/static/images/logo_white.png"/>
+                        </div>
+                    </div>
+                </nav>
+
+                <Link to="register">Go to register</Link>
+                <form onSubmit={this.handleLogin}>
                     {errors.get("global", "")}
                     <label>
                         {errors.get("email") ? "Invalid Email Address" : ""}<br />

@@ -15,7 +15,8 @@ var Register = React.createClass({
         this.getFlux().actions.user.updateAndValidateUserToRegister(this.state.user.get("email"), event.target.value);
     },
 
-    handleRegisterClick: function() {
+    handleRegister: function(event) {
+        event.preventDefault();
         this.getFlux().actions.user.registerUser(this.state.user.get("email"), this.state.user.get("password"));
     },
 
@@ -23,23 +24,34 @@ var Register = React.createClass({
         var errors = this.state.user.get("errors");
         return (
             <div>
-                {errors.get("global", "")}
-                <label>
-                    {errors.get("email") ? "Invalid Email Address" : ""}<br />
-                    Email
-                    <input type="email" value={this.state.user.get("email")} onChange={this.handleEmailChange} />
-                </label>
+                <nav className="navbar navbar-default">
+                    <div className="container-fluid">
+                        <div className="navbar-header">
+                            <img className="logo" src="/static/images/logo_white.png"/>
+                        </div>
+                    </div>
+                </nav>
 
-                <label>
-                    {errors.get("password") ? "Minimum 2 Characters required" : ""}<br />
-                    Password
-                    <input type="password" value={this.state.user.get("password")} onChange={this.handlePasswordChange} />
-                </label>
+                <Link to="login">Go to Login</Link>
+                <form onSubmit={this.handleRegister}>
+                    {errors.get("global", "")}
+                    <label>
+                        {errors.get("email") ? "Invalid Email Address" : ""}<br />
+                        Email
+                        <input type="email" value={this.state.user.get("email")} onChange={this.handleEmailChange} />
+                    </label>
 
-                <div>
-                    {this.state.user.get("registering") ? "Currently registering..." : ""} <br />
-                    <button type="button" onClick={this.handleRegisterClick} disabled={!this.state.user.get("valid")}>Register</button>
-                </div>
+                    <label>
+                        {errors.get("password") ? "Minimum 2 Characters required" : ""}<br />
+                        Password
+                        <input type="password" value={this.state.user.get("password")} onChange={this.handlePasswordChange} />
+                    </label>
+
+                    <div>
+                        {this.state.user.get("registering") ? "Currently registering..." : ""} <br />
+                        <button type="button" disabled={!this.state.user.get("valid")}>Register</button>
+                    </div>
+                </form>
             </div>
         );
     }
