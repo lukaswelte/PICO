@@ -1,22 +1,22 @@
-var Register = React.createClass({
+var Login = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin("UserStore")],
 
     getStateFromFlux: function() {
-       return {
-          user: this.getFlux().stores.UserStore.getUserToRegister()
-       };
+        return {
+            user: this.getFlux().stores.UserStore.getUserToLogin()
+        };
     },
 
     handleEmailChange: function(event) {
-        this.getFlux().actions.user.updateAndValidateUserToRegister(event.target.value, this.state.user.get("password"));
+        this.getFlux().actions.user.updateUserToLogin(event.target.value, this.state.user.get("password"));
     },
 
     handlePasswordChange: function(event) {
-        this.getFlux().actions.user.updateAndValidateUserToRegister(this.state.user.get("email"), event.target.value);
+        this.getFlux().actions.user.updateUserToLogin(this.state.user.get("email"), event.target.value);
     },
 
-    handleRegisterClick: function() {
-        this.getFlux().actions.user.registerUser(this.state.user.get("email"), this.state.user.get("password"));
+    handleLoginClick: function() {
+        this.getFlux().actions.user.loginUser(this.state.user.get("email"), this.state.user.get("password"));
     },
 
     render: function() {
@@ -37,8 +37,8 @@ var Register = React.createClass({
                 </label>
 
                 <div>
-                    {this.state.user.get("registering") ? "Currently registering..." : ""} <br />
-                    <button type="button" onClick={this.handleRegisterClick} disabled={!this.state.user.get("valid")}>Register</button>
+                    {this.state.user.get("loggingIn") ? "Currently registering..." : ""} <br />
+                    <button type="button" onClick={this.handleLoginClick} disabled={this.state.user.get("loggingIn", false)}>Login</button>
                 </div>
             </div>
         );

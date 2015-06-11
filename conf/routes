@@ -24,6 +24,7 @@ POST        /api/entry                             controllers.EntryController.c
 
 # User
 POST        /api/user                              controllers.UserController.registerUser()
+PUT         /api/user                              controllers.UserController.loginUser()
 
 GET         /api/example                           controllers.Application.exampleAPIAction()
 

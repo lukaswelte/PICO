@@ -50,6 +50,24 @@ public class User extends Model {
     @JsonIdentityReference(alwaysAsId = true)
     public Set<Label> labels;
 
+    /**
+     * Checks whether a given password matches the password of the user
+     * @param password the given password
+     * @return true if it matches otherwise false
+     */
+    public Boolean passwordMatches(String password) {
+        return PasswordHashHelper.isPasswordMatching(password, this.hashedPassword);
+    }
+
+    /**
+     * Updates the token
+     */
+    public void refreshToken() {
+        this.token = AuthenticationHelper.generateToken();
+        this.tokenCreatedDate = new Timestamp(System.currentTimeMillis());
+        this.save();
+    }
+
     public static User create(String email, String password) {
         User user = new User();
         user.email = email;

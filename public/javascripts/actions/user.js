@@ -72,5 +72,60 @@ var userActions = {
                 this.dispatch(userStoreActions.ERROR_USER_TO_REGISTER, {global: "An error occurred please check your input and try again."});
             }.bind(this)
         });
+    },
+
+    resetUserToLogin: function() {
+        this.dispatch(userStoreActions.RESET_USER_TO_LOGIN);
+    },
+
+    updateUserToLogin: function(email, password) {
+        var user = {
+            email: email,
+            password: password
+        };
+
+        this.dispatch(userStoreActions.UPDATE_USER_TO_LOGIN, user);
+    },
+
+
+    loginUser: function(email, password) {
+        //inform that save is in progress
+        this.dispatch(userStoreActions.UPDATE_USER_TO_LOGIN, {loggingIn: true});
+
+        //construct the user that the API needs as input
+        var user = {
+            email: email,
+            password: password
+        };
+
+        //do the ajax request to the API
+        $.ajax("/api/user", {
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(user),
+            processData: false,
+            dataType: 'json',
+            success: function(response){
+                if(response != null && response.status == 200){
+                    var returnedUser = response.data;
+
+                    //tell that the entry should be saved
+                    this.dispatch(userStoreActions.SUCCESS_LOGIN_USER, returnedUser);
+
+                    //reset the registered user so that we can register another one
+                    this.dispatch(userStoreActions.RESET_USER_TO_LOGIN);
+                }
+            }.bind(this),
+            error: function(response){
+                //for debugging print response to the console
+                console.log("error on create: "+JSON.stringify(response));
+
+                //inform that we are no longer saving
+                this.dispatch(userStoreActions.UPDATE_USER_TO_LOGIN, {loggingIn: false});
+
+                //inform about the error
+                this.dispatch(userStoreActions.ERROR_USER_TO_LOGIN, {global: "Not successful. Please try again."});
+            }.bind(this)
+        });
     }
 };

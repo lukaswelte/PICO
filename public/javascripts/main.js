@@ -1,6 +1,7 @@
 var routes = (
     <Route name="app" path="/" handler={Application}>
         <Route name="register" handler={Register} />
+        <Route name="login" handler={Login} />
         <Route name="home" handler={Home}/>
         <Route name="entry" handler={EmptyView}>
             <Route name="createEntry" path="create" handler={CreateEntry} />
