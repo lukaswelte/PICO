@@ -44,27 +44,23 @@ var userActions = {
         };
 
         //do the ajax request to the API
-        $.ajax("/api/user", {
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(user),
-            processData: false,
-            dataType: 'json',
+        API.user.register(user, {
             success: function(response){
                 if(response != null && response.status == 200){
                     var returnedUser = response.data;
 
-                    //tell that the entry should be saved
+                    //tell that the registration succeeded
                     this.dispatch(userStoreActions.SUCCESS_REGISTER_USER, returnedUser);
+                    this.dispatch(userStoreActions.USER_AUTHENTICATED, returnedUser);
 
                     //reset the registered user so that we can register another one
                     this.dispatch(userStoreActions.RESET_USER_TO_REGISTER);
+
+                    //now redirect to the dashboard
+                    this.flux.actions.router.transition("app", {});
                 }
             }.bind(this),
             error: function(response){
-                //for debugging print response to the console
-                console.log("error on create: "+JSON.stringify(response));
-
                 //inform that we are no longer saving
                 this.dispatch(userStoreActions.UPDATE_USER_TO_REGISTER, {registering: false});
 
@@ -89,7 +85,7 @@ var userActions = {
 
 
     loginUser: function(email, password) {
-        //inform that save is in progress
+        //inform that login is in progress
         this.dispatch(userStoreActions.UPDATE_USER_TO_LOGIN, {loggingIn: true});
 
         //construct the user that the API needs as input
@@ -99,33 +95,36 @@ var userActions = {
         };
 
         //do the ajax request to the API
-        $.ajax("/api/user", {
-            type: 'PUT',
-            contentType: 'application/json',
-            data: JSON.stringify(user),
-            processData: false,
-            dataType: 'json',
+        API.user.login(user, {
             success: function(response){
                 if(response != null && response.status == 200){
                     var returnedUser = response.data;
 
-                    //tell that the entry should be saved
+                    //tell that the user is logged in
                     this.dispatch(userStoreActions.SUCCESS_LOGIN_USER, returnedUser);
+                    this.dispatch(userStoreActions.USER_AUTHENTICATED, returnedUser);
 
-                    //reset the registered user so that we can register another one
+                    //reset the logged in user so that we can login another one
                     this.dispatch(userStoreActions.RESET_USER_TO_LOGIN);
+
+                    //now redirect to the dashboard
+                    this.flux.actions.router.transition("app", {});
                 }
             }.bind(this),
             error: function(response){
-                //for debugging print response to the console
-                console.log("error on create: "+JSON.stringify(response));
-
-                //inform that we are no longer saving
+                //inform that we are no longer logging in
                 this.dispatch(userStoreActions.UPDATE_USER_TO_LOGIN, {loggingIn: false});
 
                 //inform about the error
                 this.dispatch(userStoreActions.ERROR_USER_TO_LOGIN, {global: "Not successful. Please try again."});
             }.bind(this)
         });
+    },
+
+    logoutUser: function() {
+        this.dispatch(userStoreActions.USER_LOGGED_OUT);
+
+        //transition to the login page
+        this.flux.actions.router.transition("login", {});
     }
 };

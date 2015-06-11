@@ -6,13 +6,15 @@ var userStoreActions = {
     SUCCESS_LOGIN_USER: "successfulLoggedInUser",
     UPDATE_USER_TO_LOGIN: "updateUserToLogin",
     ERROR_USER_TO_LOGIN: "errorOnUserToLogin",
-    RESET_USER_TO_LOGIN: "resetUserToLogin"
+    RESET_USER_TO_LOGIN: "resetUserToLogin",
+    USER_AUTHENTICATED: "userAuthenticated",
+    USER_LOGGED_OUT: "userLoggedOut"
 };
 
 var UserStore = Fluxxor.createStore({
     initialize: function(options) {
         //The current logged / active in user
-        this.user = new Immutable.Map();
+        this.user = null;
 
         //Registration Form specific data
         this.emptyRegisterUser = function() {
@@ -34,16 +36,27 @@ var UserStore = Fluxxor.createStore({
             userStoreActions.SUCCESS_LOGIN_USER, this.handleSuccessfulLogin,
             userStoreActions.UPDATE_USER_TO_LOGIN, this.handleUpdateOfUserToLogin,
             userStoreActions.ERROR_USER_TO_LOGIN, this.handleErrorOfUserToLogin,
-            userStoreActions.RESET_USER_TO_LOGIN, this.handleResetOfUserToLogin
+            userStoreActions.RESET_USER_TO_LOGIN, this.handleResetOfUserToLogin,
+            userStoreActions.USER_AUTHENTICATED, this.handleUserAuthenticated,
+            userStoreActions.USER_LOGGED_OUT, this.handleUserLoggedOut
         );
+    },
 
-        console.log("Init finish");
+    handleUserLoggedOut: function() {
+        this.user = null;
+        this.emit("change");
+    },
+
+    handleUserAuthenticated: function(user) {
+        if (user) {
+            this.user = new Immutable.Map(user);
+            this.emit("change");
+        }
     },
 
     handleSuccessfulRegistration: function(registeredUser) {
-        this.user = new Immutable.Map(registeredUser);
         this.userToRegister = this.userToRegister.merge({registering: false, errors: new Immutable.Map()});
-        this.emit("change");
+        this.handleUserAuthenticated(registeredUser);
     },
 
     handleUpdateOfUserToRegister: function(updatedUser) {
@@ -63,9 +76,8 @@ var UserStore = Fluxxor.createStore({
 
 
     handleSuccessfulLogin: function(loggedInUser) {
-        this.user = new Immutable.Map(loggedInUser);
         this.userToLogin = this.userToLogin.merge({loggingIn: false, errors: new Immutable.Map()});
-        this.emit("change");
+        this.handleUserAuthenticated(loggedInUser);
     },
 
     handleUpdateOfUserToLogin: function(updatedUser) {
@@ -89,6 +101,10 @@ var UserStore = Fluxxor.createStore({
 
     getUserToRegister: function() {
         return this.userToRegister;
+    },
+
+    getCurrentUser: function() {
+        return this.user;
     }
 
 });

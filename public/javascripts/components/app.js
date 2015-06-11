@@ -1,7 +1,23 @@
 var Application = React.createClass({
-    mixins: [FluxMixin],
+    mixins: [FluxMixin, StoreWatchMixin("UserStore")],
+
+    getStateFromFlux: function() {
+        return {
+            user: this.getFlux().stores.UserStore.getCurrentUser()
+        };
+    },
+
+    handleLogoutClick: function() {
+        this.getFlux().actions.user.logoutUser();
+    },
 
     render: function() {
+
+        //if the user is not present show the login page
+        if (!this.state.user) {
+            this.getFlux().actions.router.transition("login", {});
+        }
+
         return (
             <div>
                 <nav className="navbar navbar-default">
@@ -11,7 +27,7 @@ var Application = React.createClass({
                         </div>
                         <div className="navbar-header navbar-right">
                             <Link to="createEntry" className="navbar-brand"><span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></Link>
-                            <Link to="home" className="navbar-brand"><span className="glyphicon glyphicon-info-sign" aria-hidden="true"></span></Link>
+                            <span className="navbar-brand glyphicon glyphicon-info-sign" aria-hidden="true" onClick={this.handleLogoutClick}></span>
                         </div>
                     </div>
                 </nav>

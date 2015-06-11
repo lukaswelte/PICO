@@ -9,7 +9,7 @@ var entryStoreActions = {
 var EntryStore = Fluxxor.createStore({
 
     initialize: function(options) {
-        this.entries = Immutable.Map();
+        this.entries = new Immutable.Map();
         this.emptyEntry = function() {
             return Immutable.Map({title: "", url: "", context: "", labels: new Immutable.Set(), valid:false, saving: false, errors: new Immutable.Map()});
         };
@@ -21,8 +21,25 @@ var EntryStore = Fluxxor.createStore({
             entryStoreActions.SUCCESS_CREATE, this.handleSuccessfulCreation,
             entryStoreActions.UPDATE_CREATE, this.handleUpdateOfEntryToCreate,
             entryStoreActions.ERROR_CREATE, this.handleCreationError,
-            entryStoreActions.RESET_CREATE, this.handleResetCreation
+            entryStoreActions.RESET_CREATE, this.handleResetCreation,
+            userStoreActions.USER_AUTHENTICATED, this.handleLoadData,
+            userStoreActions.USER_LOGGED_OUT, this.handleDestroyData
         );
+    },
+
+    handleDestroyData: function() {
+        this.entries = new Immutable.Map();
+        this.emit("change");
+    },
+
+    handleLoadData: function () {
+        API.entry.fetchAll({
+            success: function(response) {
+                if(response != null && response.status == 200){
+                    this.handleUpdateAll(response.data);
+                }
+            }.bind(this)
+        });
     },
 
     handleUpdateAll: function(allEntries) {

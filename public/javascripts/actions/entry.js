@@ -1,12 +1,4 @@
 var entryActions = {
-    fetchAllEntries: function() {
-        $.get("/api/entry", function( response ) {
-            if(response != null && response.status == 200){
-                this.dispatch(entryStoreActions.UPDATE_ALL, response.data);
-            }
-        }.bind(this));
-    },
-
     resetCreateEntry: function() {
         this.dispatch(entryStoreActions.RESET_CREATE);
     },
@@ -77,12 +69,7 @@ var entryActions = {
         };
 
         //do the ajax request to the API
-        $.ajax("/api/entry", {
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(entry),
-            processData: false,
-            dataType: 'json',
+        API.entry.create(entry, {
             success: function(response){
                 if(response != null && response.status == 200){
                     var returnedEntry = response.data;

@@ -38,10 +38,6 @@ flux.on("dispatch", function(type, payload) {
     }
 });
 
-//Fill stores with current data
-flux.actions.label.fetchAllLabels();
-flux.actions.entry.fetchAllEntries();
-
 Router.run(routes, function (Handler) {
     React.render(<Handler flux={flux}/>, document.body);
 });
