@@ -17,7 +17,8 @@ libraryDependencies ++= Seq(
   "org.webjars" % "immutable" % "3.7.3",
   "org.webjars" % "bootstrap" % "3.3.4",
   "org.webjars" % "jquery" % "2.1.4",
-  "mysql" % "mysql-connector-java" % "5.1.35"
+  "mysql" % "mysql-connector-java" % "5.1.35",
+  "org.mindrot" % "jbcrypt" % "0.3m"
 )
 
 pipelineStages := Seq(digest, gzip)

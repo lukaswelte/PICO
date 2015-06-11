@@ -4,19 +4,16 @@ import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.avaje.ebean.annotation.UpdatedTimestamp;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import play.data.validation.Constraints;
 import play.db.ebean.Model;
-
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.Set;
-
-import play.db.ebean.*;
-import play.data.format.*;
-import play.data.validation.*;
+import utils.AuthenticationHelper;
+import utils.PasswordHashHelper;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -30,13 +27,20 @@ public class User extends Model {
     public String email;
 
     @Constraints.Required
-    public String password;
+    @JsonIgnore
+    public String hashedPassword;
 
     @CreatedTimestamp
     public Timestamp registrationDate;
 
     @UpdatedTimestamp
     public Timestamp lastUpdated;
+
+    @Column(unique = true)
+    public String token;
+
+    @JsonIgnore
+    public Timestamp tokenCreatedDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonIdentityReference(alwaysAsId = true)
@@ -46,7 +50,21 @@ public class User extends Model {
     @JsonIdentityReference(alwaysAsId = true)
     public Set<Label> labels;
 
+    public static User create(String email, String password) {
+        User user = new User();
+        user.email = email;
+        user.hashedPassword = PasswordHashHelper.hashPassword(password);
+        user.token = AuthenticationHelper.generateToken();
+        user.tokenCreatedDate = new Timestamp(System.currentTimeMillis());
+        user.save();
+        return user;
+    }
+
     public static Finder<Long,User> find = new Finder<Long,User>(
             Long.class, User.class
     );
+
+    public static User findByEmail(String email) {
+        return User.find.where().eq("email", email).findUnique();
+    }
 }
