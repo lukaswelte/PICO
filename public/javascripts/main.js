@@ -11,6 +11,7 @@ var routes = (
             <Route name="entry" handler={EmptyView}>
                 <Route name="createEntry" path="create" handler={CreateEntry} />
                 <Route name="showEntry" path=":id" handler={ShowEntry}/>
+                <Route name="searchField" path="search" handler={SearchField}/>
             </Route>
 
             <Route name="notfound" handler={NotFound} />
