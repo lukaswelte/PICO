@@ -150,3 +150,7 @@ span.label-name {
     background-color: #2a415e;
     color: white;
 }
+
+.width-50p {
+    width: 50%;
+}
