@@ -13,9 +13,9 @@ var SearchEntry = React.createClass({
     handleInputChange: function(event) {
         var input = event.target.value;
 
-        //compute the suggestions
+        //compute the suggestions based on the title and the context of an entry
         var matchingEntries = this.state.entries.filter(function(entry) {
-            return entry.title == input
+            return !entry.title.search(input)|| !entry.context.search(input);
         });
 
         this.setState({
