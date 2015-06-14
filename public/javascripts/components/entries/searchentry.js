@@ -3,33 +3,38 @@ var SearchEntry = React.createClass({
 
     getStateFromFlux: function() {
         var flux = this.getFlux();
-        return flux.stores.EntryStore.getAllEntries();
+        var fetchedEntries = flux.stores.EntryStore.getAllEntries().entries;
+        return {
+            entries: fetchedEntries,
+            suggestedEntries: fetchedEntries
+        };
     },
 
-    handleKeyDown: function(e) {
-        switch(e.keyCode) {
-            case Keys.ENTER:
-                e.preventDefault();
-                this.handleSearch();
-                break;
-        }
-    },
+    handleInputChange: function(event) {
+        var input = event.target.value;
 
-    handleSearch: function() {
-        {/* change the entry list to those entries which contain the search term */}
+        //compute the suggestions
+        var matchingEntries = this.state.entries.filter(function(entry) {
+            return entry.title == input
+        });
+
+        this.setState({
+            currentInput: input,
+            suggestedEntries: matchingEntries
+        });
     },
 
     render: function () {
-        var entryList = this.state.entries.map(function(entry){
+        var searchResult = this.state.suggestedEntries.map(function(entry){
             return <EntryItem key={entry.id} entry={entry} />
         });
         return (
             <div>
                 <div>
-                    <input onKeyDown={this.handleKeyDown} placeholder="Search for an entry"/>
+                    <input value={this.state.currentInput} onChange={this.handleInputChange} placeholder="Search for an entry"/>
                 </div>
                 <div>
-                    {entryList}
+                    {searchResult}
                 </div>
             </div>
         );
