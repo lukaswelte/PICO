@@ -6,7 +6,7 @@ var SearchEntry = React.createClass({
         var fetchedEntries = flux.stores.EntryStore.getAllEntries().entries;
         return {
             entries: fetchedEntries,
-            suggestedEntries: fetchedEntries
+            suggestedEntries: fetchedEntries,
         };
     },
 
@@ -28,13 +28,24 @@ var SearchEntry = React.createClass({
         var searchResult = this.state.suggestedEntries.map(function(entry){
             return <EntryItem key={entry.id} entry={entry} />
         });
+
+        var labels = this.state.suggestedEntries.labels;
+
         return (
             <div>
-                <div>
-                    <input value={this.state.currentInput} onChange={this.handleInputChange} placeholder="Search for an entry"/>
-                </div>
-                <div>
-                    {searchResult}
+                <div className = "row">
+                    <div className = "col-md-3">
+                        <LabelAutocomplete availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.suggestedEntries.labels)} />
+                        <LabelList />
+                    </div>
+                    <div className = "col-md-9">
+                        <div>
+                            <input value={this.state.currentInput} onChange={this.handleInputChange} placeholder="Search for a term that matches in the title or context of your entries"/>
+                        </div>
+                        <div>
+                            {searchResult}
+                        </div>
+                    </div>
                 </div>
             </div>
         );
