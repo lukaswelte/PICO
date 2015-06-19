@@ -1,13 +1,8 @@
 var EntryDetail = React.createClass ({
-    mixins: [FluxMixin, StoreWatchMixin ("EntryStore")],
+    mixins: [FluxMixin],
 
     propTypes: {
         entry: React.PropTypes.object.isRequired
-    },
-
-    getStateFromFlux: function() {
-        var flux = this.getFlux();
-        return flux.stores.EntryStore.getAllEntries();
     },
 
     render: function () {
@@ -55,22 +50,9 @@ var EntryDetail = React.createClass ({
                     <div className="col-md-1"></div>
                 </div>
                 <footer className="footer">
-                    <div className="container-fluid padding-down-1em">
-                        <span className="" type="button" data-toggle="collapse" data-target="#collapseBeispiel" aria-expanded="false" aria-controls="collapseBeispiel">
+                    <div className="container-fluid padding-top-1em">
                         <span className="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                         <span className="text-muted"> Recommendation</span>
-
-                        </span>
-
-                        <div className="collapse" id="collapseBeispiel">
-                            <div className="well">
-                                {this.state.entries.map(function(entry){
-                                    return <EntryItem key={entry.id} entry={entry} />
-                                })}
-
-                            </div>
-
-                        </div>
                     </div>
                 </footer>
             </div>
