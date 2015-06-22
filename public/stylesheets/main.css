@@ -137,6 +137,21 @@ textarea {
     margin-left: -5.5em;
 }
 
+.share-icon {
+    margin-left: auto;
+    display: block;
+}
+
+#share-list {
+    display: none;
+}
+
+#share-list.box {
+    /*
+        ToDo
+    */
+}
+
 button.button-icon:focus {
     outline: none;
 }
