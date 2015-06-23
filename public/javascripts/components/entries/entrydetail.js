@@ -45,7 +45,7 @@ var EntryDetail = React.createClass ({
                     </div>
                     <div className="col-md-7"></div>
                     <div className="col-md-1">
-                        <a href="#" className="btn btn-default">Share</a>
+                        <ShareEntry></ShareEntry>
                     </div>
                     <div className="col-md-1"></div>
                 </div>
