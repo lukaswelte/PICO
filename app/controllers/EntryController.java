@@ -177,9 +177,8 @@ public class EntryController extends BaseController {
      * {
      *  "url": "http://test.de",
      *  "title": "test"
-     *
      *  }
-     * @param entryID The id of the entry that should be fetched
+     * @param entryID The id of the entry that should be updated
      * @return API Response with the updated entry
      */
     @AuthenticationHelper.UserAuthenticated
@@ -203,7 +202,7 @@ public class EntryController extends BaseController {
 
         Entry updatedEntry = Entry.update(entryId, url, title, user);
 
-        return findAPIResponse(updatedEntry);
+        return findAPIResponse(Json.toJson(updatedEntry));
     }
 
 }

@@ -46,7 +46,7 @@ var EntryDetail = React.createClass ({
                         <a href="#" className="btn btn-default">Delete</a>
                     </div>
                     <div className="col-md-1">
-                        <a href="#" className="btn btn-default">Edit</a>
+                        <Link to="editEntry">Edit</Link>
                     </div>
                     <div className="col-md-7"></div>
                     <div className="col-md-1">

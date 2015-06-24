@@ -92,7 +92,6 @@ var EntryStore = Fluxxor.createStore({
         });
     },
 
-
     getEntryToCreate: function() {
         return this.entryToCreate.toJS();
     }

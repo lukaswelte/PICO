@@ -63,6 +63,7 @@ public class Entry extends Model {
         Entry updatedEntry = findById(id, user);
         updatedEntry.url = url;
         updatedEntry.title = title;
+        updatedEntry.user = user;
         updatedEntry.save();
         return updatedEntry;
     }

@@ -100,5 +100,52 @@ var entryActions = {
                 this.dispatch(entryStoreActions.ERROR_CREATE, {global: "An error occurred please check your input and try again."});
             }.bind(this)
         });
+    },
+
+    updateEntry: function(title, url, context, labels) {
+        //inform that save is in progress
+        this.dispatch(entryStoreActions.UPDATE_CREATE, {saving: true});
+
+        var labelNameArray = labels.map(function (label){
+            return label.name
+        });
+
+        //construct the entry that the API needs as input
+        var entry = {
+            url: url,
+            title: title,
+            context: context,
+            labels: labelNameArray
+        };
+
+        //do the ajax request to the API
+        API.entry.edit(entry, {
+            success: function(response){
+                if(response != null && response.status == 200){
+                    var returnedEntry = response.data;
+
+                    //tell that the entry should be saved
+                    this.dispatch(entryStoreActions.SUCCESS_CREATE, {entry: returnedEntry});
+
+                    returnedEntry.labels.forEach(function (label) {
+                        this.dispatch(labelStoreActions.UPDATE, label);
+                    }.bind(this));
+
+                    //transition to the created entry
+                    this.flux.actions.router.transition("showEntry", {id: returnedEntry.id});
+
+                }
+            }.bind(this),
+            error: function(response){
+                //for debugging print response to the console
+                console.log("error on create: "+JSON.stringify(response));
+
+                //inform that we are no longer saving
+                this.dispatch(entryStoreActions.UPDATE_CREATE, {saving: false});
+
+                //inform about the error
+                this.dispatch(entryStoreActions.ERROR_CREATE, {global: "An error occurred please check your input and try again."});
+            }.bind(this)
+        });
     }
 };
