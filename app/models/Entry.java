@@ -32,7 +32,7 @@ public class Entry extends Model {
 
     public String context;
 
-    //public String sharedUrl;
+    public String sharedUrl;
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")
@@ -58,7 +58,7 @@ public class Entry extends Model {
         entry.url = url;
         entry.title = title;
         entry.user = user;
-        //entry.sharedUrl = UUID.randomUUID().toString();
+        entry.sharedUrl = UUID.randomUUID().toString();
         entry.save();
         return entry;
     }
