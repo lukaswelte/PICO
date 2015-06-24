@@ -1,8 +1,11 @@
 var entryStoreActions = {
     UPDATE_ALL: "updateAllEntries",
     SUCCESS_CREATE: "createdEntry",
+    SUCCESS_EDIT: "edITEntry",
     UPDATE_CREATE: "updateEntryToCreate",
+    UPDATE_EDIT: "updateEntryToEdit",
     ERROR_CREATE: "errorOnCreation",
+    ERROR_EDIT: "errorOnEdit",
     RESET_CREATE: "resetCreation"
 };
 
@@ -15,6 +18,7 @@ var EntryStore = Fluxxor.createStore({
             return Immutable.Map({title: "", url: "", context: "", labels: new Immutable.Set(), valid:false, saving: false, errors: new Immutable.Map()});
         };
         this.entryToCreate = this.emptyEntry(); //the entry that is currently created
+        this.entryToUpdate = {id:null, entry: null};
 
         // We could also use this in place of the `actions` hash, above:
         this.bindActions(
@@ -72,6 +76,14 @@ var EntryStore = Fluxxor.createStore({
     handleResetCreation: function() {
         this.entryToCreate = this.emptyEntry();
         this.emit("change");
+    },
+
+    getEntryToUpdate: function(id) {
+        if(id == this.entryToUpdate.id){
+            return this.entryToUpdate.entry;
+        }
+        var entryToUpdate = {id: id, entry: this.getEntryById(id)};
+        return entryToUpdate;
     },
 
     getAllEntries: function() {
