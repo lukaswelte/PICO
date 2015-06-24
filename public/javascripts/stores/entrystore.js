@@ -67,7 +67,7 @@ var EntryStore = Fluxxor.createStore({
     },
 
     handleSuccessfulEdit: function(){
-        
+
         this.emit("change");
     },
 
