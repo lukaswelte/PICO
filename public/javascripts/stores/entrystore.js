@@ -1,7 +1,7 @@
 var entryStoreActions = {
     UPDATE_ALL: "updateAllEntries",
     SUCCESS_CREATE: "createdEntry",
-    SUCCESS_EDIT: "edITEntry",
+    SUCCESS_EDIT: "editEntry",
     UPDATE_CREATE: "updateEntryToCreate",
     UPDATE_EDIT: "updateEntryToEdit",
     ERROR_CREATE: "errorOnCreation",
@@ -24,8 +24,11 @@ var EntryStore = Fluxxor.createStore({
         this.bindActions(
             entryStoreActions.UPDATE_ALL, this.handleUpdateAll,
             entryStoreActions.SUCCESS_CREATE, this.handleSuccessfulCreation,
+            entryStoreActions.SUCCESS_EDIT, this.handleSuccessfulEdit,
             entryStoreActions.UPDATE_CREATE, this.handleUpdateOfEntryToCreate,
+            entryStoreActions.UPDATE_EDIT, this.handleUpdateOfEntryToEdit,
             entryStoreActions.ERROR_CREATE, this.handleCreationError,
+            entryStoreActions.ERROR_EDIT, this.handleEditError,
             entryStoreActions.RESET_CREATE, this.handleResetCreation,
             userStoreActions.USER_AUTHENTICATED, this.handleLoadData,
             userStoreActions.USER_LOGGED_OUT, this.handleDestroyData
@@ -63,13 +66,26 @@ var EntryStore = Fluxxor.createStore({
         this.emit("change");
     },
 
+    handleSuccessfulEdit: function(){
+        
+        this.emit("change");
+    },
+
     handleUpdateOfEntryToCreate: function(updatedEntry) {
         this.entryToCreate = this.entryToCreate.merge(updatedEntry);
         this.emit("change");
     },
 
+    handleUpdateOfEntryToEdit: function(){
+        this.emit("change");
+    },
+
     handleCreationError: function(errors) {
         this.entryToCreate = this.entryToCreate.set('errors', errors);
+        this.emit("change");
+    },
+
+    handleEditError: function(){
         this.emit("change");
     },
 

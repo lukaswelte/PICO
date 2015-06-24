@@ -104,7 +104,7 @@ var entryActions = {
 
     updateEntry: function(title, url, context, labels) {
         //inform that save is in progress
-        this.dispatch(entryStoreActions.UPDATE_CREATE, {saving: true});
+        this.dispatch(entryStoreActions.UPDATE_EDIT, {saving: true});
 
         var labelNameArray = labels.map(function (label){
             return label.name
@@ -125,7 +125,7 @@ var entryActions = {
                     var returnedEntry = response.data;
 
                     //tell that the entry should be saved
-                    this.dispatch(entryStoreActions.SUCCESS_CREATE, {entry: returnedEntry});
+                    this.dispatch(entryStoreActions.SUCCESS_EDIT, {entry: returnedEntry});
 
                     returnedEntry.labels.forEach(function (label) {
                         this.dispatch(labelStoreActions.UPDATE, label);
@@ -138,13 +138,13 @@ var entryActions = {
             }.bind(this),
             error: function(response){
                 //for debugging print response to the console
-                console.log("error on create: "+JSON.stringify(response));
+                console.log("error on edit: "+JSON.stringify(response));
 
                 //inform that we are no longer saving
-                this.dispatch(entryStoreActions.UPDATE_CREATE, {saving: false});
+                this.dispatch(entryStoreActions.UPDATE_EDIT, {saving: false});
 
                 //inform about the error
-                this.dispatch(entryStoreActions.ERROR_CREATE, {global: "An error occurred please check your input and try again."});
+                this.dispatch(entryStoreActions.ERROR_EDIT, {global: "An error occurred please check your input and try again."});
             }.bind(this)
         });
     }
