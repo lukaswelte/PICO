@@ -5,6 +5,14 @@ var EntryDetail = React.createClass ({
         entry: React.PropTypes.object.isRequired
     },
 
+    handleShowPopover: function () {
+        if (document.getElementById('share-list').style.display == 'block') {
+            document.getElementById('share-list').style.display = 'none';
+        } else {
+            document.getElementById('share-list').style.display = 'block';
+        }
+    },
+
     render: function () {
     	var previewImage;
     	if (this.props.entry.previewImage) {
@@ -45,7 +53,17 @@ var EntryDetail = React.createClass ({
                     </div>
                     <div className="col-md-7"></div>
                     <div className="col-md-1">
-                        <ShareEntry></ShareEntry>
+                        <div>
+                            <div className="col-md-1">
+                                <button type="button" onClick={this.handleShowPopover} className="btn btn-default" dataToggle="popover">Share</button>
+                            </div>
+                            <div id="share-list" className="box">
+                                <div><p className="box">{this.props.entry.url}</p></div>
+                                <div><a href="https://twitter.com/intent/tweet?" target="_blank">Twitter</a></div>
+                                <div><a href="https://www.facebook.com/sharer/sharer.php?" target="_blank">Facebook</a></div>
+                                <div><a href="https://plus.google.com/share?" target="_blank">Google+</a></div>
+                            </div>
+                        </div>
                     </div>
                     <div className="col-md-1"></div>
                 </div>
@@ -58,6 +76,4 @@ var EntryDetail = React.createClass ({
             </div>
         );
     }
-
-
 });

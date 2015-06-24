@@ -147,10 +147,10 @@ textarea {
 }
 
 #share-list.box {
-    width: 8em;
+    width: 12em;
     position: absolute;
     z-index: 1;
-    margin-top: 0.5em;
+    margin-top: -8.5em;
     background-color: #f5f5f5;
     margin-left: -5.5em;
 }
