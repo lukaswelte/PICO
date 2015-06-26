@@ -78,4 +78,8 @@ public class Entry extends Model {
     public static Entry findEntryByIdInternalOnly(Long id) {
         return Entry.find.byId(id);
     }
+
+    public static List<Entry> getAllRecommendedEntries(List<String> labels) {
+        return Entry.find.where().eq("labels",labels).findList();
+    } //ebean url contrains oder so
 }

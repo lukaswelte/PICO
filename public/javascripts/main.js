@@ -28,12 +28,14 @@ var actions = {
     entry: entryActions,
     user: userActions,
     router: routerActions
+    //recommendation:recommendationAction
 };
 
 var stores = {
     UserStore: new UserStore(),
     LabelStore: new LabelStore(),
     EntryStore: new EntryStore(),
+    //RecommendationStore: new RecommendationStore(),
     RouterStore: new RouteStore({router:router})
 };
 

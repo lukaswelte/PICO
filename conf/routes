@@ -21,6 +21,9 @@ GET         /api/entry/previewimage/:url           controllers.PreviewImageContr
 POST        /api/entry/generatepreviewimage        controllers.PreviewImageController.generatePreviewOfURL
 POST        /api/entry                             controllers.EntryController.createEntry()
 
+#
+GET         /api/recommendation                    controllers.RecommendationController.getRecommendation()
+
 # User
 POST        /api/user                              controllers.UserController.registerUser()
 PUT         /api/user                              controllers.UserController.loginUser()

@@ -3,4 +3,5 @@ var API = {
     entry: apiEntryActions,
     label: apiLabelActions,
     common: apiCommonActions
+    //recommendation: apiRecommendActions
 };
