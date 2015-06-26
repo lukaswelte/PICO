@@ -2,7 +2,7 @@ var RecommendationItem = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin ("RecommendationStore")], //store ändern
 
     propTypes:{
-        recommendations: React.PropTypes.object.isRequired,
+        recommendations: React.PropTypes.object.isRequired
     },
 
 

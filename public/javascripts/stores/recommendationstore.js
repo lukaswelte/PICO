@@ -1,5 +1,6 @@
 var RecommendationStoreAction = {
-    UPDATE:"updateRecommendations"
+    UPDATE:"updateRecommendations",
+    RESET:"reseteRecommendation"
 };
 
 var RecommendationStore = Fluxxor.createStore({
@@ -10,10 +11,10 @@ var RecommendationStore = Fluxxor.createStore({
         //We could also use this in place of the `action`hash, above:
         this.bindActions(
             RecommendationStoreAction.UPDATE, this.handleUpdate,
-            RecommendationStoreAction.USER_LOGGED_OUT, this.handleDestroyData,
+            userStoreActions.USER_LOGGED_OUT, this.handleDestroyData,
             RecommendationStoreAction.RESET, this.handleReset
         );
-    } ,
+    },
     handleDestroyData: function() {
         this.recommendations = new Immutable.Map();
         this.emit("change");

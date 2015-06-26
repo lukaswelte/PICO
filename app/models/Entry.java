@@ -80,6 +80,7 @@ public class Entry extends Model {
     }
 
     public static List<Entry> getAllRecommendedEntries(List<String> labels) {
-        return Entry.find.where().eq("labels",labels).findList();
-    } //ebean url contrains oder so
+        return Entry.find.where().eq("name",labels).findList();
+        //return Entry.find(Entry.class).join(labels).where().eq("name",labels).findList();
+    }
 }

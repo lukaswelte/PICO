@@ -10,16 +10,16 @@ var recommendationAction = {
         };
 
         // do the ajax request to the API
-        API.recommendation.fetchAll(recommendation, {
+        API.recommendation.fetchAll({
             success: function (response) {
                 if (response != null && response.status == 200) {
 
-                    var returnedRecommendation = response.data;
+                    //var returnedRecommendation = response.data;
 
-                    returnedRecommendation.recommendations.forEach(function (recommendation)
-                    {
-                        this.dispatch(recommendationAction.UPDATE, recommendation)
-                    }.bind(this));
+                    //returnedRecommendation.recommendations.forEach(function (recommendation)
+                    //{
+                        this.dispatch(RecommendationStoreAction.UPDATE, recommendation);
+                    //}.bind(this));
 
                 }
             }.bind(this)

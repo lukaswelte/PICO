@@ -27,15 +27,15 @@ var actions = {
     label : labelActions,
     entry: entryActions,
     user: userActions,
+    recommendation:recommendationAction,
     router: routerActions
-    //recommendation:recommendationAction
 };
 
 var stores = {
     UserStore: new UserStore(),
     LabelStore: new LabelStore(),
     EntryStore: new EntryStore(),
-    //RecommendationStore: new RecommendationStore(),
+    RecommendationStore: new RecommendationStore(),
     RouterStore: new RouteStore({router:router})
 };
 

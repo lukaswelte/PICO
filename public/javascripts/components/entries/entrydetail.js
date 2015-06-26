@@ -62,9 +62,8 @@ var EntryDetail = React.createClass ({
                         </span>
                         <div className="collapse" id="collapseBeispiel">
                             <div className="well">
-                                {this.state.entries.map(function(entry){
-                                    return <EntryItem key={entry.id} entry={entry} />
-                                })}
+                                test
+                                    <RecommendationList entry={this.props.entry} />
                             </div>
                         </div>
                     </div>
