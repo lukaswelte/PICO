@@ -4,21 +4,27 @@ var SearchEntry = React.createClass({
     getStateFromFlux: function() {
         var flux = this.getFlux();
         var fetchedEntries = flux.stores.EntryStore.getAllEntries().entries;
-        var arrayOfArrays = fetchedEntries.toArray().map(function(entry) {
-            return entry.labels.map(function(label) {
-                return label;
-            });
-        });
-        var fetchedEntriesLabels = [];
-        for (i = 0; i < arrayOfArrays.length; i++) {
-            fetchedEntriesLabels = fetchedEntriesLabels.concat(arrayOfArrays[i]);
-        }
+        var entriesArray = fetchedEntries.toArray();
+        var fetchedEntriesLabels = this.getLabelsFromEntries(entriesArray);
         return {
             entries: fetchedEntries,
             suggestedEntries: fetchedEntries,
             availableLabels: fetchedEntriesLabels,
             selectedLabels: []
         };
+    },
+
+    getLabelsFromEntries: function(entries) {
+        var arrayOfArrays = entries.map(function(entry) {
+            return entry.labels;
+        });
+
+        var fetchedEntriesLabels = [];
+        for (i = 0; i < arrayOfArrays.length; i++) {
+            fetchedEntriesLabels = fetchedEntriesLabels.concat(arrayOfArrays[i]);
+        }
+
+        return fetchedEntriesLabels;
     },
 
     handleOnLabelsChanged: function(newLabels) {
@@ -35,11 +41,7 @@ var SearchEntry = React.createClass({
             });
         });
 
-        var matchingEntriesLabels = matchingEntries.map(function(entry) {
-            return entry.labels.map(function(label) {
-                return label.name;
-            });
-        });
+        var matchingEntriesLabels = this.getLabelsFromEntries(matchingEntries.toArray());
 
         this.setState({
             suggestedEntries: matchingEntries,
@@ -55,14 +57,17 @@ var SearchEntry = React.createClass({
         //compute the suggestions based on the title and the context of an entry
         var matchingEntries = this.state.entries.filter(function(entry) {
             var matchingLabels = entry.labels.filter(function(label){return !label.name.search(input);});
-            return !entry.title.search(input)|| !entry.context.search(input) || matchingLabels.length > 0;
+
+            var contextMatches = false;
+            if (entry.context != null) {
+                contextMatches = !entry.context.search(input);
+            }
+
+            var searchMatchInTitle = !entry.title.search(input);
+            return searchMatchInTitle || contextMatches || matchingLabels.length > 0;
         });
 
-        var matchingEntriesLabels = matchingEntries.map(function(entry) {
-            return entry.labels.map(function(label) {
-                return label.name;
-            });
-        });
+        var matchingEntriesLabels = this.getLabelsFromEntries(matchingEntries.toArray());
 
         this.setState({
             currentInput: input,
@@ -100,4 +105,3 @@ var SearchEntry = React.createClass({
     }
 
 });
-
