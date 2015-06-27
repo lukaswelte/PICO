@@ -47,7 +47,7 @@ var EntryDetail = React.createClass ({
                         <a href="#" className="btn btn-default">Delete</a>
                     </div>
                     <div className="col-md-1">
-                        <Link to="editEntry" params={{id: entry.id}}>Edit</Link>
+                        <Link to="editEntry" params={{id: entry.id}} className="btn btn-default">Edit</Link>
                     </div>
                     <div className="col-md-7"></div>
                     <div className="col-md-1">
