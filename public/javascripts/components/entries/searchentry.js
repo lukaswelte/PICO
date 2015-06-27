@@ -4,11 +4,15 @@ var SearchEntry = React.createClass({
     getStateFromFlux: function() {
         var flux = this.getFlux();
         var fetchedEntries = flux.stores.EntryStore.getAllEntries().entries;
-        var fetchedEntriesLabels = fetchedEntries.map(function(entry) {
+        var arrayOfArrays = fetchedEntries.toArray().map(function(entry) {
             return entry.labels.map(function(label) {
                 return label;
             });
         });
+        var fetchedEntriesLabels = [];
+        for (i = 0; i < arrayOfArrays.length; i++) {
+            fetchedEntriesLabels = fetchedEntriesLabels.concat(arrayOfArrays[i]);
+        }
         return {
             entries: fetchedEntries,
             suggestedEntries: fetchedEntries,
