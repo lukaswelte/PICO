@@ -75,12 +75,16 @@ var SearchEntry = React.createClass({
         var searchResult = this.state.suggestedEntries.map(function(entry){
             return <EntryItem key={entry.id} entry={entry} />
         });
+        var availableLabelsList = this.state.availableLabels.map(function(label){
+            return <LabelItem key={label.name} label={label}/>
+        });
 
         return (
             <div>
                 <div className = "row">
                     <div className = "col-md-3">
                         <LabelAutocomplete availableLabels={Immutable.Set(this.state.availableLabels)} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.selectedLabels)} />
+                        {availableLabelsList}
                     </div>
                     <div className = "col-md-9">
                         <div>
