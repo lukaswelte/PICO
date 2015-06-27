@@ -4,14 +4,44 @@ var SearchEntry = React.createClass({
     getStateFromFlux: function() {
         var flux = this.getFlux();
         var fetchedEntries = flux.stores.EntryStore.getAllEntries().entries;
+        var fetchedEntriesLabels = fetchedEntries.map(function(entry) {
+            return entry.labels.map(function(label) {
+                return label;
+            });
+        });
         return {
             entries: fetchedEntries,
-            suggestedEntries: fetchedEntries
+            suggestedEntries: fetchedEntries,
+            availableLabels: fetchedEntriesLabels,
+            selectedLabels: []
         };
     },
 
     handleOnLabelsChanged: function(newLabels) {
         var selectedLabels = newLabels;
+
+        var matchingEntries = this.state.suggestedEntries.filter(function(entry){
+
+            //are all selectedLabels part of the entry
+            return selectedLabels.map(function(selectedLabel) {
+                //label is in entry.labels
+                entry.labels.filter(function(label) {
+                    return selectedLabel.name == label.name;
+                })
+            });
+        });
+
+        var matchingEntriesLabels = matchingEntries.map(function(entry) {
+            return entry.labels.map(function(label) {
+                return label.name;
+            });
+        });
+
+        this.setState({
+            suggestedEntries: matchingEntries,
+            availableLabels: matchingEntriesLabels,
+            selectedLabels: selectedLabels
+        });
 
     },
 
@@ -24,9 +54,16 @@ var SearchEntry = React.createClass({
             return !entry.title.search(input)|| !entry.context.search(input) || matchingLabels.length > 0;
         });
 
+        var matchingEntriesLabels = matchingEntries.map(function(entry) {
+            return entry.labels.map(function(label) {
+                return label.name;
+            });
+        });
+
         this.setState({
             currentInput: input,
-            suggestedEntries: matchingEntries
+            suggestedEntries: matchingEntries,
+            availableLabels: matchingEntriesLabels
         });
     },
 
@@ -35,17 +72,11 @@ var SearchEntry = React.createClass({
             return <EntryItem key={entry.id} entry={entry} />
         });
 
-        var labels = this.state.suggestedEntries.labels;
-        {/*var labels = this.state.suggestedEntries.labels.toSet().merge(entry.labels);*/}
-
         return (
             <div>
                 <div className = "row">
                     <div className = "col-md-3">
-                        {/* Ich denke das funktioniert nicht, weil ich von mehreren entries labels möchte, das heißt ich müsste da erstmal mapen*/}
-                        <LabelAutocomplete availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.suggestedEntries.labels)} />
-                        {/*<LabelAutocomplete availableLabels={labels} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(entry.labels)} />*/}
-                        <LabelList />
+                        <LabelAutocomplete availableLabels={Immutable.Set(this.state.availableLabels)} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.selectedLabels)} />
                     </div>
                     <div className = "col-md-9">
                         <div>
