@@ -1,0 +1,10 @@
+@(entry: models.Entry)
+
+<html>
+    <body>
+        @entry.title
+        @for(label <- entry.labels) {
+            @label.name
+        }
+    </body>
+</html>
