@@ -36,6 +36,14 @@ public class Label extends Model {
         return label;
     }
 
+    public static Label update(Long id, String name, User user){
+        Label updatedLabel = findById(id, user);
+        updatedLabel.name = name;
+        updatedLabel.user= user;
+        updatedLabel.save();
+        return updatedLabel;
+    }
+
     private static Finder<Long,Label> find = new Finder<Long,Label>(
             Long.class, Label.class
     );

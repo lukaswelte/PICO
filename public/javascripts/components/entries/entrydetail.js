@@ -11,6 +11,7 @@ var EntryDetail = React.createClass ({
     },
 
     render: function () {
+        var entry = this.props.entry;
     	var previewImage;
     	if (this.props.entry.previewImage) {
     	 	previewImage = <img src={"data:image/png;base64,".concat(this.props.entry.previewImage)} />;
@@ -46,7 +47,7 @@ var EntryDetail = React.createClass ({
                         <a href="#" className="btn btn-default">Delete</a>
                     </div>
                     <div className="col-md-1">
-                        <a href="#" className="btn btn-default">Edit</a>
+                        <Link to="editEntry" params={{id: entry.id}} className="btn btn-default">Edit</Link>
                     </div>
                     <div className="col-md-7"></div>
                     <div className="col-md-1">

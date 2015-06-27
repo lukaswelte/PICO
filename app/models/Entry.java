@@ -55,8 +55,17 @@ public class Entry extends Model {
         entry.url = url;
         entry.title = title;
         entry.user = user;
-        entry.save();
+        //entry.save();
         return entry;
+    }
+
+    public static Entry update(Long id, String url, String title, User user){
+        Entry updatedEntry = findById(id, user);
+        updatedEntry.url = url;
+        updatedEntry.title = title;
+        updatedEntry.user = user;
+        updatedEntry.save();
+        return updatedEntry;
     }
 
     private static Finder<Long,Entry> find = new Finder<>(
