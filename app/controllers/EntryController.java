@@ -7,6 +7,7 @@ import models.User;
 import play.libs.Json;
 import play.mvc.Result;
 import utils.AuthenticationHelper;
+import views.html.sharedEntry;
 
 import javax.persistence.OptimisticLockException;
 import java.io.IOException;
@@ -170,4 +171,12 @@ public class EntryController extends BaseController {
         return findAPIResponse(allEntries);
     }
 
+
+    /*public static Result sharedEntry(String shareUrl) {
+        Entry entry; //load from database
+        if (entry == null) {
+            return notFound("Gibbet nicht");
+        }
+        return ok(sharedEntry.render(entry));
+    }*/
 }
