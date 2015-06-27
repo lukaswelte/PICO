@@ -14,12 +14,14 @@ var LabelAutocomplete = React.createClass({
     propTypes: {
         availableLabels: React.PropTypes.instanceOf(Immutable.Set).isRequired,
         selectedLabels: React.PropTypes.instanceOf(Immutable.Set).isRequired,
-        onLabelsChanged: React.PropTypes.func
+        onLabelsChanged: React.PropTypes.func,
+        disableCreationOfLabels: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
         return {
-            onLabelsChanged: function(){}
+            onLabelsChanged: function(){},
+            disableCreationOfLabels: false
         };
     },
 
@@ -34,7 +36,10 @@ var LabelAutocomplete = React.createClass({
         switch(e.keyCode) {
             case Keys.ENTER:
                 e.preventDefault();
-                this.handleAddLabel(this.state.currentInput);
+                if (!this.props.disableCreationOfLabels) {
+                  //Do only allow the creation of a label if enabled
+                  this.handleAddLabel(this.state.currentInput);
+                }
                 break;
         }
     },
@@ -53,7 +58,11 @@ var LabelAutocomplete = React.createClass({
           //compute the suggestions
 
           var matchingLabels = this.props.availableLabels.filter(function(label) {
-              return label.name.toLowerCase().search(input.toLowerCase()) === 0;
+              var nameOfLabel = label.name;
+              if (!nameOfLabel) {
+                nameOfLabel = label.get("name");
+              }
+              return nameOfLabel.toLowerCase().search(input.toLowerCase()) === 0;
           });
 
           this.setState({
@@ -66,7 +75,11 @@ var LabelAutocomplete = React.createClass({
     handleAddLabel: function(labelName) {
         //check if a label with the same name is already selected
         var alreadyLabelWithNameSelected = this.props.selectedLabels.filter(function(label) {
-            return label.name.toLowerCase() === labelName.toLowerCase();
+            var nameOfLabel = label.name;
+            if (!nameOfLabel) {
+              nameOfLabel = label.get("name");
+            }
+            return nameOfLabel.toLowerCase() === labelName.toLowerCase();
         }).size > 0;
         if (!alreadyLabelWithNameSelected) {
 
@@ -76,7 +89,7 @@ var LabelAutocomplete = React.createClass({
             this.setState({
               currentInput: "",
               suggestedLabels: new Immutable.List()
-              });
+            });
             this.props.onLabelsChanged(selectedLabels);
         }
     },
@@ -90,18 +103,35 @@ var LabelAutocomplete = React.createClass({
 
     handleRemoveLabel: function(labelToRemove) {
         var selectedLabels = this.props.selectedLabels.filterNot(function (label) {
-            return labelToRemove.name === label.name;
+            var nameOfLabel = label.name;
+            if (!nameOfLabel) {
+              nameOfLabel = label.get("name");
+            }
+
+            var labelName = labelToRemove.name;
+            if (!labelName) {
+              labelName = labelToRemove.get("name");
+            }
+            return labelName == nameOfLabel;
         });
         this.props.onLabelsChanged(selectedLabels);
     },
 
     render: function() {
         var selectedLabelItems = this.props.selectedLabels.map(function(label) {
-           return <LabelItem key={label.name} label={label} onRemove={this.handleRemoveLabel.bind(this, label)} />
-        }.bind(this));
+            var jsonLabel = label;
+            if (label instanceof Immutable.Map) {
+              jsonLabel = label.toJS();
+            }
+           return <LabelItem key={"autocomplete"+jsonLabel.name} label={jsonLabel} onRemove={this.handleRemoveLabel.bind(this, label)} />
+        }.bind(this)).toSeq();
 
         var suggestedLabelNames = this.state.suggestedLabels.map(function(label){
-           return label.name;
+            var nameOfLabel = label.name;
+            if (!nameOfLabel) {
+              nameOfLabel = label.get("name");
+            }
+           return nameOfLabel;
         }).toArray();
 
         return(

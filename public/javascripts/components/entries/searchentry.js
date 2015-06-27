@@ -88,7 +88,7 @@ var SearchEntry = React.createClass({
             <div>
                 <div className = "row">
                     <div className = "col-md-3">
-                        <LabelAutocomplete availableLabels={Immutable.Set(this.state.availableLabels)} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.selectedLabels)} />
+                        <LabelAutocomplete availableLabels={Immutable.Set(this.state.availableLabels)} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.selectedLabels)}  disableCreationOfLabels={true} />
                         {availableLabelsList}
                     </div>
                     <div className = "col-md-9">
