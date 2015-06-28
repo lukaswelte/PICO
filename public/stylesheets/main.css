@@ -137,6 +137,24 @@ textarea {
     margin-left: -5.5em;
 }
 
+.share-icon {
+    margin-left: auto;
+    display: block;
+}
+
+#share-list {
+    display: none;
+}
+
+#share-list.box {
+    width: 12em;
+    position: absolute;
+    z-index: 1;
+    margin-top: -8.5em;
+    background-color: #f5f5f5;
+    margin-left: -5.5em;
+}
+
 button.button-icon:focus {
     outline: none;
 }

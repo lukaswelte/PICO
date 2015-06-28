@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -30,6 +31,8 @@ public class Entry extends Model {
     public String title;
 
     public String context;
+
+    public String publicUrl;
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")
