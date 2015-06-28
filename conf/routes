@@ -22,6 +22,9 @@ PUT         /api/entry/edit/:id                    controllers.EntryController.u
 POST        /api/entry/generatepreviewimage        controllers.PreviewImageController.generatePreviewOfURL
 POST        /api/entry                             controllers.EntryController.createEntry()
 
+#
+POST         /api/recommendation                    controllers.RecommendationController.getRecommendation()
+
 # User
 POST        /api/user                              controllers.UserController.registerUser()
 PUT         /api/user                              controllers.UserController.loginUser()

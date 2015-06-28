@@ -26,6 +26,7 @@ var actions = {
     label : labelActions,
     entry: entryActions,
     user: userActions,
+    recommendation:recommendationAction,
     router: routerActions
 };
 
@@ -33,6 +34,7 @@ var stores = {
     UserStore: new UserStore(),
     LabelStore: new LabelStore(),
     EntryStore: new EntryStore(),
+    RecommendationStore: new RecommendationStore(),
     RouterStore: new RouteStore({router:router})
 };
 
