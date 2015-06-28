@@ -15,6 +15,7 @@ var EntryDetail = React.createClass ({
     handleRecommendation:function(){
         var entry = this.props.entry;
         this.getFlux().actions.recommendation.updateRecommendation(entry);
+    },
 
     handleShowPopover: function() {
         if (document.getElementById('share-list').style.display == 'block') {
@@ -22,7 +23,6 @@ var EntryDetail = React.createClass ({
         } else {
             document.getElementById('share-list').style.display = 'block';
         }
-
     },
 
     render: function () {
