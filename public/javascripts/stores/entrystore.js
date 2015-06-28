@@ -18,7 +18,7 @@ var EntryStore = Fluxxor.createStore({
             return Immutable.Map({title: "", url: "", context: "", labels: new Immutable.Set(), valid:false, saving: false, errors: new Immutable.Map()});
         };
         this.entryToCreate = this.emptyEntry(); //the entry that is currently created
-        this.entryToUpdate = {id: null, entry: null};
+        this.entryToUpdate = Immutable.Map({id: null, entry: null});
 
         // We could also use this in place of the `actions` hash, above:
         this.bindActions(
@@ -66,10 +66,10 @@ var EntryStore = Fluxxor.createStore({
         this.emit("change");
     },
 
-    handleSuccessfulEdit: function(id, payload){
+    handleSuccessfulEdit: function(payload){
         var updatedEntry = payload.entry;
-        this.entries = this.entries.update(updatedEntry.id, updatedEntry);
-        this.entryToUpdate = this.entryToUpdate.merge(updatedEntry, {saving: false, errors: null});
+        this.entries = this.entries.set(updatedEntry.id, updatedEntry);
+        //this.entryToUpdate = this.entryToUpdate.merge(updatedEntry, {saving: false, errors: null});
         this.emit("change");
     },
 
@@ -78,9 +78,9 @@ var EntryStore = Fluxxor.createStore({
         this.emit("change");
     },
 
-    handleUpdateOfEntryToEdit: function(id, updatedEntry){
-        this.entryToUpdate = this.getEntryToUpdate(id);
-        this.entryToUpdate = this.entryToUpdate.merge(updatedEntry);
+    handleUpdateOfEntryToEdit: function(updatedEntry){
+        console.log("handleUpdateOfEntryToEdit wird aufgerufen");
+        this.entryToUpdate = this.entryToUpdate.set("entry", updatedEntry);
         this.emit("change");
     },
 
@@ -89,9 +89,10 @@ var EntryStore = Fluxxor.createStore({
         this.emit("change");
     },
 
-    handleEditError: function(id, errors) {
-        this.entryToUpdate = this.getEntryToUpdate(id);
-        this.entryToUpdate = this.entryToUpdate.update('errors', errors);
+    handleEditError: function(errors) {
+        var entry = this.entryToUpdate.get("entry");
+        entry.errors = errors;
+        this.entryToUpdate = this.entryToUpdate.set('entry', entry);
         this.emit("change");
     },
 
@@ -101,11 +102,14 @@ var EntryStore = Fluxxor.createStore({
     },
 
     getEntryToUpdate: function(id) {
-        if(id == this.entryToUpdate.id){
-            return this.entryToUpdate.entry;
+        if(id == this.entryToUpdate.get("id") && this.entryToUpdate.get("entry")){
+            return this.entryToUpdate.get("entry");
         }
-        var entryToUpdate = {id: id, entry: this.getEntryById(id)};
-        return entryToUpdate;
+        var fetchedEntry = this.getEntryById(id);
+        var entryCopy = JSON.parse(JSON.stringify(fetchedEntry));
+        var entryToUpdate = Immutable.Map({id: id, entry: entryCopy});
+        this.entryToUpdate = entryToUpdate;
+        return entryToUpdate.get("entry");
     },
 
     getAllEntries: function() {

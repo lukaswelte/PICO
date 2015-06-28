@@ -16,8 +16,8 @@ var apiEntryActions = {
         });
     },
 
-    edit: function(entry, callbacks) {
-        API.common.httpRequest("/api/entry/edit", {
+    edit: function(id, entry, callbacks) {
+        API.common.httpRequest("/api/entry/edit/"+id, {
            type: "PUT",
            data: entry,
            success: callbacks.success,

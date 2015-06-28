@@ -10,7 +10,7 @@ var EditEntry = React.createClass({
         var flux = this.getFlux();
         var entryID = parseInt(params.id);
         return {
-            entry: flux.stores.EntryStore.getEntryById(entryID)
+            entry: flux.stores.EntryStore.getEntryToUpdate(entryID)
         };
     },
 

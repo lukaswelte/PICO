@@ -1,5 +1,7 @@
 package models;
 
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.SqlUpdate;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.avaje.ebean.annotation.UpdatedTimestamp;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -18,7 +20,7 @@ import java.util.UUID;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Entry extends Model {
+public class Entry extends Model{
 
     @Id
     @GeneratedValue
@@ -62,11 +64,11 @@ public class Entry extends Model {
     }
 
     public static Entry update(Long id, String url, String title, User user){
-        Entry updatedEntry = findById(id, user);
-        updatedEntry.url = url;
-        updatedEntry.title = title;
-        updatedEntry.user = user;
-        return updatedEntry;
+       Entry updatedEntry = findById(id, user);
+       updatedEntry.url = url;
+       updatedEntry.title = title;
+       updatedEntry.save();
+       return updatedEntry;
     }
 
     private static Finder<Long,Entry> find = new Finder<>(
@@ -79,6 +81,10 @@ public class Entry extends Model {
 
     public static Entry findByURL(String url, User user) {
         return Entry.find.where().eq("user", user).eq("url", url).findUnique();
+    }
+
+    public static Entry findByPublicURL(String publicUrl, User user) {
+        return Entry.find.where().eq("user", user).eq("publicUrl", publicUrl).findUnique();
     }
 
     public static List<Entry> getAll(User user) {
