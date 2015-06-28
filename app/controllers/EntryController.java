@@ -205,7 +205,10 @@ public class EntryController extends BaseController {
         return findAPIResponse(Json.toJson(updatedEntry));
     }
 
-    /*public static Result sharedEntry(String shareUrl) {
+    /*  @AuthenticationHelper.UserAuthenticated
+        public static Result sharedEntry(String shareUrl) {
+        User user = (User) ctx().args.get("user");
+
         Entry entry; //load from database
         if (entry == null) {
             return notFound("Gibbet nicht");

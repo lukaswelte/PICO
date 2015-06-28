@@ -78,6 +78,10 @@ public class Entry extends Model {
         return Entry.find.where().eq("user", user).eq("url", url).findUnique();
     }
 
+    public static Entry findByPublicURL(String publicUrl, User user) {
+        return Entry.find.where().eq("user", user).eq("publicUrl", publicUrl).findUnique();
+    }
+
     public static List<Entry> getAll(User user) {
         return Entry.find.where().eq("user", user).findList();
     }
