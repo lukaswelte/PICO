@@ -161,7 +161,7 @@ var entryActions = {
         };
 
         //do the ajax request to the API
-        API.entry.edit(entry, {
+        API.entry.edit(id, entry, {
             success: function(response){
                 if(response != null && response.status == 200){
                     var returnedEntry = response.data;

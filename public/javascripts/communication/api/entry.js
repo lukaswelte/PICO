@@ -16,10 +16,13 @@ var apiEntryActions = {
         });
     },
 
-    edit: function(entry, callbacks) {
-        API.common.httpRequest("/api/entry/edit", {
+    edit: function(id, entry, callbacks) {
+        API.common.httpRequestWithId(id, "/api/entry/edit", {
            type: "PUT",
-           data: entry,
+           data: {
+               entryId: id,
+               entry: entry
+           },
            success: callbacks.success,
            error: callbacks.error
         });
