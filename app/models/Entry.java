@@ -32,7 +32,7 @@ public class Entry extends Model {
 
     public String context;
 
-    public String publicUrl;
+    //public String sharedUrl;
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")
