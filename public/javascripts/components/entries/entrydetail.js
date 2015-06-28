@@ -59,9 +59,10 @@ var EntryDetail = React.createClass ({
                             </div>
                             <div id="share-list" className="box">
                                 <div><p className="box">{this.props.entry.shareUrl}</p></div>
-                                <div><a href="https://twitter.com/intent/tweet?" target="_blank"><img src="/static/images/twitter.png"/></a></div>
-                                <div><a href="https://www.facebook.com/sharer/sharer.php?" target="_blank"><img src="/static/images/facebook.png"/></a></div>
-                                <div><a href="https://plus.google.com/share?" target="_blank"><img src="/static/images/google+.png"/></a></div>
+                                <div><a href="mailto:?"><img src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" /></a></div>
+                                <div><a href="https://twitter.com/share?" target="_blank"><img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" /></a></div>
+                                <div><a href="http://www.facebook.com/sharer.php?" target="_blank"><img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook"/></a></div>
+                                <div><a href="https://plus.google.com/share?" target="_blank"><img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" /></a></div>
                             </div>
                         </div>
                     </div>
