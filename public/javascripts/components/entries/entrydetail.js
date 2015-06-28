@@ -10,6 +10,12 @@ var EntryDetail = React.createClass ({
         entry: React.PropTypes.object.isRequired
     },
 
+
+    handleRecommendation:function(){
+        var entry = this.props.entry;
+        this.getFlux().actions.recommendation.updateRecommendation(entry);
+    },
+
     render: function () {
     	var previewImage;
     	if (this.props.entry.previewImage) {
@@ -56,7 +62,7 @@ var EntryDetail = React.createClass ({
                 </div>
                 <footer className="footer">
                     <div className="container-fluid padding-down-1em">
-                        <span className="" type="button" data-toggle="collapse" data-target="#collapseBeispiel" aria-expanded="false" aria-controls="collapseBeispiel">
+                        <span className="" type="button" onClick={this.handleRecommendation} data-toggle="collapse" data-target="#collapseBeispiel" aria-expanded="false" aria-controls="collapseBeispiel">
                         <span className="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                         <span className="text-muted"> Recommendation</span>
                         </span>

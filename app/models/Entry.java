@@ -80,7 +80,7 @@ public class Entry extends Model {
     }
 
     public static List<Entry> getAllRecommendedEntries(List<String> labels) {
-        return Entry.find.where().eq("name",labels).findList();
+        return Entry.find.fetch("entry").fetch("entry.id").fetch("label").fetch("label.id").where().eq("label.name",labels).findList();
         //return Entry.find(Entry.class).join(labels).where().eq("name",labels).findList();
     }
 }

@@ -14,7 +14,7 @@ var recommendationAction = {
             success: function (response) {
                 if (response != null && response.status == 200) {
 
-                    //var returnedRecommendation = response.data;
+                   // var returnedRecommendation = response.data;
 
                     //returnedRecommendation.recommendations.forEach(function (recommendation)
                     //{
