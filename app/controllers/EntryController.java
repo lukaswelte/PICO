@@ -171,7 +171,6 @@ public class EntryController extends BaseController {
         return findAPIResponse(allEntries);
     }
 
-<<<<<<< HEAD
     /**
      * Updates an entry with following inputs
      * required input: Json containing the URL and the Title
@@ -207,8 +206,6 @@ public class EntryController extends BaseController {
         return findAPIResponse(Json.toJson(updatedEntry));
     }
 
-=======
-
     /*public static Result sharedEntry(String shareUrl) {
         Entry entry; //load from database
         if (entry == null) {
@@ -216,5 +213,4 @@ public class EntryController extends BaseController {
         }
         return ok(sharedEntry.render(entry));
     }*/
->>>>>>> feature/ShareButton
 }

@@ -13,7 +13,9 @@ var EntryForm = React.createClass({
     },
 
     updateAndValidateEntry: function(entry) {
-        //TODO: id existiert -> create , ansonsten edit
+        if (entry.getID != null){
+            this.getFlux().actions.entry.updateAndValidateEntryToUpdate(entry.getID, entry.title, entry.url, entry.context, entry.labels);
+        }
         this.getFlux().actions.entry.updateAndValidateEntryToCreate(entry.title, entry.url, entry.context, entry.labels);
     },
 
@@ -40,7 +42,9 @@ var EntryForm = React.createClass({
 
     handleSaveEntry: function() {
         var entry = this.props.entry;
-        //TODO: id existiert -> create , ansonsten edit
+        if (entry.getID != null){
+            this.getFlux().actions.entry.editEntry(entry.getID, entry.title, entry.url, entry.context, entry.labels);
+        }
         this.getFlux().actions.entry.createEntry(entry.title, entry.url, entry.context, entry.labels);
     },
 
