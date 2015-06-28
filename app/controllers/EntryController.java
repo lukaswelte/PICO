@@ -205,4 +205,12 @@ public class EntryController extends BaseController {
         return findAPIResponse(Json.toJson(updatedEntry));
     }
 
+    /*public static Result sharedEntry(String shareUrl) {
+        Entry entry; //load from database
+        if (entry == null) {
+            return notFound("Gibbet nicht");
+        }
+        return ok(sharedEntry.render(entry));
+    }*/
+
 }
