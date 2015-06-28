@@ -49,15 +49,13 @@ var entryActions = {
     },
 
     updateAndValidateEntryToUpdate: function(id, title, url, context, labels){
-        var updatedEntry = this.flux.stores.EntryStore.getEntryToUpdate(id);
-        updatedEntry.entry = {
-          url: url,
-          title: title,
-          context: context,
-          labels: labels
+         var entry = {
+              id: id,
+              url: url,
+              title: title,
+              context: context,
+              labels: labels
         };
-
-        var entry = updatedEntry.entry;
 
         //initialize the errors map
         var noErrors = Immutable.Map();
@@ -73,11 +71,6 @@ var entryActions = {
                 entry.url = "http://".concat(entry.url);
             }
 
-            // check if entry with this url already exists
-            var duplicateEntry = this.flux.stores.EntryStore.getEntryByUrl(entry.url);
-            if (duplicateEntry != null) {
-                errors = errors.set('duplicateEntry', duplicateEntry);
-            }
         } else {
             //URL is invalid
             errors = errors.set('url', "Invalid URL");
@@ -169,7 +162,7 @@ var entryActions = {
                     var returnedEntry = response.data;
 
                     //tell that the entry should be saved
-                    this.dispatch(entryStoreActions.SUCCESS_EDIT, id, {entry: returnedEntry});
+                    this.dispatch(entryStoreActions.SUCCESS_EDIT, {entry: returnedEntry});
 
                     returnedEntry.labels.forEach(function (label) {
                         this.dispatch(labelStoreActions.UPDATE, label);

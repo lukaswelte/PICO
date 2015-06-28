@@ -191,7 +191,7 @@ public class EntryController extends BaseController {
         }
 
         String url = json.findPath("url").textValue();
-        if (url == null || !isValidURL(url) || Entry.findByURL(url, user) != null) {
+        if (url == null || !isValidURL(url)) {
             return invalidAPIInput();
         }
 
@@ -200,9 +200,14 @@ public class EntryController extends BaseController {
             return invalidAPIInput();
         }
 
+        String context = json.findPath("context").textValue();
+        if (context == null) {
+            return invalidAPIInput();
+        }
+
         Entry updatedEntry = Entry.update(entryId, url, title, user);
 
-        return findAPIResponse(Json.toJson(updatedEntry));
+        return findAPIResponse(updatedEntry);
     }
 
     /*  @AuthenticationHelper.UserAuthenticated

@@ -17,12 +17,9 @@ var apiEntryActions = {
     },
 
     edit: function(id, entry, callbacks) {
-        API.common.httpRequestWithId(id, "/api/entry/edit", {
+        API.common.httpRequest("/api/entry/edit/"+id, {
            type: "PUT",
-           data: {
-               entryId: id,
-               entry: entry
-           },
+           data: entry,
            success: callbacks.success,
            error: callbacks.error
         });
