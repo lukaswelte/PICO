@@ -11,12 +11,22 @@ var EntryDetail = React.createClass ({
     },
 
 
+
     handleRecommendation:function(){
         var entry = this.props.entry;
         this.getFlux().actions.recommendation.updateRecommendation(entry);
+
+    handleShowPopover: function() {
+        if (document.getElementById('share-list').style.display == 'block') {
+            document.getElementById('share-list').style.display = 'none';
+        } else {
+            document.getElementById('share-list').style.display = 'block';
+        }
+
     },
 
     render: function () {
+        var entry = this.props.entry;
     	var previewImage;
     	if (this.props.entry.previewImage) {
     	 	previewImage = <img src={"data:image/png;base64,".concat(this.props.entry.previewImage)} />;
@@ -52,11 +62,22 @@ var EntryDetail = React.createClass ({
                         <a href="#" className="btn btn-default">Delete</a>
                     </div>
                     <div className="col-md-1">
-                        <a href="#" className="btn btn-default">Edit</a>
+                        <Link to="editEntry" params={{id: entry.id}} className="btn btn-default">Edit</Link>
                     </div>
                     <div className="col-md-7"></div>
                     <div className="col-md-1">
-                        <a href="#" className="btn btn-default">Share</a>
+                        <div>
+                            <div className="col-md-1">
+                                <button type="button" onClick={this.handleShowPopover} className="btn btn-default" dataToggle="popover">Share</button>
+                            </div>
+                            <div id="share-list" className="box">
+                                <div><p className="box">{this.props.entry.shareUrl}</p></div>
+                                <div><a href="mailto:?"><img src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" /></a></div>
+                                <div><a href="https://twitter.com/share?" target="_blank"><img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" /></a></div>
+                                <div><a href="http://www.facebook.com/sharer.php?" target="_blank"><img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook"/></a></div>
+                                <div><a href="https://plus.google.com/share?" target="_blank"><img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" /></a></div>
+                            </div>
+                        </div>
                     </div>
                     <div className="col-md-1"></div>
                 </div>
@@ -77,6 +98,4 @@ var EntryDetail = React.createClass ({
             </div>
         );
     }
-
-
 });

@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -30,6 +31,8 @@ public class Entry extends Model {
     public String title;
 
     public String context;
+
+    public String publicUrl;
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")
@@ -55,8 +58,15 @@ public class Entry extends Model {
         entry.url = url;
         entry.title = title;
         entry.user = user;
-        entry.save();
         return entry;
+    }
+
+    public static Entry update(Long id, String url, String title, User user){
+        Entry updatedEntry = findById(id, user);
+        updatedEntry.url = url;
+        updatedEntry.title = title;
+        updatedEntry.user = user;
+        return updatedEntry;
     }
 
     private static Finder<Long,Entry> find = new Finder<>(

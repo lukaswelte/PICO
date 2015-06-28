@@ -11,11 +11,10 @@ var routes = (
             <Route name="entry" handler={EmptyView}>
                 <Route name="createEntry" path="create" handler={CreateEntry} />
                 <Route name="showEntry" path=":id" handler={ShowEntry}/>
+                <Route name="editEntry" path="edit/:id" handler={EditEntry}/>
             </Route>
             <Route name="searchEntry" handler={SearchEntry}/>
-
             <Route name="notfound" handler={NotFound} />
-
             <DefaultRoute handler={Home}/>
         </Route>
     </Route>

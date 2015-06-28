@@ -1,8 +1,11 @@
 var entryStoreActions = {
     UPDATE_ALL: "updateAllEntries",
     SUCCESS_CREATE: "createdEntry",
+    SUCCESS_EDIT: "editEntry",
     UPDATE_CREATE: "updateEntryToCreate",
+    UPDATE_EDIT: "updateEntryToEdit",
     ERROR_CREATE: "errorOnCreation",
+    ERROR_EDIT: "errorOnEdit",
     RESET_CREATE: "resetCreation"
 };
 
@@ -15,13 +18,17 @@ var EntryStore = Fluxxor.createStore({
             return Immutable.Map({title: "", url: "", context: "", labels: new Immutable.Set(), valid:false, saving: false, errors: new Immutable.Map()});
         };
         this.entryToCreate = this.emptyEntry(); //the entry that is currently created
+        this.entryToUpdate = {id: null, entry: null};
 
         // We could also use this in place of the `actions` hash, above:
         this.bindActions(
             entryStoreActions.UPDATE_ALL, this.handleUpdateAll,
             entryStoreActions.SUCCESS_CREATE, this.handleSuccessfulCreation,
+            entryStoreActions.SUCCESS_EDIT, this.handleSuccessfulEdit,
             entryStoreActions.UPDATE_CREATE, this.handleUpdateOfEntryToCreate,
+            entryStoreActions.UPDATE_EDIT, this.handleUpdateOfEntryToEdit,
             entryStoreActions.ERROR_CREATE, this.handleCreationError,
+            entryStoreActions.ERROR_EDIT, this.handleEditError,
             entryStoreActions.RESET_CREATE, this.handleResetCreation,
             userStoreActions.USER_AUTHENTICATED, this.handleLoadData,
             userStoreActions.USER_LOGGED_OUT, this.handleDestroyData
@@ -59,8 +66,21 @@ var EntryStore = Fluxxor.createStore({
         this.emit("change");
     },
 
+    handleSuccessfulEdit: function(id, payload){
+        var updatedEntry = payload.entry;
+        this.entries = this.entries.update(updatedEntry.id, updatedEntry);
+        this.entryToUpdate = this.entryToUpdate.merge(updatedEntry, {saving: false, errors: null});
+        this.emit("change");
+    },
+
     handleUpdateOfEntryToCreate: function(updatedEntry) {
         this.entryToCreate = this.entryToCreate.merge(updatedEntry);
+        this.emit("change");
+    },
+
+    handleUpdateOfEntryToEdit: function(id, updatedEntry){
+        this.entryToUpdate = this.getEntryToUpdate(id);
+        this.entryToUpdate = this.entryToUpdate.merge(updatedEntry);
         this.emit("change");
     },
 
@@ -69,9 +89,23 @@ var EntryStore = Fluxxor.createStore({
         this.emit("change");
     },
 
+    handleEditError: function(id, errors) {
+        this.entryToUpdate = this.getEntryToUpdate(id);
+        this.entryToUpdate = this.entryToUpdate.update('errors', errors);
+        this.emit("change");
+    },
+
     handleResetCreation: function() {
         this.entryToCreate = this.emptyEntry();
         this.emit("change");
+    },
+
+    getEntryToUpdate: function(id) {
+        if(id == this.entryToUpdate.id){
+            return this.entryToUpdate.entry;
+        }
+        var entryToUpdate = {id: id, entry: this.getEntryById(id)};
+        return entryToUpdate;
     },
 
     getAllEntries: function() {
@@ -91,7 +125,6 @@ var EntryStore = Fluxxor.createStore({
             return entry.url == url
         });
     },
-
 
     getEntryToCreate: function() {
         return this.entryToCreate.toJS();

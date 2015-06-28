@@ -7,6 +7,7 @@ import models.User;
 import play.libs.Json;
 import play.mvc.Result;
 import utils.AuthenticationHelper;
+import views.html.sharedEntry;
 
 import javax.persistence.OptimisticLockException;
 import java.io.IOException;
@@ -170,4 +171,46 @@ public class EntryController extends BaseController {
         return findAPIResponse(allEntries);
     }
 
+    /**
+     * Updates an entry with following inputs
+     * required input: Json containing the URL and the Title
+     * Example:
+     * {
+     *  "url": "http://test.de",
+     *  "title": "test"
+     *  }
+     * @param entryID The id of the entry that should be updated
+     * @return API Response with the updated entry
+     */
+    @AuthenticationHelper.UserAuthenticated
+    public static Result updateEntry(Long entryId){
+        User user = (User) ctx().args.get("user");
+
+        JsonNode json = request().body().asJson();
+        if (json == null) {
+            return invalidAPIInput();
+        }
+
+        String url = json.findPath("url").textValue();
+        if (url == null || !isValidURL(url) || Entry.findByURL(url, user) != null) {
+            return invalidAPIInput();
+        }
+
+        String title = json.findPath("title").textValue();
+        if (title == null) {
+            return invalidAPIInput();
+        }
+
+        Entry updatedEntry = Entry.update(entryId, url, title, user);
+
+        return findAPIResponse(Json.toJson(updatedEntry));
+    }
+
+    /*public static Result sharedEntry(String shareUrl) {
+        Entry entry; //load from database
+        if (entry == null) {
+            return notFound("Gibbet nicht");
+        }
+        return ok(sharedEntry.render(entry));
+    }*/
 }

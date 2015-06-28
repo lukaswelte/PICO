@@ -14,5 +14,14 @@ var apiEntryActions = {
             success: callbacks.success,
             error: callbacks.error
         });
+    },
+
+    edit: function(entry, callbacks) {
+        API.common.httpRequest("/api/entry/edit", {
+           type: "PUT",
+           data: entry,
+           success: callbacks.success,
+           error: callbacks.error
+        });
     }
 };
