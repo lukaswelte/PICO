@@ -13,10 +13,13 @@ var EntryForm = React.createClass({
     },
 
     updateAndValidateEntry: function(entry) {
-        if (entry.getID != null){
-            this.getFlux().actions.entry.updateAndValidateEntryToUpdate(entry.getID, entry.title, entry.url, entry.context, entry.labels);
+        if (entry.id != null){
+            console.log("Juhu er ist in der If");
+            this.getFlux().actions.entry.updateAndValidateEntryToUpdate(entry.id, entry.title, entry.url, entry.context, entry.labels);
+        } else{
+            console.log("Er ist nicht in der If");
+            this.getFlux().actions.entry.updateAndValidateEntryToCreate(entry.title, entry.url, entry.context, entry.labels);
         }
-        this.getFlux().actions.entry.updateAndValidateEntryToCreate(entry.title, entry.url, entry.context, entry.labels);
     },
 
     handleURLChange: function(event) {
@@ -42,10 +45,11 @@ var EntryForm = React.createClass({
 
     handleSaveEntry: function() {
         var entry = this.props.entry;
-        if (entry.getID != null){
-            this.getFlux().actions.entry.editEntry(entry.getID, entry.title, entry.url, entry.context, entry.labels);
+        if (entry.id != null){
+            this.getFlux().actions.entry.editEntry(entry.id, entry.title, entry.url, entry.context, entry.labels);
+        } else {
+            this.getFlux().actions.entry.createEntry(entry.title, entry.url, entry.context, entry.labels);
         }
-        this.getFlux().actions.entry.createEntry(entry.title, entry.url, entry.context, entry.labels);
     },
 
     handleCancel: function () {

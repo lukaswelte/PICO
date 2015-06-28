@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Expr;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.avaje.ebean.annotation.UpdatedTimestamp;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -11,10 +12,7 @@ import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -62,11 +60,11 @@ public class Entry extends Model {
     }
 
     public static Entry update(Long id, String url, String title, User user){
-        Entry updatedEntry = findById(id, user);
-        updatedEntry.url = url;
-        updatedEntry.title = title;
-        updatedEntry.user = user;
-        return updatedEntry;
+       Entry updatedEntry = findById(id, user);
+       updatedEntry.url = url;
+       updatedEntry.title = title;
+       updatedEntry.save();
+       return updatedEntry;
     }
 
     private static Finder<Long,Entry> find = new Finder<>(
@@ -81,11 +79,38 @@ public class Entry extends Model {
         return Entry.find.where().eq("user", user).eq("url", url).findUnique();
     }
 
+    public static Entry findByPublicURL(String publicUrl, User user) {
+        return Entry.find.where().eq("user", user).eq("publicUrl", publicUrl).findUnique();
+    }
+
     public static List<Entry> getAll(User user) {
         return Entry.find.where().eq("user", user).findList();
     }
 
     public static Entry findEntryByIdInternalOnly(Long id) {
         return Entry.find.byId(id);
+    }
+
+    public static List<Entry> getAllRecommendedEntries(List<String> labels, User user) {
+        List<Entry> foundEntries = Entry.find.where().not(Expr.eq("user", user)).in("labels.name", labels).findList();
+        List<Entry> uniqueRecommendations = new ArrayList<Entry>();
+
+        for (int count = 0; foundEntries.size() > count ; count++){
+            Entry entry = foundEntries.get(count);
+            if (findByURL(entry.url, user) == null) {
+                Boolean shouldBeAdded = true;
+                for (Entry e : uniqueRecommendations) {
+                    if (Objects.equals(e.url, entry.url)) {
+                        shouldBeAdded = false;
+                    }
+                }
+
+                if(shouldBeAdded) {
+                    uniqueRecommendations.add(entry);
+                }
+            }
+        }
+
+        return uniqueRecommendations;
     }
 }

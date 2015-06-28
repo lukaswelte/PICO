@@ -192,7 +192,7 @@ public class EntryController extends BaseController {
         }
 
         String url = json.findPath("url").textValue();
-        if (url == null || !isValidURL(url) || Entry.findByURL(url, user) != null) {
+        if (url == null || !isValidURL(url)) {
             return invalidAPIInput();
         }
 
@@ -201,12 +201,20 @@ public class EntryController extends BaseController {
             return invalidAPIInput();
         }
 
+        String context = json.findPath("context").textValue();
+        if (context == null) {
+            return invalidAPIInput();
+        }
+
         Entry updatedEntry = Entry.update(entryId, url, title, user);
 
-        return findAPIResponse(Json.toJson(updatedEntry));
+        return findAPIResponse(updatedEntry);
     }
 
-    /*public static Result sharedEntry(String shareUrl) {
+    /*  @AuthenticationHelper.UserAuthenticated
+        public static Result sharedEntry(String shareUrl) {
+        User user = (User) ctx().args.get("user");
+
         Entry entry; //load from database
         if (entry == null) {
             return notFound("Gibbet nicht");
