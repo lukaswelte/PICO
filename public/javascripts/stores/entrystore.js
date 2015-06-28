@@ -80,8 +80,7 @@ var EntryStore = Fluxxor.createStore({
 
     handleUpdateOfEntryToEdit: function(id, updatedEntry){
         console.log("handleUpdateOfEntryToEdit wird aufgerufen");
-        this.entryToUpdate = this.getEntryToUpdate(id);
-        this.entryToUpdate = this.entryToUpdate.merge(updatedEntry);
+        this.entryToUpdate.entry = updatedEntry;
         this.emit("change");
     },
 
@@ -91,8 +90,7 @@ var EntryStore = Fluxxor.createStore({
     },
 
     handleEditError: function(id, errors) {
-        this.entryToUpdate = this.getEntryToUpdate(id);
-        this.entryToUpdate = this.entryToUpdate.update('errors', errors);
+        this.entryToUpdate.entry = this.entryToUpdate.entry.set('errors', errors);
         this.emit("change");
     },
 
