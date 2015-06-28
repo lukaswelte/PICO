@@ -57,6 +57,8 @@ var entryActions = {
           labels: labels
         };
 
+        var entry = updatedEntry.entry;
+
         //initialize the errors map
         var noErrors = Immutable.Map();
         var errors = noErrors;

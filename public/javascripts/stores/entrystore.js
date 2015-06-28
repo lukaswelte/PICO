@@ -79,6 +79,7 @@ var EntryStore = Fluxxor.createStore({
     },
 
     handleUpdateOfEntryToEdit: function(id, updatedEntry){
+        console.log("handleUpdateOfEntryToEdit wird aufgerufen");
         this.entryToUpdate = this.getEntryToUpdate(id);
         this.entryToUpdate = this.entryToUpdate.merge(updatedEntry);
         this.emit("change");

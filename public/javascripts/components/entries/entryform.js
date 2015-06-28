@@ -13,9 +13,11 @@ var EntryForm = React.createClass({
     },
 
     updateAndValidateEntry: function(entry) {
-        if (entry.getID != null){
-            this.getFlux().actions.entry.updateAndValidateEntryToUpdate(entry.getID, entry.title, entry.url, entry.context, entry.labels);
+        if (entry.id != null){
+            console.log("Juhu er ist in der If");
+            this.getFlux().actions.entry.updateAndValidateEntryToUpdate(entry.id, entry.title, entry.url, entry.context, entry.labels);
         }
+        console.log("Er ist nicht in der If");
         this.getFlux().actions.entry.updateAndValidateEntryToCreate(entry.title, entry.url, entry.context, entry.labels);
     },
 
