@@ -1,12 +1,12 @@
 var RecommendationStoreAction = {
     UPDATE:"updateRecommendations",
-    RESET:"reseteRecommendation"
+    RESET:"resetRecommendation"
 };
 
 var RecommendationStore = Fluxxor.createStore({
 
     initialize: function(options){
-        this.recommendations = new Immutable.Map();
+        this.recommendations = null;
 
         //We could also use this in place of the `action`hash, above:
         this.bindActions(
@@ -16,17 +16,17 @@ var RecommendationStore = Fluxxor.createStore({
         );
     },
     handleDestroyData: function() {
-        this.recommendations = new Immutable.Map();
+        this.recommendations = null;
         this.emit("change");
     },
 
     handleUpdate: function(recommendations){
-        this.recommendations = new Immutable.Map(recommendations);
+        this.recommendations = new Immutable.List(recommendations);
         this.emit("change");
     },
 
     handleReset: function(){
-      this.recommendations = new  Immutable.Map();
+      this.recommendations = null;
       this.emit("change")
     },
 

@@ -1,7 +1,8 @@
 var apiRecommendActions = {
-    fetchAll: function(callbacks) {
+    fetchAll: function(payload, callbacks) {
         API.common.httpRequest("/api/recommendation", {
-            type: "GET",
+            type: "POST",
+            data: payload,
             success: callbacks.success,
             error: callbacks.error
         });

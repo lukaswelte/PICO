@@ -20,8 +20,16 @@ var RecommendationList = React.createClass({
             );
         }
 
+        if (recommendations.size == 0) {
+            return (
+                <div>
+                    No recommendations for you
+                </div>
+            );
+        }
+
         var recommendResult = recommendations.map(function(entry){
-            return <RecommendationItem entry={entry} />
+            return <RecommendationItem recommendation={entry} />
         });
         return(
             <div>

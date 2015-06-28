@@ -1,14 +1,14 @@
 var RecommendationItem = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin ("RecommendationStore")],
+    mixins: [FluxMixin],
 
     propTypes:{
-        recommendations: React.PropTypes.object.isRequired
+        recommendation: React.PropTypes.object.isRequired
     },
 
 
 
     render: function() {
-        var recommendation = this.props.recommendations;
+        var recommendation = this.props.recommendation;
 
         var previewImage;
         if (recommendation.previewImage) {

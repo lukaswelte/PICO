@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Expr;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.avaje.ebean.annotation.UpdatedTimestamp;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -11,10 +12,7 @@ import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -89,8 +87,26 @@ public class Entry extends Model {
         return Entry.find.byId(id);
     }
 
-    public static List<Entry> getAllRecommendedEntries(List<String> labels) {
-        return Entry.find.fetch("entry").fetch("entry.id").fetch("label").fetch("label.id").where().eq("label.name",labels).findList();
-        //return Entry.find(Entry.class).join(labels).where().eq("name",labels).findList();
+    public static List<Entry> getAllRecommendedEntries(List<String> labels, User user) {
+        List<Entry> foundEntries = Entry.find.where().not(Expr.eq("user", user)).in("labels.name", labels).findList();
+        List<Entry> uniqueRecommendations = new ArrayList<Entry>();
+
+        for (int count = 0; foundEntries.size() > count ; count++){
+            Entry entry = foundEntries.get(count);
+            if (findByURL(entry.url, user) == null) {
+                Boolean shouldBeAdded = true;
+                for (Entry e : uniqueRecommendations) {
+                    if (Objects.equals(e.url, entry.url)) {
+                        shouldBeAdded = false;
+                    }
+                }
+
+                if(shouldBeAdded) {
+                    uniqueRecommendations.add(entry);
+                }
+            }
+        }
+
+        return uniqueRecommendations;
     }
 }

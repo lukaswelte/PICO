@@ -83,14 +83,13 @@ var EntryDetail = React.createClass ({
                 </div>
                 <footer className="footer">
                     <div className="container-fluid padding-down-1em">
-                        <span className="" type="button" onClick={this.handleRecommendation} data-toggle="collapse" data-target="#collapseBeispiel" aria-expanded="false" aria-controls="collapseBeispiel">
+                        <button className="" type="button" onClick={this.handleRecommendation} data-toggle="collapse" data-target="#collapseBeispiel" aria-expanded="false" aria-controls="collapseBeispiel">
                         <span className="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                         <span className="text-muted"> Recommendation</span>
-                        </span>
+                        </button>
                         <div className="collapse" id="collapseBeispiel">
                             <div className="well">
-                                test
-                                    <RecommendationList entry={this.props.entry} />
+                                    <RecommendationList />
                             </div>
                         </div>
                     </div>

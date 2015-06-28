@@ -23,7 +23,7 @@ POST        /api/entry/generatepreviewimage        controllers.PreviewImageContr
 POST        /api/entry                             controllers.EntryController.createEntry()
 
 #
-GET         /api/recommendation                    controllers.RecommendationController.getRecommendation()
+POST         /api/recommendation                    controllers.RecommendationController.getRecommendation()
 
 # User
 POST        /api/user                              controllers.UserController.registerUser()
