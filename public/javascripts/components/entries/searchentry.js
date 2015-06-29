@@ -28,7 +28,7 @@ var SearchEntry = React.createClass({
     },
 
     handleOnLabelsChanged: function(newLabels) {
-        var selectedLabels = newLabels;
+        var selectedLabels = newLabels.toJS();
 
         var matchingEntries = this.state.suggestedEntries.filter(function(entry){
 
@@ -76,13 +76,34 @@ var SearchEntry = React.createClass({
         });
     },
 
+    handleOnLabelClick: function(label) {
+        console.log("HALLO?!");
+        var newSelectedLabels = this.state.selectedLabels;
+        newSelectedLabels.push(label);
+
+        //just show those entries which have the selected labels
+        
+
+        this.setState({
+            selectedLabels: newSelectedLabels
+        });
+    },
+
     render: function () {
         var searchResult = this.state.suggestedEntries.map(function(entry){
             return <EntryItem key={entry.id} entry={entry} />
         });
-        var availableLabelsList = this.state.availableLabels.map(function(label){
-            return <LabelItem key={label.name} label={label}/>
-        });
+
+        /* The available labels shouldn't contain the labels which are already selected labels */
+        var filteredAvailableLabels = this.state.availableLabels.filter( function(label) {
+            var toRemove = this.state.selectedLabels;
+            return toRemove.indexOf(label) < 0;
+        }.bind(this));
+
+        var availableLabelsList = filteredAvailableLabels.map(function(label){
+            return <LabelItem key={label.name} onClick={this.handleOnLabelClick.bind(this, label)} label={label}/>
+        }.bind(this));
+
 
         return (
             <div>
