@@ -201,13 +201,10 @@ public class EntryController extends BaseController {
             return invalidAPIInput();
         }
 
-        String context = json.findPath("context").textValue();
-        if (context == null) {
-            return invalidAPIInput();
-        }
+        String context = json.findPath("context").textValue(); //context can be null
 
         Entry updatedEntry = Entry.update(entryId, url, title, user);
-
+        updatedEntry.refresh();
         return findAPIResponse(updatedEntry);
     }
 
