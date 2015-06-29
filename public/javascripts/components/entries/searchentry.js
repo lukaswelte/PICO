@@ -4,12 +4,8 @@ var SearchEntry = React.createClass({
     getStateFromFlux: function() {
         var flux = this.getFlux();
         var fetchedEntries = flux.stores.EntryStore.getAllEntries().entries;
-        var entriesArray = fetchedEntries.toArray();
-        var fetchedEntriesLabels = this.getLabelsFromEntries(entriesArray);
         return {
             entries: fetchedEntries,
-            suggestedEntries: fetchedEntries,
-            availableLabels: fetchedEntriesLabels,
             selectedLabels: []
         };
     },
@@ -30,22 +26,7 @@ var SearchEntry = React.createClass({
     handleOnLabelsChanged: function(newLabels) {
         var selectedLabels = newLabels.toJS();
 
-        var matchingEntries = this.state.suggestedEntries.filter(function(entry){
-
-            //are all selectedLabels part of the entry
-            return selectedLabels.map(function(selectedLabel) {
-                //label is in entry.labels
-                entry.labels.filter(function(label) {
-                    return selectedLabel.name == label.name;
-                })
-            });
-        });
-
-        var matchingEntriesLabels = this.getLabelsFromEntries(matchingEntries.toArray());
-
         this.setState({
-            suggestedEntries: matchingEntries,
-            availableLabels: matchingEntriesLabels,
             selectedLabels: selectedLabels
         });
 
@@ -54,7 +35,25 @@ var SearchEntry = React.createClass({
     handleInputChange: function(event) {
         var input = event.target.value;
 
+        this.setState({
+            currentInput: input
+        });
+    },
+
+    handleOnLabelClick: function(label) {
+        console.log("HALLO?!");
+        var newSelectedLabels = this.state.selectedLabels;
+        newSelectedLabels.push(label);
+
+        this.setState({
+            selectedLabels: newSelectedLabels
+        });
+    },
+
+    render: function () {
+        /** filtering **/
         //compute the suggestions based on the title and the context of an entry
+        var input = this.state.currentInput;
         var matchingEntries = this.state.entries.filter(function(entry) {
             var matchingLabels = entry.labels.filter(function(label){return !label.name.search(input);});
 
@@ -67,35 +66,31 @@ var SearchEntry = React.createClass({
             return searchMatchInTitle || contextMatches || matchingLabels.length > 0;
         });
 
-        var matchingEntriesLabels = this.getLabelsFromEntries(matchingEntries.toArray());
+        //filter entries if labels exist
+        var selectedLabels = this.state.selectedLabels;
+        matchingEntries = matchingEntries.filter(function(entry) {
 
-        this.setState({
-            currentInput: input,
-            suggestedEntries: matchingEntries,
-            availableLabels: matchingEntriesLabels
+            var labelsPartOfSelectedLabels = entry.labels.filter(function(label){
+                var isPart =  selectedLabels.filter(function(selectedLabel) {
+                    return label.name == selectedLabel.name;
+                });
+                return isPart.length > 0;
+            });
+
+            return labelsPartOfSelectedLabels.length == selectedLabels.length;
         });
-    },
 
-    handleOnLabelClick: function(label) {
-        console.log("HALLO?!");
-        var newSelectedLabels = this.state.selectedLabels;
-        newSelectedLabels.push(label);
+        var availableLabels = this.getLabelsFromEntries(matchingEntries.toArray());
 
-        //just show those entries which have the selected labels
-        
+        /** filtering end **/
 
-        this.setState({
-            selectedLabels: newSelectedLabels
-        });
-    },
 
-    render: function () {
-        var searchResult = this.state.suggestedEntries.map(function(entry){
+        var searchResult = matchingEntries.map(function(entry){
             return <EntryItem key={entry.id} entry={entry} />
         });
 
         /* The available labels shouldn't contain the labels which are already selected labels */
-        var filteredAvailableLabels = this.state.availableLabels.filter( function(label) {
+        var filteredAvailableLabels = availableLabels.filter( function(label) {
             var toRemove = this.state.selectedLabels;
             return toRemove.indexOf(label) < 0;
         }.bind(this));
@@ -109,7 +104,7 @@ var SearchEntry = React.createClass({
             <div>
                 <div className = "row">
                     <div className = "col-md-3">
-                        <LabelAutocomplete availableLabels={Immutable.Set(this.state.availableLabels)} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.selectedLabels)}  disableCreationOfLabels={true} />
+                        <LabelAutocomplete availableLabels={Immutable.Set(availableLabels)} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.selectedLabels)}  disableCreationOfLabels={true} />
                         {availableLabelsList}
                     </div>
                     <div className = "col-md-9">
