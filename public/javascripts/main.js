@@ -7,7 +7,7 @@ var routes = (
         <NotFoundRoute handler={NotFound}/>
 
         <Route name="app" handler={Application}>
-            <Route name="home" handler={Home}/>
+            <Route name="home" handler={SearchEntry}/>
             <Route name="entry" handler={EmptyView}>
                 <Route name="createEntry" path="create" handler={CreateEntry} />
                 <Route name="showEntry" path=":id" handler={ShowEntry}/>
