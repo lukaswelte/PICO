@@ -56,7 +56,7 @@ public class Entry extends Model {
         entry.url = url;
         entry.title = title;
         entry.user = user;
-        entry.save();
+        //entry.save();
         return entry;
     }
 

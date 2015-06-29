@@ -182,6 +182,8 @@ span.label-name {
     width: 250px;
     height: 200px;
     box-sizing: border-box;
+    float: left;
+    margin-left: 10px;
 }
 h3{
     font-size: 25px;
@@ -199,7 +201,7 @@ h3{
 .well1{
     min-height: 20px;
     max-height: 220px;
-    padding-bottom: 10px;
+    padding-bottom: 215px;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 10px;
