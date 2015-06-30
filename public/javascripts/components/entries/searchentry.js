@@ -41,7 +41,6 @@ var SearchEntry = React.createClass({
     },
 
     handleOnLabelClick: function(label) {
-        console.log("HALLO?!");
         var newSelectedLabels = this.state.selectedLabels;
         newSelectedLabels.push(label);
 
@@ -86,7 +85,7 @@ var SearchEntry = React.createClass({
 
 
         var searchResult = matchingEntries.map(function(entry){
-            return <div className="col-md-3">
+            return <div className="col-md-3 margin-top-25pt">
                      <EntryItem key={entry.id} entry={entry} />
                    </div>
         });
@@ -99,25 +98,25 @@ var SearchEntry = React.createClass({
 
         var availableLabelsList = filteredAvailableLabels.map(function(label){
             return <div>
-                      <LabelItem key={label.name} onClick={this.handleOnLabelClick.bind(this, label)} label={label}/>
+                      <LabelItem key={label.name} onClick={this.handleOnLabelClick.bind(this, label)} label={label} />
                    </div>
         }.bind(this));
 
 
         return (
-            <div>
-                <div className = "row">
-                    <div className = "col-md-3">
+            <div style={{"marginLeft": "10pt", "marginRight": "10pt"}}>
+                <div className="row">
+                    <div className="col-md-3">
                         <LabelAutocomplete availableLabels={Immutable.Set(availableLabels)} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.selectedLabels)}  disableCreationOfLabels={true} />
-                        {this.state.selectedLabels.size > 0 ? <hr /> : ""}
+                        <hr />
                         {availableLabelsList}
                     </div>
-                    <div className = "col-md-9">
+                    <div className="col-md-9">
                         <div>
-                            <input value={this.state.currentInput} onChange={this.handleInputChange} placeholder="Search for a term that matches in the title or context of your entries"/>
+                            <input value={this.state.currentInput} onChange={this.handleInputChange} placeholder="Search for a term that matches in the title or context of your entries" />
                         </div>
-                        <div className="row margin-top-5pt">
-                            {searchResult.size == 0 ? "No entries" : searchResult}
+                        <div className="row">
+                            {searchResult.size == 0 ? <div className="col-md-3 margin-top-25pt">No entries found.</div> : searchResult}
                         </div>
                     </div>
                 </div>

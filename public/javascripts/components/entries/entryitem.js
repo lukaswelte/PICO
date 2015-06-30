@@ -11,6 +11,8 @@ var EntryItem = React.createClass({
         var previewImage;
         if (entry.previewImage) {
             previewImage = <img src={"data:image/png;base64,".concat(entry.previewImage)} />;
+        } else if (entry.id) {
+            previewImage = <img src={"/api/entry/image/"+entry.id} />
         } else {
             previewImage = <img src={"/api/entry/previewimage/"+encodeURIComponent(entry.url)} />;
         }
@@ -33,11 +35,13 @@ var EntryItem = React.createClass({
             <div className="box">
                 <div className="row">
                   <a className="col-md-9" href={entry.url}><h3 style={{"marginTop": "0"}}>{entry.title}</h3></a>
-                  <div className="col-md-3"><Link to="showEntry" params={{id: entry.id}} className="glyphicon glyphicon-info-sign float-right" /></div>
+                  <div className="col-md-3">
+                    <Link to="showEntry" params={{id: entry.id}} className="glyphicon glyphicon-info-sign float-right" style={{"textDecoration": "none"}} />
+                  </div>
                 </div>
                 <div className="width-100p">{previewImage}</div>
                 <div style={containerStyles}>
-                    {entry.labels.map(function(label, index){ return <div style={labelItemStyle}><LabelItem key={index} label={label} /></div>})}
+                    {entry.labels.map(function(label, index){ return <div key={index} style={labelItemStyle}><LabelItem label={label} /></div>})}
                 </div>
             </div>
         );

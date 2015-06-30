@@ -117,12 +117,21 @@ public class PreviewImageController extends BaseController {
      * @param entryID The entry id for which the image should be shown
      * @return The preview image of the entry as png
      */
-    public static Result previewImageOfEntry(Long entryID) {
+    public static F.Promise<Result> previewImageOfEntry(Long entryID) {
         Entry entry = Entry.findEntryByIdInternalOnly(entryID);
-        if (entry == null || entry.previewImage == null) {
-            return notFound();
-        } else {
-            return ok(entry.previewImage).as("image/png");
+        if (entry == null) {
+            return F.Promise.promise(() -> notFound());
         }
+
+        if (entry.previewImage == null) {
+          return fetchPreviewImage(entry.url).map(image -> {
+            entry.refresh();
+            entry.previewImage = image;
+            entry.save();
+            return ok(entry.previewImage).as("image/png");
+          });
+        }
+
+        return F.Promise.promise(() -> ok(entry.previewImage).as("image/png"));
     }
 }

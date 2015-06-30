@@ -226,6 +226,10 @@ h3{
    margin-top: 5pt;
 }
 
+.margin-top-25pt {
+   margin-top: 25pt;
+}
+
 .well1{
     min-height: 20px;
     max-height: 234px;
@@ -275,4 +279,8 @@ h3{
 
 .margin-top-5em {
     margin-top: 5em;
+}
+
+.text-decoration-none {
+  text-decoration: none;
 }
