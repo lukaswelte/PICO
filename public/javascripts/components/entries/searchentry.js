@@ -86,7 +86,9 @@ var SearchEntry = React.createClass({
 
 
         var searchResult = matchingEntries.map(function(entry){
-            return <EntryItem key={entry.id} entry={entry} />
+            return <div className="col-md-3">
+                     <EntryItem key={entry.id} entry={entry} />
+                   </div>
         });
 
         /* The available labels shouldn't contain the labels which are already selected labels */
@@ -96,7 +98,9 @@ var SearchEntry = React.createClass({
         }.bind(this));
 
         var availableLabelsList = filteredAvailableLabels.map(function(label){
-            return <LabelItem key={label.name} onClick={this.handleOnLabelClick.bind(this, label)} label={label}/>
+            return <div>
+                      <LabelItem key={label.name} onClick={this.handleOnLabelClick.bind(this, label)} label={label}/>
+                   </div>
         }.bind(this));
 
 
@@ -105,14 +109,15 @@ var SearchEntry = React.createClass({
                 <div className = "row">
                     <div className = "col-md-3">
                         <LabelAutocomplete availableLabels={Immutable.Set(availableLabels)} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.selectedLabels)}  disableCreationOfLabels={true} />
+                        {this.state.selectedLabels.size > 0 ? <hr /> : ""}
                         {availableLabelsList}
                     </div>
                     <div className = "col-md-9">
                         <div>
                             <input value={this.state.currentInput} onChange={this.handleInputChange} placeholder="Search for a term that matches in the title or context of your entries"/>
                         </div>
-                        <div>
-                            {searchResult}
+                        <div className="row margin-top-5pt">
+                            {searchResult.size == 0 ? "No entries" : searchResult}
                         </div>
                     </div>
                 </div>

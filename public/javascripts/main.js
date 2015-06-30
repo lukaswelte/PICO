@@ -15,7 +15,7 @@ var routes = (
             </Route>
             <Route name="searchEntry" handler={SearchEntry}/>
             <Route name="notfound" handler={NotFound} />
-            <DefaultRoute handler={Home}/>
+            <DefaultRoute handler={SearchEntry}/>
         </Route>
     </Route>
 );

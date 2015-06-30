@@ -199,6 +199,19 @@ h3{
 .width-90p {
     width: 90%;
 }
+
+.float-right {
+  float: right;
+}
+
+.width-100p {
+    width: 100%;
+}
+
+.margin-top-5pt {
+   margin-top: 5pt;
+}
+
 .well1{
     min-height: 20px;
     max-height: 234px;
