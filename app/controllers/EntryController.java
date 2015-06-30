@@ -14,8 +14,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 
 public class EntryController extends BaseController {
@@ -201,13 +200,24 @@ public class EntryController extends BaseController {
             return invalidAPIInput();
         }
 
-        String context = json.findPath("context").textValue();
-        if (context == null) {
-            return invalidAPIInput();
+        String context = json.findPath("context").textValue(); //context can be null
+
+        Iterator<JsonNode> labelIterator = json.findPath("labels").elements();
+        Set<Label> labels = new HashSet<>();
+        if(labelIterator != null){
+            while(labelIterator.hasNext()) {
+                JsonNode s = labelIterator.next();
+                String labelName = s.textValue();
+                Label alreadyExistingLabel = Label.findByName(labelName, user);
+                if(alreadyExistingLabel == null){
+                    alreadyExistingLabel = Label.create(labelName, user);
+                }
+                labels.add(alreadyExistingLabel);
+            }
         }
 
-        Entry updatedEntry = Entry.update(entryId, url, title, user);
-
+        Entry updatedEntry = Entry.update(entryId, url, title, user, context, labels);
+        updatedEntry.refresh();
         return findAPIResponse(updatedEntry);
     }
 

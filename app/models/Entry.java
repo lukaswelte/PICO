@@ -56,14 +56,18 @@ public class Entry extends Model {
         entry.url = url;
         entry.title = title;
         entry.user = user;
+        //entry.save();
         return entry;
     }
 
-    public static Entry update(Long id, String url, String title, User user){
+    public static Entry update(Long id, String url, String title, User user, String context, Set<Label> labels) {
        Entry updatedEntry = findById(id, user);
        updatedEntry.url = url;
        updatedEntry.title = title;
-       updatedEntry.save();
+       updatedEntry.context = context;
+       updatedEntry.labels = labels;
+       updatedEntry.update();
+       updatedEntry.refresh();
        return updatedEntry;
     }
 
