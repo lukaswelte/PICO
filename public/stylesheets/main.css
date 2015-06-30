@@ -1,3 +1,12 @@
+.row {
+    margin-left: 0!important;
+    margin-right: 0!important;
+}
+
+a {
+    color: #FC7A57!important;
+}
+
 .box {
     border: solid 3px #2a415e;
     padding-left: 2px;
@@ -173,6 +182,10 @@ span.label-name {
     width: 50%;
 }
 
+.width-2-5em {
+    width: 2.5em;
+}
+
 .boxfot {
     border: solid 3px #2a415e;
     padding-left: 1px;
@@ -211,4 +224,41 @@ h3{
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
     overflow: scroll;
+}
+
+.homepage-blue-area {
+    background-color: #ECF1EF;
+    color: black;
+    text-align: center;
+    padding-top: 4em;
+    padding-bottom: 4em;
+    /*text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    box-shadow: inset 0 0 100px rgba(0,0,0,.5);*/
+}
+
+.homepage-highlighted-area {
+    background-color: #FC7A57;
+    color: white;
+    text-align: center;
+    padding-top: 2em;
+    padding-bottom: 2em;
+/text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    box-shadow: inset 0 0 44px rgba(0,0,0,.5);
+}
+
+
+.homepage-white-area {
+    text-align: center;
+    padding-top: 4em;
+    padding-bottom: 4em;
+    box-shadow: inset 0 0 1px rgba(0,0,0,.5);
+}
+
+.homepage-white-area input {
+    width: 20em;
+    color: black;
+}
+
+.margin-top-5em {
+    margin-top: 5em;
 }
