@@ -17,6 +17,15 @@ a {
     border-radius: 7px;
 }
 
+.share-box {
+    border: solid 3px #2a415e;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-radius: 7px;
+}
+
 a.btn.btn-default, button.btn.btn-default {
     background-color: #FC7A57;
     border: none;
@@ -29,6 +38,11 @@ a.btn.btn-default, button.btn.btn-default {
 
 img {
     width: 100%;
+}
+
+.share-button {
+    width: 35%;
+    margin: 10px 5px;;
 }
 
 .padding-top-0-5em {
@@ -156,13 +170,13 @@ textarea {
     display: none;
 }
 
-#share-list.box {
-    width: 12em;
+#share-list.share-box {
+    width: 10em;
     position: absolute;
-    z-index: 1;
-    margin-top: -8.5em;
+    z-index: 100;
+    margin-top: -13.9em;
     background-color: #f5f5f5;
-    margin-left: -5.5em;
+    margin-left: -10.5em;
 }
 
 button.button-icon:focus {

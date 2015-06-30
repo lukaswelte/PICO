@@ -70,12 +70,13 @@ var EntryDetail = React.createClass ({
                             <div className="col-md-1">
                                 <button type="button" onClick={this.handleShowPopover} className="btn btn-default" dataToggle="popover">Share</button>
                             </div>
-                            <div id="share-list" className="box">
+                            <div id="share-list" className="share-box">
                                 <div>
-                                    <p className="box">{this.props.entry.shareUrl}</p>
-                                    <a href="https://twitter.com/intent/tweet?" target="_blank"><img src="/static/images/twitter.png"/></a>
-                                    <a href="https://www.facebook.com/sharer/sharer.php?" target="_blank"><img src="/static/images/facebook.png"/></a>
-                                    <a href="https://plus.google.com/share?" target="_blank"><img src="/static/images/google+.png"/></a>
+                                    <p className="box">http://localhost:9000/sharedentry/as3aKkowe</p>
+                                    <a href="mailto:"><img src="/static/images/email.png" className="share-button"></img></a>
+                                    <a href="https://twitter.com/intent/tweet?" target="_blank"><img src="/static/images/twitter.png" className="share-button"></img></a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?" target="_blank"><img src="/static/images/facebook.png" className="share-button"></img></a>
+                                    <a href="https://plus.google.com/share?" target="_blank"><img src="/static/images/google+.png" className="share-button"></img></a>
                                 </div>
                             </div>
                         </div>
