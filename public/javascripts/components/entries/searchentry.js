@@ -17,7 +17,20 @@ var SearchEntry = React.createClass({
 
         var fetchedEntriesLabels = [];
         for (i = 0; i < arrayOfArrays.length; i++) {
-            fetchedEntriesLabels = fetchedEntriesLabels.concat(arrayOfArrays[i]);
+
+          //go through each label
+          var labelsArray = arrayOfArrays[i];
+          for (j = 0; j < labelsArray.length; j++) {
+            var label = labelsArray[j];
+
+            //only add the label if it does not already exist
+            var isPart =  fetchedEntriesLabels.filter(function(addedLabel) {
+                return label.name == addedLabel.name;
+            });
+            if (isPart.length == 0) {
+              fetchedEntriesLabels.push(label);
+            }
+          }
         }
 
         return fetchedEntriesLabels;
