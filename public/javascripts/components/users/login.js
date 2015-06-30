@@ -34,34 +34,63 @@ var Login = React.createClass({
         var errors = this.state.user.get("errors");
         return (
             <div>
-                <nav className="navbar navbar-default">
+                <nav className="navbar navbar-default navbar-fixed-top">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <img className="logo" src="/static/images/logo_white.png"/>
+                            <Link to="home" className="navbar-brand"><img className="logo" src="/static/images/logo_white.png"/></Link>
+                        </div>
+                        <div className="navbar-header navbar-right">
+                            <Link to="createEntry" className="navbar-brand"><span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></Link>
+                            <span className="navbar-brand glyphicon glyphicon-info-sign" aria-hidden="true" onClick={this.handleLogoutClick}></span>
                         </div>
                     </div>
                 </nav>
-
-                <Link to="register">Go to register</Link>
-                <form onSubmit={this.handleLogin}>
-                    {errors.get("global", "")}
-                    <label>
-                        {errors.get("email") ? "Invalid Email Address" : ""}<br />
-                        Email
-                        <input type="email" value={this.state.user.get("email")} onChange={this.handleEmailChange} />
-                    </label>
-
-                    <label>
-                        {errors.get("password") ? "Minimum 2 Characters required" : ""}<br />
-                        Password
-                        <input type="password" value={this.state.user.get("password")} onChange={this.handlePasswordChange} />
-                    </label>
-
-                    <div>
-                        {this.state.user.get("loggingIn") ? "Currently logging in..." : ""} <br />
-                        <button type="submit" disabled={this.state.user.get("loggingIn", false)}>Login</button>
+                <div className="row homepage-blue-area margin-top-5em">
+                    <div className="col-md-1"></div>
+                    <div className="col-md-10">
+                        <h1>Welcome back to PICO</h1>
+                        <h2>Your Personalized Internet context organizer</h2>
                     </div>
-                </form>
+                    <div className="col-md-1"></div>
+                </div>
+                <div className="row homepage-white-area">
+                    <div className="col-md-4"></div>
+                    <div className="col-md-4">
+                        <h3>Login</h3>
+                        <Link to="register">Or Sign up if you don't have an account <span className="glyphicon glyphicon-play" aria-hidden="true"></span></Link>
+                        <form onSubmit={this.handleLogin}>
+                            {errors.get("global", "")}
+                            <label>
+                                {errors.get("email") ? "Invalid Email Address" : ""}<br />
+                                <input type="email" value={this.state.user.get("email")} onChange={this.handleEmailChange} placeholder="Email"/>
+                            </label>
+
+                            <label>
+                                {errors.get("password") ? "Minimum 2 Characters required" : ""}<br />
+                                <input type="password" value={this.state.user.get("password")} onChange={this.handlePasswordChange} placeholder="Password"/>
+                            </label>
+
+                            <div>
+                                {this.state.user.get("loggingIn") ? "Currently logging in..." : ""} <br />
+                                <button type="submit" className="btn btn-default" disabled={this.state.user.get("loggingIn", false)}>Login</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div className="col-md-4"></div>
+                </div>
+                <div className="row homepage-blue-area">
+                    <div className="col-md-1"></div>
+                    <div className="col-md-10">
+                        <h2>
+                            <span className="glyphicon glyphicon-check" aria-hidden="true"></span> Discover and benefit from the richness of the WWW<br/>
+                            <br/>
+                            <span className="glyphicon glyphicon-check" aria-hidden="true"></span> Find requested information<br/>
+                            <br/>
+                            <span className="glyphicon glyphicon-check" aria-hidden="true"></span> Label - and recommendation-based service platform
+                        </h2>
+                    </div>
+                    <div className="col-md-1"></div>
+                </div>
             </div>
         );
     }
