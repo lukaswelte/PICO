@@ -40,6 +40,8 @@ var SearchEntry = React.createClass({
     handleOnLabelsChanged: function(newLabels) {
         var selectedLabels = newLabels.toJS();
 
+        this.updateRecommendations(selectedLabels);
+
         this.setState({
             selectedLabels: selectedLabels
         });
@@ -58,9 +60,15 @@ var SearchEntry = React.createClass({
         var newSelectedLabels = this.state.selectedLabels;
         newSelectedLabels.push(label);
 
+        this.updateRecommendations(newSelectedLabels);
+
         this.setState({
             selectedLabels: newSelectedLabels
         });
+    },
+
+    updateRecommendations: function(labels){
+        this.getFlux().actions.recommendation.updateRecommendationForLabels(labels);
     },
 
     render: function () {
@@ -123,22 +131,37 @@ var SearchEntry = React.createClass({
 
 
         return (
-            <div style={{"marginLeft": "10pt", "marginRight": "10pt"}}>
-                <div className="row">
-                    <div className="col-md-3">
-                        <LabelAutocomplete availableLabels={Immutable.Set(filteredAvailableLabels)} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.selectedLabels)}  disableCreationOfLabels={true} />
-                        <hr />
-                        {availableLabelsList}
-                    </div>
-                    <div className="col-md-9">
-                        <div>
-                            <input value={this.state.currentInput} onChange={this.handleInputChange} placeholder="Search for a term that matches in the title or context of your entries" />
-                        </div>
-                        <div className="row">
-                            {searchResult.size == 0 ? <div className="col-md-3 margin-top-25pt">No entries found.</div> : searchResult}
-                        </div>
-                    </div>
-                </div>
+            <div>
+              <div style={{"marginLeft": "10pt", "marginRight": "10pt"}}>
+                  <div className="row">
+                      <div className="col-md-3">
+                          <LabelAutocomplete availableLabels={Immutable.Set(filteredAvailableLabels)} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.selectedLabels)}  disableCreationOfLabels={true} />
+                          <hr />
+                          {availableLabelsList}
+                      </div>
+                      <div className="col-md-9">
+                          <div>
+                              <input value={this.state.currentInput} onChange={this.handleInputChange} placeholder="Search for a term that matches in the title or context of your entries" />
+                          </div>
+                          <div className="row">
+                              {searchResult.size == 0 ? <div className="col-md-3 margin-top-25pt">No entries found.</div> : searchResult}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <footer className="footer">
+                  <div className="container-fluid1">
+                      <span className="" type="button" onClick={this.updateRecommendations.bind(this, this.state.selectedLabels)} data-toggle="collapse" data-target="#collapseBeispiel" aria-expanded="false" aria-controls="collapseBeispiel">
+                      <span className="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                      <span className="text-muted"> Recommendation</span>
+                      </span>
+                      <div className="collapse" id="collapseBeispiel">
+                          <div className="well1">
+                                  <RecommendationList />
+                          </div>
+                      </div>
+                  </div>
+              </footer>
             </div>
         );
     }

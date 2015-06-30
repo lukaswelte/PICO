@@ -1,10 +1,18 @@
 var recommendationAction = {
 
-    updateRecommendation:function(entry) {
-        var labelNames = entry.labels.map(function(label){
+    updateRecommendation: function(entry) {
+        this.flux.actions.recommendation.updateRecommendationForLabels(entry.labels);
+    },
+
+    updateRecommendationForLabels: function(labels) {
+        var labelNames = labels.map(function(label){
             return label.name;
         });
 
+        this.flux.actions.recommendation.updateRecommendationForLabelNames(labelNames);
+    },
+
+    updateRecommendationForLabelNames: function(labelNames) {
         var recommendation = {
             labels: labelNames
         };
