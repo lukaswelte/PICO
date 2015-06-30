@@ -23,6 +23,10 @@ var apiCommonActions = {
           error: function(response){
               //for debugging print response to the console
               console.log("HTTP Request error: "+JSON.stringify(response));
+              if (response.status == 401) {
+                //Unoauthorized so go to login screen
+                flux.actions.user.logoutUser();
+              }
 
               options.error(response);
           }.bind(this)
