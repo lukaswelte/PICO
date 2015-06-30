@@ -34,8 +34,8 @@ var EntryItem = React.createClass({
         return(
             <div className="box">
                 <div className="row">
-                  <a className="col-md-9" href={entry.url}><h3 style={{"marginTop": "0"}}>{entry.title}</h3></a>
-                  <div className="col-md-3">
+                  <a className="col-md-10" href={entry.url}><h4 style={{"marginTop": "0"}}>{entry.title}</h4></a>
+                  <div className="col-md-2">
                     <Link to="showEntry" params={{id: entry.id}} className="glyphicon glyphicon-info-sign float-right" style={{"textDecoration": "none"}} />
                   </div>
                 </div>

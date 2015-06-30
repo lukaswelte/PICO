@@ -6,7 +6,8 @@ var SearchEntry = React.createClass({
         var fetchedEntries = flux.stores.EntryStore.getAllEntries().entries;
         return {
             entries: fetchedEntries,
-            selectedLabels: []
+            selectedLabels: [],
+            currentInput: ""
         };
     },
 
@@ -66,15 +67,18 @@ var SearchEntry = React.createClass({
         /** filtering **/
         //compute the suggestions based on the title and the context of an entry
         var input = this.state.currentInput;
+        var lowerCaseInput = input.toLowerCase();
         var matchingEntries = this.state.entries.filter(function(entry) {
-            var matchingLabels = entry.labels.filter(function(label){return !label.name.search(input);});
+            var matchingLabels = entry.labels.filter(function(label) {
+              return label.name.toLowerCase().search(input) != -1;
+            });
 
             var contextMatches = false;
             if (entry.context != null) {
-                contextMatches = !entry.context.search(input);
+                contextMatches = entry.context.toLowerCase().search(lowerCaseInput) != -1;
             }
 
-            var searchMatchInTitle = !entry.title.search(input);
+            var searchMatchInTitle = entry.title.toLowerCase().search(lowerCaseInput) != -1;
             return searchMatchInTitle || contextMatches || matchingLabels.length > 0;
         });
 
@@ -105,8 +109,10 @@ var SearchEntry = React.createClass({
 
         /* The available labels shouldn't contain the labels which are already selected labels */
         var filteredAvailableLabels = availableLabels.filter( function(label) {
-            var toRemove = this.state.selectedLabels;
-            return toRemove.indexOf(label) < 0;
+            var isPartOfSelectedLabel = this.state.selectedLabels.filter(function(selectedLabel) {
+              return selectedLabel.name == label.name;
+            });
+            return isPartOfSelectedLabel.length == 0;
         }.bind(this));
 
         var availableLabelsList = filteredAvailableLabels.map(function(label){
@@ -120,7 +126,7 @@ var SearchEntry = React.createClass({
             <div style={{"marginLeft": "10pt", "marginRight": "10pt"}}>
                 <div className="row">
                     <div className="col-md-3">
-                        <LabelAutocomplete availableLabels={Immutable.Set(availableLabels)} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.selectedLabels)}  disableCreationOfLabels={true} />
+                        <LabelAutocomplete availableLabels={Immutable.Set(filteredAvailableLabels)} onLabelsChanged={this.handleOnLabelsChanged} selectedLabels={Immutable.Set(this.state.selectedLabels)}  disableCreationOfLabels={true} />
                         <hr />
                         {availableLabelsList}
                     </div>
