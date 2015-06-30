@@ -48,7 +48,7 @@ var Login = React.createClass({
                 <div className="row homepage-blue-area margin-top-5em">
                     <div className="col-md-1"></div>
                     <div className="col-md-10">
-                        <h1>Welcome back to <img className="width-2-5em" src="/static/images/logo_white.png"/></h1>
+                        <h1>Welcome back to PICO</h1>
                         <h2>Your Personalized Internet context organizer</h2>
                     </div>
                     <div className="col-md-1"></div>
@@ -56,7 +56,7 @@ var Login = React.createClass({
                 <div className="row homepage-white-area">
                     <div className="col-md-4"></div>
                     <div className="col-md-4">
-                        <h3>Login if you already have an account</h3>
+                        <h3>Login</h3>
                         <Link to="register">Or Sign up if you don't have an account <span className="glyphicon glyphicon-play" aria-hidden="true"></span></Link>
                         <form onSubmit={this.handleLogin}>
                             {errors.get("global", "")}
@@ -90,10 +90,6 @@ var Login = React.createClass({
                         </h2>
                     </div>
                     <div className="col-md-1"></div>
-                </div>
-                <div className="row">
-                    <div className="col-md-12">
-                    </div>
                 </div>
             </div>
         );

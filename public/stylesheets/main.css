@@ -3,6 +3,10 @@
     margin-right: 0!important;
 }
 
+a {
+    color: #FC7A57!important;
+}
+
 .box {
     border: solid 3px #2a415e;
     padding-left: 2px;
@@ -221,13 +225,13 @@ h3{
 }
 
 .homepage-blue-area {
-    background-color: #2a415e;
-    color: white;
+    background-color: #ECF1EF;
+    color: black;
     text-align: center;
     padding-top: 4em;
     padding-bottom: 4em;
-    text-shadow: 0 1px 3px rgba(0,0,0,.5);
-    box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+    /*text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    box-shadow: inset 0 0 100px rgba(0,0,0,.5);*/
 }
 
 .homepage-highlighted-area {
@@ -236,7 +240,7 @@ h3{
     text-align: center;
     padding-top: 2em;
     padding-bottom: 2em;
-    text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    /text-shadow: 0 1px 3px rgba(0,0,0,.5);
     box-shadow: inset 0 0 44px rgba(0,0,0,.5);
 }
 
@@ -245,7 +249,7 @@ h3{
     text-align: center;
     padding-top: 4em;
     padding-bottom: 4em;
-    box-shadow: inset 0 0 13px rgba(0,0,0,.5);
+    box-shadow: inset 0 0 1px rgba(0,0,0,.5);
 }
 
 .homepage-white-area input {
