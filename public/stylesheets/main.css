@@ -1,14 +1,21 @@
-/*
 .row {
     margin-left: 0!important;
     margin-right: 0!important;
 }
-*/
 a {
     color: #FC7A57!important;
 }
 
 .box {
+     border: solid 3px #2a415e;
+     padding-left: 2px;
+     padding-right: 2px;
+     padding-top: 3px;
+     padding-bottom: 3px;
+     border-radius: 7px;
+ }
+
+.share-box {
     border: solid 3px #2a415e;
     padding-left: 2px;
     padding-right: 2px;
@@ -53,6 +60,10 @@ img {
 
 .padding-top-2em {
     padding-top: 2em;
+}
+
+.height-8em {
+    height: 8em;
 }
 
 .height-15em {
@@ -138,6 +149,10 @@ textarea {
     display: none;
 }
 
+#share-list {
+    display: none;
+}
+
 #label-list.box {
     width: 8em;
     position: absolute;
@@ -147,22 +162,12 @@ textarea {
     margin-left: -5.5em;
 }
 
-.share-icon {
-    margin-left: auto;
-    display: block;
-}
-
-#share-list {
-    display: none;
-}
-
-#share-list.box {
-    width: 12em;
+#share-list.share-box {
     position: absolute;
     z-index: 1;
-    margin-top: -8.5em;
+    margin-top: -11.75em;
+    margin-left: -18em;
     background-color: #f5f5f5;
-    margin-left: -5.5em;
 }
 
 button.button-icon:focus {
@@ -185,6 +190,20 @@ span.label-name {
 
 .width-2-5em {
     width: 2.5em;
+}
+
+.width-21-5em {
+    width: 21.5em;
+}
+
+.width-23-5em {
+    width: 23.5em;
+}
+
+.share-button {
+    margin: 5px 5px;
+    width: 15%;
+    height: 15%;
 }
 
 .boxfot {
