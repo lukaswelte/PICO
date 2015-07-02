@@ -23,5 +23,13 @@ var apiEntryActions = {
            success: callbacks.success,
            error: callbacks.error
         });
+    },
+
+    delete: function(id, callbacks) {
+        API.common.httpRequest("/api/entry/delete/"+id, {
+            type: "DELETE",
+            success: callbacks.success,
+            error: callbacks.error
+        });
     }
 };

@@ -196,42 +196,20 @@ var entryActions = {
         });
     },
 
-    deleteEntry: function(id, title, url, context, labels) {
-        //construct the entry that the API needs as input
-        var entry = {
-            url: url,
-            title: title,
-            context: context,
-            labels: labels
-        };
-
-        var labelNameArray = labels.map(function (label){
-            return label.name
-        });
-
-        //construct the entry that the API needs as input
-        var apiEntry = {
-            url: url,
-            title: title,
-            context: context,
-            labels: labelNameArray
-        };
-
+    deleteEntry: function(id) {
         //do the ajax request to the API
-        API.entry.delete(id, apiEntry, {
+        API.entry.delete(id, {
             success: function(response){
                 if(response != null && response.status == 200){
-                    var returnedEntry = response.data;
+                    var returnedEntryId = response.data;
 
                     //tell that the entry should be deleted
-                    this.dispatch(entryStoreActions.SUCCESS_DELETE, {entry: returnedEntry});
+                    this.dispatch(entryStoreActions.SUCCESS_DELETE, {entry: returnedEntryId});
 
-                    returnedEntry.labels.forEach(function (label) {
-                        this.dispatch(labelStoreActions.DELETE, label);
-                    }.bind(this));
+                    this.dispatch(labelStoreActions.FETCH_FROM_SERVER);
 
                     //transition to the created entry
-                    this.flux.actions.router.transition("deleteEntry", {id: returnedEntry.id});
+                    this.flux.actions.router.transition("deleteEntry", {id: returnedEntryId.id});
                 }
             }.bind(this),
             error: function(response){

@@ -71,10 +71,14 @@ public class Entry extends Model {
        return updatedEntry;
     }
 
-    public static Entry delete(Long id, String url, String title, User user, String context, Set<Label> labels) {
+    public static Boolean delete(Long id, User user) {
         Entry deletedEntry = findById(id, user);
-        deletedEntry.delete();
-        return deletedEntry;
+        try {
+            deletedEntry.delete();
+            return true;
+        } catch (OptimisticLockException e) {
+            return false;
+        }
     }
 
     private static Finder<Long,Entry> find = new Finder<>(

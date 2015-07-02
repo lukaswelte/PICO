@@ -27,7 +27,7 @@ var EntryDetail = React.createClass ({
 
     handleDeleteEntry: function() {
         var entry = this.props.entry;
-        this.getFlux().actions.entry.deleteEntry(entry.id, entry.title, entry.url, entry.context, entry.labels)
+        this.getFlux().actions.entry.deleteEntry(entry.id)
     },
 
     render: function () {
