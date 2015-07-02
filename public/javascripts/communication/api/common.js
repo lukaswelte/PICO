@@ -28,7 +28,9 @@ var apiCommonActions = {
                 flux.actions.user.logoutUser();
               }
 
-              options.error(response);
+              if (options.error) {
+                options.error(response);
+              }
           }.bind(this)
       });
   }

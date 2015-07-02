@@ -53,7 +53,7 @@ var Register = React.createClass({
                     <div className="col-md-4"></div>
                     <div className="col-md-4">
                         <h3>Get a free account to get organzied right now</h3>
-                        <Link to="login">Or Login if you already have an account <span className="glyphicon glyphicon-play" aria-hidden="true"></span></Link>
+                        <Link to="login" className="orange-color">Or Login if you already have an account <span className="glyphicon glyphicon-play" aria-hidden="true"></span></Link>
                         <form onSubmit={this.handleRegister}>
                             {errors.get("global", "")}
                             <label>
