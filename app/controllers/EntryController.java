@@ -166,6 +166,7 @@ public class EntryController extends BaseController {
      */
     @AuthenticationHelper.UserAuthenticated
     public static Result deleteEntry(Long entryID) {
+        play.Logger.info("delete entry: "+entryID);
         User user = (User) ctx().args.get("user");
 
         Boolean isDeleted = Entry.delete(entryID, user);

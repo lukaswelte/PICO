@@ -213,9 +213,6 @@ var entryActions = {
                 }
             }.bind(this),
             error: function(response){
-                //for debugging print response to the console
-                console.log("error on delete: "+JSON.stringify(response));
-
                 //inform about the error
                 this.dispatch(entryStoreActions.ERROR_DELETE, {global: "An error occurred please check if this entry really exists."});
             }.bind(this)
