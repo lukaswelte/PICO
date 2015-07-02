@@ -173,7 +173,7 @@ public class EntryController extends BaseController {
         if (!isDeleted) {
             ObjectNode result = Json.newObject();
             result.put("status", Http.Status.PRECONDITION_FAILED);
-            return badRequest(result);
+            return status(Http.Status.PRECONDITION_FAILED, result);
         } else {
             ObjectNode result = Json.newObject();
             result.put("status", Http.Status.OK);

@@ -64,8 +64,7 @@ var EntryDetail = React.createClass ({
                 <div className="row">
                     <div className="col-md-1"></div>
                     <div className="col-md-1">
-                        {/*<Link to="deleteEntry" params={{id: entry.id}} className="btn btn-default">Delete</Link>*/}
-                        <button type="submit" onClick={this.handleDeleteEntry} className="btn btn-default">Delete</button>
+                        <button onClick={this.handleDeleteEntry} className="btn btn-default">Delete</button>
                     </div>
                     <div className="col-md-1">
                         <Link to="editEntry" params={{id: entry.id}} className="btn btn-default">Edit</Link>
