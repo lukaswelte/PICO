@@ -27,7 +27,7 @@ var apiEntryActions = {
 
     delete: function(id, callbacks) {
         API.common.httpRequest("/api/entry/delete/"+id, {
-            type: "DELETE",
+            type: "GET",
             success: callbacks.success,
             error: callbacks.error
         });
