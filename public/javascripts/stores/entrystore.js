@@ -2,10 +2,12 @@ var entryStoreActions = {
     UPDATE_ALL: "updateAllEntries",
     SUCCESS_CREATE: "createdEntry",
     SUCCESS_EDIT: "editEntry",
+    SUCCESS_DELETE: "deletedEntry",
     UPDATE_CREATE: "updateEntryToCreate",
     UPDATE_EDIT: "updateEntryToEdit",
     ERROR_CREATE: "errorOnCreation",
     ERROR_EDIT: "errorOnEdit",
+    ERROR_DELETE: "errorOnDelete",
     RESET_CREATE: "resetCreation"
 };
 
@@ -25,10 +27,12 @@ var EntryStore = Fluxxor.createStore({
             entryStoreActions.UPDATE_ALL, this.handleUpdateAll,
             entryStoreActions.SUCCESS_CREATE, this.handleSuccessfulCreation,
             entryStoreActions.SUCCESS_EDIT, this.handleSuccessfulEdit,
+            entryStoreActions.SUCCESS_DELETE, this.handleSuccessfulDelete,
             entryStoreActions.UPDATE_CREATE, this.handleUpdateOfEntryToCreate,
             entryStoreActions.UPDATE_EDIT, this.handleUpdateOfEntryToEdit,
             entryStoreActions.ERROR_CREATE, this.handleCreationError,
             entryStoreActions.ERROR_EDIT, this.handleEditError,
+            entryStoreActions.ERROR_DELETE, this.handleDeleteError,
             entryStoreActions.RESET_CREATE, this.handleResetCreation,
             userStoreActions.USER_AUTHENTICATED, this.handleLoadData,
             userStoreActions.USER_LOGGED_OUT, this.handleDestroyData
@@ -73,6 +77,12 @@ var EntryStore = Fluxxor.createStore({
         this.emit("change");
     },
 
+    handleSuccessfulDelete: function(payload){
+        var deletedEntry = payload.entry;
+        this.entries = this.entries.delete(deletedEntry.id);
+        this.emit("change");
+    },
+
     handleUpdateOfEntryToCreate: function(updatedEntry) {
         this.entryToCreate = this.entryToCreate.merge(updatedEntry);
         this.emit("change");
@@ -93,6 +103,10 @@ var EntryStore = Fluxxor.createStore({
         entry.errors = errors;
         this.entryToUpdate = this.entryToUpdate.set('entry', entry);
         this.emit("change");
+    },
+
+    handleDeleteError: function(errors) {
+        //do nothing?
     },
 
     handleResetCreation: function() {

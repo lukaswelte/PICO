@@ -71,6 +71,12 @@ public class Entry extends Model {
        return updatedEntry;
     }
 
+    public static Entry delete(Long id, String url, String title, User user, String context, Set<Label> labels) {
+        Entry deletedEntry = findById(id, user);
+        deletedEntry.delete();
+        return deletedEntry;
+    }
+
     private static Finder<Long,Entry> find = new Finder<>(
             Long.class, Entry.class
     );
