@@ -14,10 +14,8 @@ var EntryForm = React.createClass({
 
     updateAndValidateEntry: function(entry) {
         if (entry.id != null){
-            console.log("Juhu er ist in der If");
             this.getFlux().actions.entry.updateAndValidateEntryToUpdate(entry.id, entry.title, entry.url, entry.context, entry.labels);
         } else{
-            console.log("Er ist nicht in der If");
             this.getFlux().actions.entry.updateAndValidateEntryToCreate(entry.title, entry.url, entry.context, entry.labels);
         }
     },
@@ -107,6 +105,7 @@ var EntryForm = React.createClass({
             savingMessage = "Save is in progress, please wait...";
         }
 
+        console.log("entry labels: "+JSON.stringify(entry.labels));
         var labels = this.state.availableLabels.labels.toSet().merge(entry.labels);
 
         return (
