@@ -79,7 +79,6 @@ public class Entry extends Model {
             updatedEntry.update();
             updatedEntry.refresh();
         }
-
         return updatedEntry;
     }
 

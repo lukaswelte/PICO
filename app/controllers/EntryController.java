@@ -231,7 +231,6 @@ public class EntryController extends BaseController {
         }
 
         Entry publicEntry = Entry.generatePublicUrl(id, user);
-        publicEntry.refresh();
         return findAPIResponse(publicEntry);
     }
 

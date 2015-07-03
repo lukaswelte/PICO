@@ -25,6 +25,7 @@ var EntryDetail = React.createClass ({
         }
         var entry = this.props.entry;
         this.getFlux().actions.entry.generatePublicUrl(entry);
+
     },
 
     render: function () {
