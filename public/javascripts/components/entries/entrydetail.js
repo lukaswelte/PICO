@@ -18,14 +18,13 @@ var EntryDetail = React.createClass ({
     },
 
     handleShowPopover: function() {
+        var entry = this.props.entry;
+        this.getFlux().actions.entry.generatePublicUrl(entry);
         if (document.getElementById('share-list').style.display == 'block') {
             document.getElementById('share-list').style.display = 'none';
         } else {
             document.getElementById('share-list').style.display = 'block';
         }
-        var entry = this.props.entry;
-        this.getFlux().actions.entry.generatePublicUrl(entry);
-
     },
 
     render: function () {
