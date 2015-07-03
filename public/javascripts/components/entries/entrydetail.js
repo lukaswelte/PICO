@@ -23,6 +23,8 @@ var EntryDetail = React.createClass ({
         } else {
             document.getElementById('share-list').style.display = 'block';
         }
+        var entry = this.props.entry;
+        this.getFlux().actions.entry.generatePublicUrl(entry);
     },
 
     render: function () {
@@ -33,6 +35,8 @@ var EntryDetail = React.createClass ({
     	 } else {
     	 	previewImage = <img src={"/api/entry/previewimage/"+encodeURIComponent(this.props.entry.url)} />;
     	 }
+
+        var generatedUrl = window.location.hostname;
     	
         return (
             <div>
@@ -69,7 +73,7 @@ var EntryDetail = React.createClass ({
                             <div className="col-md-1">
                                 <button type="button" onClick={this.handleShowPopover} className="btn btn-default" dataToggle="popover">Share</button>
                                 <div id="share-list" className="share-box height-8em width-23-5em">
-                                        <p className="share-box width-25-5em">http://localhost:9000/sharedentry/as3aKkowe</p>
+                                        <p className="share-box width-25-5em">{generatedUrl}/{this.props.entry.publicUrl}</p>
                                         <div>
                                             <center>
                                                 <a href="mailto:"><img src="/static/images/email.png" className="share-button"></img></a>
