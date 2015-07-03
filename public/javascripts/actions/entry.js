@@ -190,9 +190,13 @@ var entryActions = {
         API.entry.generatePublicUrl(entry, {
             success: function(response){
                 if(response != null && response.status == 200){
-                    this.dispatch(entryStoreActions.SUCCESS_EDIT, {entry: response.data});
+                    var returnedEntry = response.data;
+                    this.dispatch(entryStoreActions.SUCCESS_EDIT, {entry: returnedEntry});
                 }
-            }.bind(this)
+            }.bind(this),
+            error: function(response){
+                this.dispatch(entryStoreActions.ERROR_EDIT, {global: "An error occured during generation."});
+            }
         });
     }
 

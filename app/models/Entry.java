@@ -73,13 +73,11 @@ public class Entry extends Model {
     public static Entry generatePublicUrl(Long id, User user) {
         Entry updatedEntry = findById(id, user);
 
-        //if no public URL was created for entry so far new one is created
         if(updatedEntry.publicUrl == null){
             UUID generatedId = UUID.randomUUID();
             updatedEntry.publicUrl = generatedId.toString();
             updatedEntry.update();
             updatedEntry.refresh();
-            return updatedEntry;
         }
 
         return updatedEntry;
