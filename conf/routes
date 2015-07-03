@@ -21,9 +21,10 @@ GET         /api/entry/previewimage/:url           controllers.PreviewImageContr
 PUT         /api/entry/edit/:id                    controllers.EntryController.updateEntry(id: Long)
 POST        /api/entry/generatepreviewimage        controllers.PreviewImageController.generatePreviewOfURL
 POST        /api/entry                             controllers.EntryController.createEntry()
+POST        /api/entry/generate/:id                controllers.EntryController.generatePublicUrl(id: Long)
 
 #
-POST         /api/recommendation                    controllers.RecommendationController.getRecommendation()
+POST        /api/recommendation                    controllers.RecommendationController.getRecommendation()
 
 # User
 POST        /api/user                              controllers.UserController.registerUser()
