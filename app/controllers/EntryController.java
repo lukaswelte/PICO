@@ -221,19 +221,6 @@ public class EntryController extends BaseController {
         return findAPIResponse(updatedEntry);
     }
 
-    @AuthenticationHelper.UserAuthenticated
-    public static Result generatePublicUrl(Long id){
-        User user = (User) ctx().args.get("user");
-
-        JsonNode json = request().body().asJson();
-        if (json == null) {
-            return invalidAPIInput();
-        }
-
-        Entry publicEntry = Entry.generatePublicUrl(id, user);
-        return findAPIResponse(publicEntry);
-    }
-
     /*  @AuthenticationHelper.UserAuthenticated
         public static Result sharedEntry(String shareUrl) {
         User user = (User) ctx().args.get("user");

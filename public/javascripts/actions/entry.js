@@ -194,22 +194,6 @@ var entryActions = {
                 this.dispatch(entryStoreActions.ERROR_EDIT, {global: "An error occurred please check your input and try again."});
             }.bind(this)
         });
-    },
-
-    generatePublicUrl: function(entry){
-        API.entry.generatePublicUrl(entry, {
-            success: function(response){
-                if(response != null && response.status == 200){
-                    console.log("In generatePublicUrl success "+JSON.stringify(entry));
-                    var returnedEntry = response.data;
-                    this.dispatch(entryStoreActions.SUCCESS_EDIT, {entry: returnedEntry});
-                }
-            }.bind(this),
-            error: function(response){
-                console.log("In generatePublicUrl error "+JSON.stringify(entry));
-                this.dispatch(entryStoreActions.ERROR_EDIT, {global: "An error occured during generation."});
-            }
-        });
     }
 
 };
