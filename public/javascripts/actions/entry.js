@@ -140,15 +140,25 @@ var entryActions = {
     },
 
     editEntry: function(id, title, url, context, labels) {
+        //construct the entry that the API needs as input
+        var entry = {
+            url: url,
+            title: title,
+            context: context,
+            labels: labels,
+            saving: true,
+            valid: true
+        };
+
         //inform that save is in progress
-        this.dispatch(entryStoreActions.UPDATE_EDIT, id, {saving: true});
+        this.dispatch(entryStoreActions.UPDATE_EDIT, entry);
 
         var labelNameArray = labels.map(function (label){
             return label.name
         });
 
         //construct the entry that the API needs as input
-        var entry = {
+        var apiEntry = {
             url: url,
             title: title,
             context: context,
@@ -156,7 +166,7 @@ var entryActions = {
         };
 
         //do the ajax request to the API
-        API.entry.edit(id, entry, {
+        API.entry.edit(id, apiEntry, {
             success: function(response){
                 if(response != null && response.status == 200){
                     var returnedEntry = response.data;
@@ -177,10 +187,11 @@ var entryActions = {
                 console.log("error on edit: "+JSON.stringify(response));
 
                 //inform that we are no longer saving
-                this.dispatch(entryStoreActions.UPDATE_EDIT, id, {saving: false});
+                entry = entry.saving = false;
+                this.dispatch(entryStoreActions.UPDATE_EDIT, entry);
 
                 //inform about the error
-                this.dispatch(entryStoreActions.ERROR_EDIT, id, {global: "An error occurred please check your input and try again."});
+                this.dispatch(entryStoreActions.ERROR_EDIT, {global: "An error occurred please check your input and try again."});
             }.bind(this)
         });
     },

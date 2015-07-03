@@ -3,7 +3,11 @@
     margin-right: 0!important;
 }
 a {
-    color: #FC7A57!important;
+    color: #FC7A57;
+}
+
+.orange-color {
+  color: #FC7A57;
 }
 
 .box {
@@ -279,7 +283,7 @@ h3{
     text-align: center;
     padding-top: 2em;
     padding-bottom: 2em;
-/text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    /*text-shadow: 0 1px 3px rgba(0,0,0,.5);*/
     box-shadow: inset 0 0 44px rgba(0,0,0,.5);
 }
 

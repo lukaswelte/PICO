@@ -69,7 +69,7 @@ var EntryStore = Fluxxor.createStore({
     handleSuccessfulEdit: function(payload){
         var updatedEntry = payload.entry;
         this.entries = this.entries.set(updatedEntry.id, updatedEntry);
-        //this.entryToUpdate = this.entryToUpdate.merge(updatedEntry, {saving: false, errors: null});
+        this.entryToUpdate = Immutable.Map({id: null, entry: null});
         this.emit("change");
     },
 
@@ -79,7 +79,6 @@ var EntryStore = Fluxxor.createStore({
     },
 
     handleUpdateOfEntryToEdit: function(updatedEntry){
-        console.log("handleUpdateOfEntryToEdit wird aufgerufen");
         this.entryToUpdate = this.entryToUpdate.set("entry", updatedEntry);
         this.emit("change");
     },

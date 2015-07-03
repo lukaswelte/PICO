@@ -57,7 +57,7 @@ var Login = React.createClass({
                     <div className="col-md-4"></div>
                     <div className="col-md-4">
                         <h3>Login</h3>
-                        <Link to="register">Or Sign up if you don't have an account <span className="glyphicon glyphicon-play" aria-hidden="true"></span></Link>
+                        <Link to="register" className="orange-color">Or Sign up if you don't have an account <span className="glyphicon glyphicon-play" aria-hidden="true"></span></Link>
                         <form onSubmit={this.handleLogin}>
                             {errors.get("global", "")}
                             <label>
