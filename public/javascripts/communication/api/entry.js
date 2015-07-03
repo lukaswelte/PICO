@@ -23,5 +23,15 @@ var apiEntryActions = {
            success: callbacks.success,
            error: callbacks.error
         });
+    },
+
+    generatePublicUrl: function(entry, callbacks) {
+        API.common.httpRequest("api/entry/generate/"+entry.id, {
+           type: "PUT",
+           data: entry,
+           success: callbacks.success,
+           error: callbacks.error
+        });
     }
+
 };
