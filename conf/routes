@@ -18,6 +18,7 @@ POST        /api/label                             controllers.LabelController.c
 # Entry
 GET         /api/entry/image/:id                   controllers.PreviewImageController.previewImageOfEntry(id: Long)
 GET         /api/entry/previewimage/:url           controllers.PreviewImageController.getPreviewImageOfURL(url: String)
+GET         /sharedentry/:publicUrl                controllers.EntryController.sharedEntry(publicUrl: String)
 PUT         /api/entry/edit/:id                    controllers.EntryController.updateEntry(id: Long)
 POST        /api/entry/generatepreviewimage        controllers.PreviewImageController.generatePreviewOfURL
 POST        /api/entry                             controllers.EntryController.createEntry()
