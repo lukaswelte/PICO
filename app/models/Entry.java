@@ -30,7 +30,7 @@ public class Entry extends Model {
 
     public String context;
 
-    //public String sharedUrl;
+    public String publicUrl;
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")
@@ -56,7 +56,6 @@ public class Entry extends Model {
         entry.url = url;
         entry.title = title;
         entry.user = user;
-        //entry.save();
         return entry;
     }
 
@@ -71,6 +70,21 @@ public class Entry extends Model {
        return updatedEntry;
     }
 
+    public static Entry generatePublicUrl(Long id, User user) {
+        Entry updatedEntry = findById(id, user);
+
+        //if no public URL was created for entry so far new one is created
+        if(updatedEntry.publicUrl == null){
+            UUID generatedId = UUID.randomUUID();
+            updatedEntry.publicUrl = generatedId.toString();
+            updatedEntry.update();
+            updatedEntry.refresh();
+            return updatedEntry;
+        }
+
+        return updatedEntry;
+    }
+
     private static Finder<Long,Entry> find = new Finder<>(
             Long.class, Entry.class
     );
@@ -81,10 +95,6 @@ public class Entry extends Model {
 
     public static Entry findByURL(String url, User user) {
         return Entry.find.where().eq("user", user).eq("url", url).findUnique();
-    }
-
-    public static Entry findByPublicURL(String publicUrl, User user) {
-        return Entry.find.where().eq("user", user).eq("publicUrl", publicUrl).findUnique();
     }
 
     public static List<Entry> getAll(User user) {
