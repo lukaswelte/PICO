@@ -183,6 +183,17 @@ var entryActions = {
                 this.dispatch(entryStoreActions.ERROR_EDIT, id, {global: "An error occurred please check your input and try again."});
             }.bind(this)
         });
+    },
+
+    generatePublicUrl: function(entry){
+        console.log("In generatePublicUrl "+JSON.stringify(entry));
+        API.entry.generatePublicUrl(entry, {
+            success: function(response){
+                if(response != null && response.status == 200){
+                    this.dispatch(entryStoreActions.SUCCESS_EDIT, {entry: response.data});
+                }
+            }.bind(this)
+        });
     }
 
 };

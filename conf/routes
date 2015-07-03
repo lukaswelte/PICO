@@ -19,9 +19,9 @@ POST        /api/label                             controllers.LabelController.c
 GET         /api/entry/image/:id                   controllers.PreviewImageController.previewImageOfEntry(id: Long)
 GET         /api/entry/previewimage/:url           controllers.PreviewImageController.getPreviewImageOfURL(url: String)
 PUT         /api/entry/edit/:id                    controllers.EntryController.updateEntry(id: Long)
+PUT         /api/entry/generate/:id                controllers.EntryController.generatePublicUrl(id: Long)
 POST        /api/entry/generatepreviewimage        controllers.PreviewImageController.generatePreviewOfURL
 POST        /api/entry                             controllers.EntryController.createEntry()
-POST        /api/entry/generate/:id                controllers.EntryController.generatePublicUrl(id: Long)
 
 #
 POST        /api/recommendation                    controllers.RecommendationController.getRecommendation()

@@ -26,7 +26,7 @@ var apiEntryActions = {
     },
 
     generatePublicUrl: function(entry, callbacks) {
-        API.common.httpRequest("api/entry", {
+        API.common.httpRequest("api/entry/generate/"+entry.id, {
            type: "PUT",
            data: entry,
            success: callbacks.success,
