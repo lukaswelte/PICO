@@ -221,27 +221,13 @@ public class EntryController extends BaseController {
         return findAPIResponse(updatedEntry);
     }
 
-    @AuthenticationHelper.UserAuthenticated
-    public static Result generatePublicUrl(Long id){
-        User user = (User) ctx().args.get("user");
+       public static Result sharedEntry(String publicUrl) {
 
-        JsonNode json = request().body().asJson();
-        if (json == null) {
-            return invalidAPIInput();
-        }
-
-        Entry publicEntry = Entry.generatePublicUrl(id, user);
-        return findAPIResponse(publicEntry);
-    }
-
-    /*  @AuthenticationHelper.UserAuthenticated
-        public static Result sharedEntry(String shareUrl) {
-        User user = (User) ctx().args.get("user");
-
-        Entry entry; //load from database
+        Entry entry = Entry.findByPublicUrl(publicUrl);
         if (entry == null) {
-            return notFound("Gibbet nicht");
+            return notFound("Entry not available");
         }
+
         return ok(sharedEntry.render(entry));
-    }*/
+    }
 }

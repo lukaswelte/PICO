@@ -55,6 +55,8 @@ public class Entry extends Model {
         Entry entry = new Entry();
         entry.url = url;
         entry.title = title;
+        UUID generatedId = UUID.randomUUID();
+        entry.publicUrl = generatedId.toString();
         entry.user = user;
         return entry;
     }
@@ -70,18 +72,6 @@ public class Entry extends Model {
        return updatedEntry;
     }
 
-    public static Entry generatePublicUrl(Long id, User user) {
-        Entry updatedEntry = findById(id, user);
-
-        if(updatedEntry.publicUrl == null){
-            UUID generatedId = UUID.randomUUID();
-            updatedEntry.publicUrl = generatedId.toString();
-            updatedEntry.update();
-            updatedEntry.refresh();
-        }
-        return updatedEntry;
-    }
-
     private static Finder<Long,Entry> find = new Finder<>(
             Long.class, Entry.class
     );
@@ -92,6 +82,10 @@ public class Entry extends Model {
 
     public static Entry findByURL(String url, User user) {
         return Entry.find.where().eq("user", user).eq("url", url).findUnique();
+    }
+
+    public static Entry findByPublicUrl(String publicUrl){
+        return Entry.find.where().eq("publicUrl", publicUrl).findUnique();
     }
 
     public static List<Entry> getAll(User user) {
