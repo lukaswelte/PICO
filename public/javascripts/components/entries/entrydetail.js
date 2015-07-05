@@ -70,8 +70,8 @@ var EntryDetail = React.createClass ({
                     <div className="col-md-1">
                             <div className="col-md-1">
                                 <button type="button" onClick={this.handleShowPopover} className="btn btn-default" dataToggle="popover">Share</button>
-                                <div id="share-list" className="share-box height-8em width-23-5em">
-                                        <p className="share-box width-25-5em">{generatedUrl}</p>
+                                <div id="share-list" className="share-box height-8em width-35-5em">
+                                        <p className="share-box width-23.5em">{generatedUrl}</p>
                                         <div>
                                             <center>
                                                 <a href="mailto:"><img src="/static/images/email.png" className="share-button"></img></a>

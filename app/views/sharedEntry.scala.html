@@ -1,10 +1,104 @@
 @(entry: models.Entry)
 
 <html>
-    <body>
-        @entry.title
-        @for(label <- entry.labels) {
-            @label.name
+    <head>
+        <style>
+        nav.navbar.navbar-default {
+        background-color: #2a415e;
+        border: none;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        border-radius: 0px;
         }
+        .navbar-default .navbar-brand {
+        color: white!important;
+        }
+        p {
+            border : solid 3px #2a415e ;
+            padding-left : 2px ;
+            padding-right : 2px ;
+            padding-top : 3px ;
+            padding-bottom : 3px ;
+            border-radius : 7px ;
+        }
+        .box {
+            border : solid 3px #2a415e ;
+            padding-left : 2px ;
+            padding-right : 2px ;
+            padding-top : 3px ;
+            padding-bottom : 3px ;
+            border-radius : 7px ;
+        }
+        div.container-fluid1 {
+            padding-right : 1px ;
+            padding-left : 1px ;
+            margin-right : 1px ;
+            margin-left : 1px ;
+        }
+        .logo {
+        margin-top: -4px;
+        width: 5em;
+        }
+        .height-15em {
+        height: 15em;
+        }
+        .padding-top-0-5em {
+        padding-top: 0.5em;
+        }
+
+        .padding-bottom-0-5em {
+        padding-bottom: 0.5em;
+        }
+
+        .padding-top-0-5em {
+        padding-top: 0.5em;
+        }
+
+        .padding-bottom-1em {
+        padding-bottom: 1em;
+        }
+
+        .padding-top-1em {
+        padding-top: 1em;
+        }
+
+        .padding-top-2em {
+        padding-top: 2em;
+        }
+        </style>
+        <title>PICO - @entry.title</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <img class="logo" src="/static/images/logo_white.png"/>
+                </div>
+            </div>
+        </nav>
+        <div class="row padding-top-2em padding-bottom-1em">
+            <div class="col-md-1"></div>
+            <div class="col-md-6">
+                <p class="box">URL: @entry.url</p>
+                <p class="box">Titel: @entry.title</p>
+                <div class="box">Labels: @for(label <- entry.labels) { @label.name}</div>
+            </div>
+            <div className="col-md-4">
+                
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row padding-top-1em">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <p class="box height-15em">Context: @entry.context</p>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
     </body>
 </html>
