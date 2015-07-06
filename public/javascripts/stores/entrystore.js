@@ -7,7 +7,6 @@ var entryStoreActions = {
     UPDATE_EDIT: "updateEntryToEdit",
     ERROR_CREATE: "errorOnCreation",
     ERROR_EDIT: "errorOnEdit",
-    ERROR_DELETE: "errorOnDelete",
     RESET_CREATE: "resetCreation"
 };
 
@@ -32,7 +31,6 @@ var EntryStore = Fluxxor.createStore({
             entryStoreActions.UPDATE_EDIT, this.handleUpdateOfEntryToEdit,
             entryStoreActions.ERROR_CREATE, this.handleCreationError,
             entryStoreActions.ERROR_EDIT, this.handleEditError,
-            entryStoreActions.ERROR_DELETE, this.handleDeleteError,
             entryStoreActions.RESET_CREATE, this.handleResetCreation,
             userStoreActions.USER_AUTHENTICATED, this.handleLoadData,
             userStoreActions.USER_LOGGED_OUT, this.handleDestroyData
@@ -77,9 +75,8 @@ var EntryStore = Fluxxor.createStore({
         this.emit("change");
     },
 
-    handleSuccessfulDelete: function(payload){
-        var deletedEntry = payload.entry;
-        this.entries = this.entries.delete(deletedEntry.id);
+    handleSuccessfulDelete: function(entryIDtoDelete){
+        this.entries = this.entries.delete(entryIDtoDelete);
         this.emit("change");
     },
 
@@ -103,10 +100,6 @@ var EntryStore = Fluxxor.createStore({
         entry.errors = errors;
         this.entryToUpdate = this.entryToUpdate.set('entry', entry);
         this.emit("change");
-    },
-
-    handleDeleteError: function(errors) {
-        //do nothing?
     },
 
     handleResetCreation: function() {

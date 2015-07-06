@@ -204,17 +204,17 @@ var entryActions = {
                     var returnedEntryId = response.data;
 
                     //tell that the entry should be deleted
-                    this.dispatch(entryStoreActions.SUCCESS_DELETE, {entry: returnedEntryId});
+                    this.dispatch(entryStoreActions.SUCCESS_DELETE, returnedEntryId);
 
                     this.dispatch(labelStoreActions.FETCH_FROM_SERVER);
 
                     //transition to the created entry
-                    this.flux.actions.router.transition("deleteEntry", {id: returnedEntryId.id});
+                    this.flux.actions.router.transition("deleteEntry", {id: returnedEntryId});
                 }
             }.bind(this),
             error: function(response){
                 //inform about the error
-                this.dispatch(entryStoreActions.ERROR_DELETE, {global: "An error occurred please check if this entry really exists."});
+                alert("The entry could not be deleted. Try again.");
             }.bind(this)
         });
     }
