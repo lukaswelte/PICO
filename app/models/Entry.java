@@ -72,6 +72,16 @@ public class Entry extends Model {
        return updatedEntry;
     }
 
+    public static Boolean delete(Long id, User user) {
+        Entry deletedEntry = findById(id, user);
+        try {
+            deletedEntry.delete();
+            return true;
+        } catch (OptimisticLockException e) {
+            return false;
+        }
+    }
+
     private static Finder<Long,Entry> find = new Finder<>(
             Long.class, Entry.class
     );

@@ -1,6 +1,8 @@
 var labelStoreActions = {
     UPDATE_ALL: "updateAllLabels",
-    UPDATE: "updateLabel"
+    UPDATE: "updateLabel",
+    DELETE: "deleteLabel",
+    FETCH_FROM_SERVER: "fetchFromServer"
 };
 
 var LabelStore = Fluxxor.createStore({
@@ -12,7 +14,9 @@ var LabelStore = Fluxxor.createStore({
         this.bindActions(
             labelStoreActions.UPDATE_ALL, this.handleUpdateAll,
             labelStoreActions.UPDATE, this.handleSingleUpdate,
+            labelStoreActions.DELETE, this.handleSingleDelete,
             userStoreActions.USER_AUTHENTICATED, this.handleLoadData,
+            labelStoreActions.FETCH_FROM_SERVER, this.handleLoadData,
             userStoreActions.USER_LOGGED_OUT, this.handleDestroyData
         );
     },
@@ -34,6 +38,11 @@ var LabelStore = Fluxxor.createStore({
 
     handleSingleUpdate: function (label){
         this.labels = this.labels.set(label.id, label);
+        this.emit("change");
+    },
+
+    handleSingleDelete: function (label){
+        this.labels = this.labels.delete(label.id);
         this.emit("change");
     },
 

@@ -20,6 +20,7 @@ GET         /api/entry/image/:id                   controllers.PreviewImageContr
 GET         /api/entry/previewimage/:url           controllers.PreviewImageController.getPreviewImageOfURL(url: String)
 GET         /sharedentry/:publicUrl                controllers.EntryController.sharedEntry(publicUrl: String)
 PUT         /api/entry/edit/:id                    controllers.EntryController.updateEntry(id: Long)
+GET         /api/entry/delete/:id                  controllers.EntryController.deleteEntry(id: Long)
 POST        /api/entry/generatepreviewimage        controllers.PreviewImageController.generatePreviewOfURL
 POST        /api/entry                             controllers.EntryController.createEntry()
 

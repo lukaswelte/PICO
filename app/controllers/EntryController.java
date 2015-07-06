@@ -1,10 +1,12 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Entry;
 import models.Label;
 import models.User;
 import play.libs.Json;
+import play.mvc.Http;
 import play.mvc.Result;
 import utils.AuthenticationHelper;
 import views.html.sharedEntry;
@@ -138,6 +140,47 @@ public class EntryController extends BaseController {
 
         Entry foundEntry = Entry.findById(entryID, user);
         return findAPIResponse(foundEntry);
+    }
+
+    /**
+     * Deletes a entry based on its ID
+     *
+     * @param entryID The id of the entry that should be deleted
+     *
+     * @return API Response containing the entry
+     * Example:
+     * {
+     *      "status":200,
+     *      "data":{
+     *          "id":5,
+     *          "url":"www.test.de",
+     *          "title":"Erste Test Entry",
+     *          "context":"Das ist ein Context",
+     *          "thumbnailURL":null,
+     *          "registrationDate":1432157356000,
+     *          "lastUpdated":1432157356000,
+     *          "user":1,
+     *          "labels":[{"id":6,"name":"fooba","user":null,"entries":[5]}]
+     *      }
+     * }
+     */
+    @AuthenticationHelper.UserAuthenticated
+    public static Result deleteEntry(Long entryID) {
+        play.Logger.info("delete entry: "+entryID);
+        User user = (User) ctx().args.get("user");
+
+        Boolean isDeleted = Entry.delete(entryID, user);
+
+        if (!isDeleted) {
+            ObjectNode result = Json.newObject();
+            result.put("status", Http.Status.PRECONDITION_FAILED);
+            return status(Http.Status.PRECONDITION_FAILED, result);
+        } else {
+            ObjectNode result = Json.newObject();
+            result.put("status", Http.Status.OK);
+            result.put("data", entryID);
+            return ok(result);
+        }
     }
 
     /**

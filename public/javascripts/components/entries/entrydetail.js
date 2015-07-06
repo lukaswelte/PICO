@@ -25,6 +25,11 @@ var EntryDetail = React.createClass ({
         }
     },
 
+    handleDeleteEntry: function() {
+        var entry = this.props.entry;
+        this.getFlux().actions.entry.deleteEntry(entry.id)
+    },
+
     render: function () {
         var entry = this.props.entry;
     	var previewImage;
@@ -61,7 +66,7 @@ var EntryDetail = React.createClass ({
                 <div className="row">
                     <div className="col-md-1"></div>
                     <div className="col-md-1">
-                        <a href="#" className="btn btn-default">Delete</a>
+                        <button onClick={this.handleDeleteEntry} className="btn btn-default">Delete</button>
                     </div>
                     <div className="col-md-1">
                         <Link to="editEntry" params={{id: entry.id}} className="btn btn-default">Edit</Link>

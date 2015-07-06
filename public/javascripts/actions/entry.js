@@ -194,6 +194,29 @@ var entryActions = {
                 this.dispatch(entryStoreActions.ERROR_EDIT, {global: "An error occurred please check your input and try again."});
             }.bind(this)
         });
+    },
+
+    deleteEntry: function(id) {
+        //do the ajax request to the API
+        API.entry.delete(id, {
+            success: function(response){
+                if(response != null && response.status == 200){
+                    var returnedEntryId = response.data;
+
+                    //tell that the entry should be deleted
+                    this.dispatch(entryStoreActions.SUCCESS_DELETE, returnedEntryId);
+
+                    this.dispatch(labelStoreActions.FETCH_FROM_SERVER);
+
+                    //transition to the created entry
+                    this.flux.actions.router.transition("deleteEntry", {id: returnedEntryId});
+                }
+            }.bind(this),
+            error: function(response){
+                //inform about the error
+                alert("The entry could not be deleted. Try again.");
+            }.bind(this)
+        });
     }
 
 };

@@ -2,6 +2,7 @@ var entryStoreActions = {
     UPDATE_ALL: "updateAllEntries",
     SUCCESS_CREATE: "createdEntry",
     SUCCESS_EDIT: "editEntry",
+    SUCCESS_DELETE: "deletedEntry",
     UPDATE_CREATE: "updateEntryToCreate",
     UPDATE_EDIT: "updateEntryToEdit",
     ERROR_CREATE: "errorOnCreation",
@@ -25,6 +26,7 @@ var EntryStore = Fluxxor.createStore({
             entryStoreActions.UPDATE_ALL, this.handleUpdateAll,
             entryStoreActions.SUCCESS_CREATE, this.handleSuccessfulCreation,
             entryStoreActions.SUCCESS_EDIT, this.handleSuccessfulEdit,
+            entryStoreActions.SUCCESS_DELETE, this.handleSuccessfulDelete,
             entryStoreActions.UPDATE_CREATE, this.handleUpdateOfEntryToCreate,
             entryStoreActions.UPDATE_EDIT, this.handleUpdateOfEntryToEdit,
             entryStoreActions.ERROR_CREATE, this.handleCreationError,
@@ -70,6 +72,11 @@ var EntryStore = Fluxxor.createStore({
         var updatedEntry = payload.entry;
         this.entries = this.entries.set(updatedEntry.id, updatedEntry);
         this.entryToUpdate = Immutable.Map({id: null, entry: null});
+        this.emit("change");
+    },
+
+    handleSuccessfulDelete: function(entryIDtoDelete){
+        this.entries = this.entries.delete(entryIDtoDelete);
         this.emit("change");
     },
 
