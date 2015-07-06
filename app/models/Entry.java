@@ -30,7 +30,7 @@ public class Entry extends Model {
 
     public String context;
 
-    //public String sharedUrl;
+    public String publicUrl;
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")
@@ -55,8 +55,9 @@ public class Entry extends Model {
         Entry entry = new Entry();
         entry.url = url;
         entry.title = title;
+        UUID generatedId = UUID.randomUUID();
+        entry.publicUrl = generatedId.toString();
         entry.user = user;
-        //entry.save();
         return entry;
     }
 
@@ -93,8 +94,8 @@ public class Entry extends Model {
         return Entry.find.where().eq("user", user).eq("url", url).findUnique();
     }
 
-    public static Entry findByPublicURL(String publicUrl, User user) {
-        return Entry.find.where().eq("user", user).eq("publicUrl", publicUrl).findUnique();
+    public static Entry findByPublicUrl(String publicUrl){
+        return Entry.find.where().eq("publicUrl", publicUrl).findUnique();
     }
 
     public static List<Entry> getAll(User user) {

@@ -67,7 +67,7 @@ img {
 }
 
 .height-8em {
-    height: 8em;
+    height: 7em;
 }
 
 .height-15em {
@@ -169,8 +169,8 @@ textarea {
 #share-list.share-box {
     position: absolute;
     z-index: 1;
-    margin-top: -11.75em;
-    margin-left: -18em;
+    margin-top: -10.75em;
+    margin-left: -22em;
     background-color: #f5f5f5;
 }
 
@@ -200,14 +200,14 @@ span.label-name {
     width: 21.5em;
 }
 
-.width-23-5em {
-    width: 23.5em;
+.width-35-5em {
+    width: 35.5em;
 }
 
 .share-button {
-    margin: 5px 5px;
-    width: 15%;
-    height: 15%;
+    margin: 0px 5px;
+    width: 8%;
+    height: 8%;
 }
 
 .boxfot {

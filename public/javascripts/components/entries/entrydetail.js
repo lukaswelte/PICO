@@ -38,6 +38,8 @@ var EntryDetail = React.createClass ({
     	 } else {
     	 	previewImage = <img src={"/api/entry/previewimage/"+encodeURIComponent(this.props.entry.url)} />;
     	 }
+
+        var generatedUrl = window.location.origin + "/sharedentry/" + entry.publicUrl;
     	
         return (
             <div>
@@ -73,14 +75,14 @@ var EntryDetail = React.createClass ({
                     <div className="col-md-1">
                             <div className="col-md-1">
                                 <button type="button" onClick={this.handleShowPopover} className="btn btn-default" dataToggle="popover">Share</button>
-                                <div id="share-list" className="share-box height-8em width-23-5em">
-                                        <p className="share-box width-25-5em">http://localhost:9000/sharedentry/as3aKkowe</p>
+                                <div id="share-list" className="share-box height-8em width-35-5em">
+                                        <p className="share-box width-23.5em">{generatedUrl}</p>
                                         <div>
                                             <center>
-                                                <a href="mailto:"><img src="/static/images/email.png" className="share-button"></img></a>
-                                                <a href="https://twitter.com/intent/tweet?" target="_blank"><img src="/static/images/twitter.png" className="share-button"></img></a>
-                                                <a href="https://www.facebook.com/sharer/sharer.php?" target="_blank"><img src="/static/images/facebook.png" className="share-button"></img></a>
-                                                <a href="https://plus.google.com/share?" target="_blank"><img src="/static/images/google+.png" className="share-button"></img></a>
+                                                <a href="mailto:?subject=Check%20out%20my%20new%20PICO%20entry!"><img src="/static/images/email.png" className="share-button"></img></a>
+                                                <a href="https://twitter.com/share?text=Check%20out%20my%20PICO%20entry" target="_blank"><img src="/static/images/twitter.png" className="share-button"></img></a>
+                                                <a href="https://www.facebook.com/sharer.php?u=" target="_blank"><img src="/static/images/facebook.png" className="share-button"></img></a>
+                                                <a href="https://plus.google.com/share?url=" target="_blank"><img src="/static/images/google+.png" className="share-button"></img></a>
                                             </center>
                                         </div>
                                 </div>

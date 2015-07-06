@@ -264,14 +264,13 @@ public class EntryController extends BaseController {
         return findAPIResponse(updatedEntry);
     }
 
-    /*  @AuthenticationHelper.UserAuthenticated
-        public static Result sharedEntry(String shareUrl) {
-        User user = (User) ctx().args.get("user");
+       public static Result sharedEntry(String publicUrl) {
 
-        Entry entry; //load from database
+        Entry entry = Entry.findByPublicUrl(publicUrl);
         if (entry == null) {
-            return notFound("Gibbet nicht");
+            return notFound("Entry not available");
         }
+
         return ok(sharedEntry.render(entry));
-    }*/
+    }
 }
