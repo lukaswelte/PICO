@@ -67,7 +67,7 @@ img {
 }
 
 .height-8em {
-    height: 7em;
+    height: 8.5em;
 }
 
 .height-15em {
@@ -169,7 +169,7 @@ textarea {
 #share-list.share-box {
     position: absolute;
     z-index: 1;
-    margin-top: -10.75em;
+    margin-top: -11.75em;
     margin-left: -22em;
     background-color: #f5f5f5;
 }
