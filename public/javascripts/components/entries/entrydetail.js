@@ -40,7 +40,7 @@ var EntryDetail = React.createClass ({
     	 }
 
         var generatedUrl = window.location.origin + "/sharedentry/" + entry.publicUrl;
-    	
+
         return (
             <div>
                 {/* Showing the details of the fetched entry */}
@@ -79,8 +79,8 @@ var EntryDetail = React.createClass ({
                                         <p className="share-box width-23.5em">{generatedUrl}</p>
                                         <div>
                                             <center>
-                                                <a href="mailto:?subject=Check%20out%20my%20new%20PICO%20entry!"><img src="/static/images/email.png" className="share-button"></img></a>
-                                                <a href="https://twitter.com/share?text=Check%20out%20my%20PICO%20entry" target="_blank"><img src="/static/images/twitter.png" className="share-button"></img></a>
+                                                <a href={"mailto:?subject=Check%20out%20my%20new%20PICO%20entry!&body="+generatedUrl}><img src="/static/images/email.png" className="share-button"></img></a>
+                                                <a href={"https://twitter.com/share?text=Check%20out%20my%20PICO%20entry%20"+generatedUrl} target="_blank"><img src="/static/images/twitter.png" className="share-button"></img></a>
                                                 <a href="https://www.facebook.com/sharer.php?u=" target="_blank"><img src="/static/images/facebook.png" className="share-button"></img></a>
                                                 <a href="https://plus.google.com/share?url=" target="_blank"><img src="/static/images/google+.png" className="share-button"></img></a>
                                             </center>

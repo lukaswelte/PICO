@@ -19,7 +19,7 @@ var RecommendationItem = React.createClass({
 
         return (
             <th className="boxfot">
-                <a href={recommendation.url}><h3>{recommendation.url}<div className="width-90p">{previewImage}</div></h3></a>
+                <a href={recommendation.url} target="_blank"><h3>{recommendation.url}<div className="width-90p">{previewImage}</div></h3></a>
 
                 </th>
 
