@@ -24,7 +24,11 @@ var Register = React.createClass({
     render: function() {
         //if the user is present show the app page
         if (this.state.isLoggedIn) {
-            this.getFlux().actions.router.transition("app", {});
+            try {
+                this.getFlux().actions.router.transition("app", {});
+            } catch(err) {
+
+            }
         }
 
         var errors = this.state.user.get("errors");

@@ -39,6 +39,8 @@ var EntryStore = Fluxxor.createStore({
 
     handleDestroyData: function() {
         this.entries = new Immutable.Map();
+        this.entryToCreate = this.emptyEntry(); //the entry that is currently created
+        this.entryToUpdate = Immutable.Map({id: null, entry: null});
         this.emit("change");
     },
 
